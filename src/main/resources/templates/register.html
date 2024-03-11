@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+</head>
+<body>
+<div th:if="${param.success}">
+    Register Success, check your email
+</div>
+<h1>Register Form</h1>
+<form th:action="@{/register}" method="post" th:object="${user}" class="px-4">
+    <p>name</p>
+    <input type="text" id="name" name="name" th:value="${name}" autofocus>
+    <p>email</p>
+    <input type="text" id="email" name="email" th:value="${email}" >
+    <p>password</p>
+    <input type="text" id="dob" name="dob" th:value="${dob}" >
+    <p>dob</p>
+    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${phoneNumber}" >
+    <p>phone number</p>
+    <input type="text" id="city" name="city" th:value="${city}" >
+    <p>city</p>
+    <input type="text" id="district" name="district" th:value="${district}" >
+    <p>district</p>
+    <input type="text" id="ward" name="ward" th:value="${ward}" >
+    <p>ward</p>
+    <input type="text" id="roles" name="roles" th:value="${roles}" >
+    <button type="submit">Submit</button>
+    <a href="/" th:href="@{authenticate/login}">Register allready </a>
+</form>
+
+
+
+</body>
+</html>
