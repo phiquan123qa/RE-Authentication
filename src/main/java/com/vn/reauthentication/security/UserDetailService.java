@@ -10,12 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Service
 @RequiredArgsConstructor
 public class UserDetailService implements UserDetailsService {
-    private UserRepository userRepository;
-
-
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                .map(UserDetail::new ).orElseThrow(()->new UsernameNotFoundException("Not found user"));
+                .map(UserDetail::new )
+                .orElseThrow(()->new UsernameNotFoundException("Not found user"));
     }
 }

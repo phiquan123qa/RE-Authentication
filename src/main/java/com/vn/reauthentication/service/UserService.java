@@ -10,8 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +34,8 @@ public class UserService implements IUserService {
                 registerRequest.getCity(),
                 registerRequest.getDistrict(),
                 registerRequest.getWard(),
-                Arrays.asList(new Role("USER")));
-        return user;
+                List.of(new Role("USER")));
+        return userRepository.save(user);
     }
 
     @Override
@@ -44,4 +43,20 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void updateUser(String name, String email,
+                           String avatar, LocalDate dob, Long phoneNumber,
+                           String city, String district, String ward, Long id) {
+        userRepository.update(name, email,
+                 avatar, dob, phoneNumber,
+                 city, district, ward, id);
+    }
+
+
 }

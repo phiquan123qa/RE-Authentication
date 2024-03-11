@@ -16,17 +16,17 @@
     <p>email</p>
     <input type="text" id="email" name="email" th:value="${email}" >
     <p>password</p>
-    <input type="text" id="dob" name="dob" th:value="${dob}" >
+    <input type="text" id="password" name="password" th:value="${password}" >
     <p>dob</p>
+    <input type="text" id="dob" name="dob" th:value="${dob}">
+    <p>phoneNumber</p>
     <input type="text" id="phoneNumber" name="phoneNumber" th:value="${phoneNumber}" >
-    <p>phone number</p>
-    <input type="text" id="city" name="city" th:value="${city}" >
     <p>city</p>
-    <input type="text" id="district" name="district" th:value="${district}" >
+    <input type="text" id="city" name="city" th:value="${city}" >
     <p>district</p>
-    <input type="text" id="ward" name="ward" th:value="${ward}" >
+    <input type="text" id="district" name="district" th:value="${district}" >
     <p>ward</p>
-    <input type="text" id="roles" name="roles" th:value="${roles}" >
+    <input type="text" id="ward" name="ward" th:value="${ward}" >
     <button type="submit">Submit</button>
     <a href="/" th:href="@{authenticate/login}">Register allready </a>
 </form>
