@@ -21,10 +21,13 @@ public class UserDetail implements UserDetails {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.isEnable = user.getIsEnable();
-        this.authorities = Arrays.stream(user.getRoles()
-                .toString().split(","))
-                .map(SimpleGrantedAuthority::new)
+        this.authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
                 .collect(Collectors.toList());
+//        this.authorities = Arrays.stream(user.getRoles()
+//                .toString().split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
     }
 
     @Override

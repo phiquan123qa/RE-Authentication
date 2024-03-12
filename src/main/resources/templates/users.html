@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org " lang="en"><head>
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div th:switch="${users}">
-    <h2 th:case="null" >There is no users to display</h2>
+    <h2 th:case="null">There are no users to display</h2>
     <div th:case="*">
         <table>
             <thead>
@@ -18,7 +19,8 @@
                 <td>City</td>
                 <td>District</td>
                 <td>Ward</td>
-                <td>Role</td>
+                <td>Roles</td>
+                <td>Authorities</td>
             </tr>
             </thead>
             <tbody>
@@ -30,13 +32,20 @@
                 <td th:text="${user.city}"></td>
                 <td th:text="${user.district}"></td>
                 <td th:text="${user.ward}"></td>
-                <td th:text="${user.roles}"></td>
-
+                <td>
+                    <ul>
+                        <li th:each="role: ${user.roles}" th:text="${role}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li th:each="authority: ${authorities}" th:text="${authority.authority}"></li>
+                    </ul>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
 </body>
 </html>
