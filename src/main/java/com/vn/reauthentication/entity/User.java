@@ -1,5 +1,6 @@
 package com.vn.reauthentication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+
 import com.vn.reauthentication.entity.Role;
 import org.hibernate.annotations.NaturalId;
 
@@ -39,6 +42,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
             ,inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<RealEstate> realEstates;
     private Boolean isEnable = false;
 
     public User(String email, String name, String password, LocalDate dob

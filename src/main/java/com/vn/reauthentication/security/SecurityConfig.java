@@ -37,6 +37,12 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/",
+                        "/static/**",
+                        "/about",
+                        "/properties",
+                        "/property-single",
+                        "/services",
+                        "/wiki",
                         "/register",
                         "/login",
                         "/error",

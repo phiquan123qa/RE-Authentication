@@ -24,7 +24,8 @@ public class RegistrationController {
     private final ApplicationEventPublisher publisher;
     private final VerificationTokenService tokenService;
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model, HttpServletRequest request){
+        model.addAttribute("request", request);
         model.addAttribute("user", new RegisterRequest());
         return "register";
     }

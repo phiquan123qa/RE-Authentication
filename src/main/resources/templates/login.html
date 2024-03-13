@@ -1,56 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head th:replace="fragment/header_css_title :: header"></head>
+<body style="height: 100% ">
 
-<div class="row mt-4">
-    <div th:if="${param.error}" class="col-sm-8">
-        <p class="alert alert-danger alert-dismissible fade show" role="alert">Invalid username or password</p>
-    </div>
 
-    <div th:if="${param.reset_success}" class="col-sm-8">
-        <p class="alert alert-info alert-dismissible fade show" role="alert">You have successfully reset your password, please log in here.</p>
+<div class="hero">
+    <div class="hero-slide">
+        <div class="img overlay"
+             style="background-image: url('/static/images/hero_bg_2.jpg')">
+        </div>
     </div>
+    <div class="content">
+        <nav class="site-nav">
+            <div class="container">
+                <div class="menu-bg-wrap">
+                    <div class="site-navigation">
+                        <a href="/" class="logo m-0 float-start">
+                            <a href="/" class="logo m-0 float-start">
+                                <img class="col-2 my-1" src="/static/images/Logo.png" alt="Logo">
+                            </a>
+                        </a>
+                        <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end my-3">
+                            <li><a href="/">Home</a></li>
+                            <li class="has-children">
+                                <a href="/properties">Properties</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">Buy Property</a></li>
+                                    <li><a href="#">Sell Property</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/wiki">Wiki</a></li>
+                            <li class="active"><a href="/login">Log in</a></li>
+                        </ul>
+                        <a
+                                href="#"
+                                class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+                                data-toggle="collapse"
+                                data-target="#main-navbar">
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="form-block">
+                                <div class="mb-4">
+                                    <h3>Login to <strong>QMHouse</strong></h3>
+                                    <p class="mb-3 mt-2 blockquote-footer">Welcome to QMHouse, please log in to experience the best services</p>
+                                    <div class="row mt-3">
+                                        <div th:if="${param.error}" class="col-sm-12">
+                                            <p class="alert alert-danger alert-dismissible fade show" role="alert">Invalid username or password</p>
+                                        </div>
 
-    <div th:if="${param.verified}" class="col-sm-8">
-        <p class="alert alert-info alert-dismissible fade show" role="alert">This account has already been verified,  please log in here.</p>
-    </div>
-    <div th:if="${param.valid}" class="col-sm-8">
-        <p class="alert alert-info alert-dismissible">Email verified successfully, please log in here.</p>
-    </div>
+                                        <div th:if="${param.reset_success}" class="col-sm-12">
+                                            <p class="alert alert-info alert-dismissible fade show" role="alert">You have successfully reset your password, please log in here.</p>
+                                        </div>
 
-    <!-- show logout warning alert when logged out. -->
-    <div th:if="${param.logout}" class="col-sm-8">
-        <p class="alert alert-warning">You have been logged out.</p>
+                                        <div th:if="${param.verified}" class="col-sm-12">
+                                            <p class="alert alert-info alert-dismissible fade show" role="alert">This account has already been verified,  please log in here.</p>
+                                        </div>
+                                        <div th:if="${param.valid}" class="col-sm-12">
+                                            <p class="alert alert-info alert-dismissible">Email verified successfully, please log in here.</p>
+                                        </div>
+
+                                        <!-- show logout warning alert when logged out. -->
+                                        <div th:if="${param.logout}" class="col-sm-12">
+                                            <p class="alert alert-warning">You have been logged out.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="loginForm" th:action="@{/login}" method="post">
+                                    <div class="form-group first mb-4">
+                                        <label class="fs-6" for="username">Username</label>
+                                        <input type="text" class="form-control" id="username"
+                                               name="email" required autofocus="autofocus">
+                                    </div>
+                                    <div class="form-group last mb-4">
+                                        <label class="fs-6" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password"
+                                               name="password" required>
+                                    </div>
+                                    <div class="d-flex mb-5 align-items-center">
+                                        <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                                            <input type="checkbox" checked="checked"/>
+                                            <div class="control__indicator"></div>
+                                        </label>
+                                        <span class="ml-auto"><a href="#" th:href="@{register/forgot-password-request}" class="forgot-pass">Forgot Password</a></span>
+                                    </div>
+                                    <input type="submit" value="Log In" class="btn btn-pill text-white btn-block btn-primary">
+                                    <span class="d-block text-center my-4 text-muted"> Not registered yet? <a href="#" th:href="@{/register}">Register.</a> </span>
+                                    <span class="d-block text-center my-4 text-muted"> or sign in with</span>
+                                    <div class="social-login text-center">
+                                        <a href="#" class="facebook">
+                                            <span class="icon-facebook mr-3"></span>
+                                        </a>
+                                        <a href="#" class="twitter">
+                                            <span class="icon-twitter mr-3"></span>
+                                        </a>
+                                        <a href="#" class="google">
+                                            <span class="icon-google mr-3"></span>
+                                        </a>
+                                    </div>
+                                    <div class="vr"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<form th:action="@{/login}" method="post" class="px-4">
-    <h2 class="mb-4">User Login Form </h2>
-    <div class="mb-3 row">
-        <label for="email" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="email" name="email"
-                   required autofocus="autofocus">
-        </div>
-    </div>
 
-    <div class="mb-3 row">
-        <label for="password" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-6">
-            <input type="password" class="form-control" name="password" id="password" required
-                   autofocus="autofocus">
-        </div>
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
+</div>
 
-    <div class="mb-3">
-        <button type="submit" name="login" id="login" class="btn btn-success"> Login</button>
-        <span> Not registered yet? <a href="#" th:href="@{/register}">Register.</a> </span>
-        <div class="vr"></div>
-        <span><a href="/" th:href="@{register/forgot-password-request}">Forgot password.</a> </span>
-    </div>
-</form>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/login.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/tiny-slider.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/navbar.js"></script>
+<script src="/static/js/counter.js"></script>
+<script src="/static/js/custom.js"></script>
 </body>
 </html>
