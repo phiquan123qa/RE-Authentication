@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface IUserService{
     List<User> getAllUsers();
     User registerUser(RegisterRequest registerRequest);
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
     Optional<User> findById(Long id);
     void updateUser(String name, String email,
                     String avatar, LocalDate dob, Long phoneNumber,

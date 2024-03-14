@@ -1,6 +1,6 @@
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f8fafb; }
+  background-image: linear-gradient(to right bottom, #006155, #48867b, #7dada4, #b1d6ce, #e7fffa); }
 
 p {
   color: #b3b3b3;
@@ -18,7 +18,9 @@ a {
     text-decoration: none !important; }
 
 .content {
-  padding-top: 7rem; }
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
 
 h2 {
   font-size: 20px; }

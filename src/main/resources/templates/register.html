@@ -2,119 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
 <head th:replace="fragment/header_css_title :: header"></head>
-<body style="height: 100% ">
-<div class="hero">
-    <div class="hero-slide">
-        <div class="img overlay"
-             style="background-image: url('/static/images/hero_bg_2.jpg')">
-        </div>
-    </div>
-    <div class="content">
-        <nav class="site-nav">
-            <div class="container">
-                <div class="menu-bg-wrap">
-                    <div class="site-navigation">
-                        <a href="/" class="logo m-0 float-start">
-                            <a href="/" class="logo m-0 float-start">
-                                <img class="col-2 my-1" src="/static/images/Logo.png" alt="Logo">
-                            </a>
-                        </a>
-                        <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end my-3">
-                            <li><a href="/">Home</a></li>
-                            <li class="has-children">
-                                <a href="/properties">Properties</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Buy Property</a></li>
-                                    <li><a href="#">Sell Property</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/services">Services</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/wiki">Wiki</a></li>
-                            <li class="active"><a href="/login">Log in</a></li>
-                        </ul>
-                        <a
-                                href="#"
-                                class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
-                                data-toggle="collapse"
-                                data-target="#main-navbar">
-                            <span></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 contents">
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <div class="form-block">
-                                <div class="mb-4">
-                                    <h3>Register to <strong>QMHouse</strong></h3>
-                                    <p class="mb-3 mt-2 blockquote-footer">Welcome to QMHouse, please log in to experience the best services</p>
-                                    <div class="row mt-3">
-                                        <div th:if="${param.error}" class="col-sm-12">
-                                            <p class="alert alert-danger alert-dismissible fade show" role="alert">Invalid username or password</p>
-                                        </div>
-                                        <div th:if="${param.success}" class="col-sm-12">
-                                            <p class="alert alert-info alert-dismissible fade show" role="alert">Register Success, check your email.</p>
-                                        </div>
+<body>
+<div class="content">
+    <nav th:replace="fragment/navbar :: navbar"></nav>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block">
+                            <div class="mb-4">
+                                <h3>Register to <strong>QMHouse</strong></h3>
+                                <p class="mb-3 mt-2 blockquote-footer">Welcome to QMHouse, please register to experience
+                                    the best services</p>
+                                <div class="row mt-3">
+                                    <div th:if="${param.error}" class="col-sm-12">
+                                        <p class="alert alert-danger alert-dismissible fade show" role="alert">Invalid
+                                            username or password</p>
+                                    </div>
+                                    <div th:if="${param.success}" class="col-sm-12">
+                                        <p class="alert alert-info alert-dismissible fade show" role="alert">Register
+                                            Success, check your email.</p>
                                     </div>
                                 </div>
-                                <form th:action="@{/register}" method="post" th:object="${user}">
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="name">Name</label>
-                                        <input type="text" class="form-control" id="name"
-                                               name="name" required autofocus="autofocus"
-                                               th:value="${name}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="email">Email</label>
-                                        <input type="email" class="form-control" id="email"
-                                               name="email" required
-                                               th:value="${email}">
-                                    </div>
-                                    <div class="form-group last mb-4">
-                                        <label class="fs-6" for="password">Password</label>
-                                        <input type="password" class="form-control" id="password"
-                                               name="password" required
-                                               th:value="${password}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="dob">Date Of Birth</label>
-                                        <input type="date" class="form-control" id="dob"
-                                               name="dob" required  placeholder="dd-mm-yyyy"
-                                               th:value="${dob}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="phoneNumber">Phone Number</label>
-                                        <input type="text" class="form-control" id="phoneNumber"
-                                               name="phoneNumber" required autofocus="autofocus"
-                                               th:value="${phoneNumber}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="city">City</label>
-                                        <input type="text" class="form-control" id="city"
-                                               name="city" required autofocus="autofocus"
-                                               th:value="${city}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="district">District</label>
-                                        <input type="text" class="form-control" id="district"
-                                               name="district" required autofocus="autofocus"
-                                               th:value="${district}">
-                                    </div>
-                                    <div class="form-group first mb-4">
-                                        <label class="fs-6" for="ward">Ward</label>
-                                        <input type="text" class="form-control" id="ward"
-                                               name="ward" required autofocus="autofocus"
-                                               th:value="${ward}">
-                                    </div>
-                                    <input type="submit" value="Register" class="btn btn-pill text-white btn-block btn-primary">
-                                    <span class="d-block text-center mt-4 text-muted"> Already have account yet? <a href="#" th:href="@{/login}">Login.</a> </span>
-                                </form>
                             </div>
+                            <form th:action="@{/register}" method="post" th:object="${user}">
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="name">Name</label>
+                                    <input type="text" class="form-control" id="name"
+                                           name="name" required autofocus="autofocus"
+                                           th:value="${name}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="email">Email</label>
+                                    <input type="email" class="form-control" id="email"
+                                           name="email" required
+                                           th:value="${email}">
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label class="fs-6" for="password">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                           name="password" required
+                                           th:value="${password}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="dob">Date Of Birth</label>
+                                    <input type="date" class="form-control" id="dob"
+                                           name="dob" required th:value="${dob}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="phoneNumber">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                           name="phoneNumber" required autofocus="autofocus"
+                                           th:value="${phoneNumber}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="city">City</label>
+                                    <input type="text" class="form-control" id="city"
+                                           name="city" required autofocus="autofocus"
+                                           th:value="${city}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="district">District</label>
+                                    <input type="text" class="form-control" id="district"
+                                           name="district" required autofocus="autofocus"
+                                           th:value="${district}">
+                                </div>
+                                <div class="form-group first mb-4">
+                                    <label class="fs-6" for="ward">Ward</label>
+                                    <input type="text" class="form-control" id="ward"
+                                           name="ward" required autofocus="autofocus"
+                                           th:value="${ward}">
+                                </div>
+                                <input type="submit" value="Register"
+                                       class="btn btn-pill text-white btn-block btn-primary">
+                                <span class="d-block text-center mt-4 text-muted"> Already have account yet? <a href="#"
+                                                                                                                th:href="@{/login}">Login.</a> </span>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -122,7 +86,6 @@
         </div>
     </div>
 </div>
-
 <!-- Preloader -->
 <div id="overlayer"></div>
 <div class="loader">

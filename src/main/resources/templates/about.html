@@ -12,38 +12,8 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <nav class="site-nav">
-      <div class="container">
-        <div class="menu-bg-wrap">
-          <div class="site-navigation">
-            <a href="/" class="logo m-0 float-start">
-              <img class="col-2 my-1" src="/static/images/Logo.png" alt="Logo">
-            </a>
-            <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end my-3">
-              <li><a href="/">Home</a></li>
-              <li class="has-children">
-                <a href="/properties">Properties</a>
-                <ul class="dropdown">
-                  <li><a href="#">Buy Property</a></li>
-                  <li><a href="#">Sell Property</a></li>
-                </ul>
-              </li>
-              <li><a href="/services">Services</a></li>
-              <li class="active"><a href="/about">About</a></li>
-              <li><a href="/wiki">Wiki</a></li>
-              <li><a href="/login">Log in</a></li>
-            </ul>
-            <a
-                    href="#"
-                    class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
-                    data-toggle="collapse"
-                    data-target="#main-navbar">
-              <span></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <nav th:replace="fragment/navbar :: navbar"></nav>
+
 
     <div
       class="hero page-inner overlay"
@@ -413,7 +383,7 @@
             <div class="item">
               <div class="testimonial">
                 <img
-                  src="/static/images/person_4.jpg"
+                  src="/static/images/person_4-min.jpg"
                   alt="Image"
                   class="img-fluid rounded-circle w-25 mb-4"
                 />
