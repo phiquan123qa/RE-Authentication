@@ -41,7 +41,12 @@ public class RegistrationController {
     }
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") RegisterRequest registerRequest, HttpServletRequest request){
-        User user = userService.registerUser(registerRequest);
+        User user;
+        try{
+            user = userService.registerUser(registerRequest);
+        }catch (Exception e){
+            return "redirect:/register?error";
+        }
         publisher.publishEvent(new RegistrationCompleteEvent(user, UrlUtil.getApplicationUrl(request)));
         return "redirect:/register?success";
     }
