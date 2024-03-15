@@ -36,58 +36,72 @@
                                     </div>
                                 </div>
                             </div>
-                            <form th:action="@{/register}" method="post" th:object="${user}">
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="name">Name</label>
-                                    <input type="text" class="form-control" id="name"
-                                           name="name" required autofocus="autofocus"
-                                           th:value="${name}">
+                            <form id="registerForm" th:action="@{/register}" method="post" th:object="${user}">
+                                <div class="d-flex flex-row flex-wrap justify-content-between">
+                                    <div class="form-group first mb-4">
+                                        <label class="fs-6" for="name">Name</label>
+                                        <input type="text" class="form-control m-2" id="name"
+                                               name="name" required autofocus="autofocus"
+                                               th:value="${name}">
+                                    </div>
+                                    <div class="form-group first mb-4">
+                                        <label class="fs-6" for="email">Email</label>
+                                        <input type="email" class="form-control m-2" id="email"
+                                               name="email" required
+                                               th:value="${email}">
+                                    </div>
                                 </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="email">Email</label>
-                                    <input type="email" class="form-control" id="email"
-                                           name="email" required
-                                           th:value="${email}">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <div class="form-group last mb-4">
+                                        <label class="fs-6" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password"
+                                               name="password" required
+                                               th:value="${password}">
+                                    </div>
+                                    <div class="form-group last mb-4">
+                                        <label class="fs-6" for="confirmPassword">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword"
+                                               required>
+                                    </div>
                                 </div>
-                                <div class="form-group last mb-4">
-                                    <label class="fs-6" for="password">Password</label>
-                                    <input type="password" class="form-control" id="password"
-                                           name="password" required
-                                           th:value="${password}">
+                                <div class="d-flex flex-row flex-wrap justify-content-between">
+                                    <div class="form-group first mb-4">
+                                        <label class="fs-6" for="dob" style="margin-top: -25px;">Date Of Birth</label>
+                                        <input type="date" class="form-control" id="dob"
+                                               name="dob" required th:value="${dob}">
+                                    </div>
+                                    <div class="form-group first mb-4">
+                                        <label class="fs-6" for="phoneNumber">Phone Number</label>
+                                        <input type="text" class="form-control" id="phoneNumber"
+                                               name="phoneNumber" required autofocus="autofocus"
+                                               th:value="${phoneNumber}">
+                                    </div>
                                 </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="dob">Date Of Birth</label>
-                                    <input type="date" class="form-control" id="dob"
-                                           name="dob" required th:value="${dob}">
-                                </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="phoneNumber">Phone Number</label>
-                                    <input type="text" class="form-control" id="phoneNumber"
-                                           name="phoneNumber" required autofocus="autofocus"
-                                           th:value="${phoneNumber}">
-                                </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="city">City</label>
-                                    <input type="text" class="form-control" id="city"
-                                           name="city" required autofocus="autofocus"
-                                           th:value="${city}">
-                                </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="district">District</label>
-                                    <input type="text" class="form-control" id="district"
-                                           name="district" required autofocus="autofocus"
-                                           th:value="${district}">
-                                </div>
-                                <div class="form-group first mb-4">
-                                    <label class="fs-6" for="ward">Ward</label>
-                                    <input type="text" class="form-control" id="ward"
-                                           name="ward" required autofocus="autofocus"
-                                           th:value="${ward}">
+                                <div class="d-flex flex-row flex-wrap justify-content-between">
+                                    <div class=" first mb-4">
+                                        <label class="fs-6" for="cityID">City</label>
+                                        <select class="form-select col-md-10 select-custom" name="city" id="cityID">
+                                            <option>Select City</option>
+                                        </select>
+                                    </div>
+                                    <div class=" first mb-4">
+                                        <label class="fs-6" for="districtID">District</label>
+                                        <select class="form-select col-md-10 select-custom" name="district" id="districtID">
+                                            <option>Select District</option>
+                                        </select>
+                                    </div>
+                                    <div class=" first mb-4">
+                                        <label class="fs-6" for="wardID">Ward</label>
+                                        <select class="form-select col-md-10 select-custom" name="ward" id="wardID">
+                                            <option>Select ward</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <input type="submit" value="Register"
                                        class="btn btn-pill text-white btn-block btn-primary">
-                                <span class="d-block text-center mt-4 text-muted"> Already have account yet? <a href="#"
-                                                                                                                th:href="@{/login}">Login.</a> </span>
+                                <span class="d-block text-center mt-4 text-muted">
+                                    Already have account yet? <a href="#" th:href="@{/login}">Login.</a>
+                                </span>
                             </form>
                         </div>
                     </div>
@@ -107,12 +121,56 @@
 <script src="/static/jquery/jquery-3.7.1.js"></script>
 <script src="/static/js/popper.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/login.js"></script>
+<script src="/static/js/register.js"></script>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/tiny-slider.js"></script>
 <script src="/static/js/aos.js"></script>
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/counter.js"></script>
 <script src="/static/js/custom.js"></script>
+<script src="/static/js/saber-toast.js"></script>
+<script src="/static/js/axios.min.js"></script>
+
+<script type="text/javascript">
+    var cities = document.getElementById("cityID");
+    var districts = document.getElementById("districtID");
+    var wards = document.getElementById("wardID");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            cities.options[cities.options.length] = new Option(x.Name, x.Name);
+        }
+        cities.onchange = function () {
+            districts.length = 1;
+            wards.length = 1;
+            if (this.value !== "") {
+                const result = data.filter(n => n.Name === this.value);
+                for (const k of result[0].Districts) {
+                    districts.options[districts.options.length] = new Option(k.Name, k.Name);
+                }
+            }
+        };
+        districts.onchange = function () {
+            wards.length = 1;
+            const dataCity = data.filter((n) => n.Name === cities.value);
+            if (this.value !== "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Name);
+                }
+            }
+        };
+    }
+</script>
+
 </body>
 </html>
