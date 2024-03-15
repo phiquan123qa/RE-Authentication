@@ -15,10 +15,26 @@
     <link rel="stylesheet" href="/static/css/aos.css"/>
     <link rel="stylesheet" href="/static/css/style.css"/>
 
-    <link th:if="${request != null and (request.requestURI == '/login' or request.requestURI == '/register')}" rel="stylesheet" href="/static/css/owl.carousel.min.css">
-    <link th:if="${request != null and (request.requestURI == '/login' or request.requestURI == '/register')}" rel="stylesheet" href="/static/css/bootstrap.css">
-    <link th:if="${request != null and (request.requestURI == '/login' or request.requestURI == '/register')}" rel="stylesheet" href="/static/fonts/flaticon/font/flaticon.css"/>
-    <link th:if="${request != null and (request.requestURI == '/login' or request.requestURI == '/register')}" rel="stylesheet" href="/static/css/loginStyle.css">
+    <link th:if="${request != null and (request.requestURI == '/login'
+                    or request.requestURI == '/register'
+                    or request.requestURI == '/forgot_password'
+                    or request.requestURI == '/reset_password')}" rel="stylesheet"
+                    href="/static/css/owl.carousel.min.css">
+    <link th:if="${request != null and (request.requestURI == '/login'
+                    or request.requestURI == '/register'
+                    or request.requestURI == '/forgot_password'
+                    or request.requestURI == '/reset_password')}" rel="stylesheet"
+                    href="/static/css/bootstrap.css">
+    <link th:if="${request != null and (request.requestURI == '/login'
+                    or request.requestURI == '/register'
+                    or request.requestURI == '/forgot_password'
+                    or request.requestURI == '/reset_password')}" rel="stylesheet"
+                    href="/static/fonts/flaticon/font/flaticon.css"/>
+    <link th:if="${request != null and (request.requestURI == '/login'
+                    or request.requestURI == '/register'
+                    or request.requestURI == '/forgot_password'
+                    or request.requestURI == '/reset_password')}" rel="stylesheet"
+                    href="/static/css/loginStyle.css">
 
     <title th:if="${request != null and request.requestURI == '/'}">QMHouse, The best real estate trading platform for richness</title>
     <title th:if="${request != null and request.requestURI == '/properties'}">QMhouse Properties</title>
@@ -27,5 +43,7 @@
     <title th:if="${request != null and request.requestURI == '/wiki'}">QMHouse Wiki</title>
     <title th:if="${request != null and request.requestURI == '/login'}">QMHouse Login</title>
     <title th:if="${request != null and request.requestURI == '/register'}">QMHouse Register</title>
+    <title th:if="${request != null and request.requestURI == '/forgot_password'}">QMHouse Forgot Password</title>
+    <title th:if="${request != null and request.requestURI == '/reset_password'}">QMHouse Reset Password</title>
     <title th:if="${request != null and request.requestURI == '/error'}">QMHouse Error</title>
 </head>

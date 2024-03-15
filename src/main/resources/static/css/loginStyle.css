@@ -1,6 +1,11 @@
 body {
   font-family: "Roboto", sans-serif;
-  background-image: linear-gradient(to right bottom, #006155, #48867b, #7dada4, #b1d6ce, #e7fffa); }
+  background-image: linear-gradient(to right bottom, #006155, #48867b, #7dada4, #b1d6ce, #e7fffa);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
 
 p {
   color: #b3b3b3;

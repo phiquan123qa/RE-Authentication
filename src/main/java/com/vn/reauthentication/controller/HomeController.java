@@ -80,6 +80,6 @@ public class HomeController {
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){
         model.addAttribute("request", request);
-        return "errorr";
+        return "error";
     }
 }

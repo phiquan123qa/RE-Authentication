@@ -5,8 +5,16 @@
     <title>Register</title>
 </head>
 <body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+<nav th:replace="fragment/navbar :: navbar"></nav>
 <div class="content">
-    <nav th:replace="fragment/navbar :: navbar"></nav>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 contents">

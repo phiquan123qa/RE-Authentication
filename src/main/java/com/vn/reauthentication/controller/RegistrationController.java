@@ -12,6 +12,9 @@ import com.vn.reauthentication.utility.UrlUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +62,13 @@ public class RegistrationController {
         }
     }
     @GetMapping("/forgot_password")
-    public String forgotPasswordForm(){
+    public String forgotPasswordForm(Model model, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName(); // Get the username from the authentication object
+            model.addAttribute("username", username);
+        }
+        model.addAttribute("request", request);
         return "forgot-password-form";
     }
     @PostMapping("/forgot_password")
@@ -80,7 +89,13 @@ public class RegistrationController {
         return "redirect:/forgot_password?success";
     }
     @GetMapping("/reset_password")
-    public String passwordResetForm(@RequestParam("token") String token, Model model){
+    public String passwordResetForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName(); // Get the username from the authentication object
+            model.addAttribute("username", username);
+        }
+        model.addAttribute("request", request);
         model.addAttribute("token", token);
         return "password-reset-form";
     }
