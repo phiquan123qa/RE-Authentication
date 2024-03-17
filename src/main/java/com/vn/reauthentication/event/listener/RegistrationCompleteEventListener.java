@@ -40,44 +40,96 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "[QMHouse] \uD83C\uDF89 Email Verification New Account";
         String senderName = "User Registration Portal Service";
-        String mailContent = "<p>Say hi to " + user.getName() + "</p>" +
-                "<p>Thank you for registering with us, " +
-                "Please follow the link before to complete your registration.</p>" +
-                "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;\" align=\"center\"\n" +
+        String mailContent = "<table role=\"presentation\\\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;\" align=\"center\"\n" +
                 "        border=\"0\">\n" +
                 "        <tbody>\n" +
                 "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;\">\n" +
+                "                    <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">\n" +
+                "                        Confirm Your Email Address</h1>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">\n" +
+                "                    <p style=\"margin: 0;\">Say hi to \"" + user.getName() + "\".</p>\n" +
+                "                    <p style=\"margin: 0;\">Thank you for registering with us, \n" +
+                "                        Please follow the link before to complete your registration.</p>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
                 "                <td style=\"border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;\"\n" +
                 "                    align=\"center\" valign=\"middle\" bgcolor=\"#505050\">\n" +
-                "                    <a href=\"" + url + "\"\n" +
-                "                        style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">\n" +
-                "                        Verify your email to active your account</p>\n" +
+                "                    <a href=\"\\" + url + "\n" +
+                "                        style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">Confirm\n" +
+                "                        Email Address</a>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">\n" +
+                "                    <p style=\"margin: 0;\">If that doesn't work, you can contact us with:</p>\n" +
+                "                    <p style=\"margin: 0;\"><a href=\"realestatemq.up.railway.app/help\"\n" +
+                "                            target=\"_blank\">QMHouse Webside</a></p>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">\n" +
+                "                    <p style=\"margin: 0;\">Thank you for use QMHouse Service,<br> qmhouse.re@gmail.com</p>\n" +
                 "                </td>\n" +
                 "            </tr>\n" +
                 "        </tbody>\n" +
-                "    </table>"+
-                "<p>Thank you for use QMHouse Service</p>";
+                "    </table>";
         emailMessage(subject, senderName, mailContent, mailSender, user);
     }
     public void sendPasswordResetVerificationEmail(String url, User user) throws MessagingException, UnsupportedEncodingException {
 
         String subject = "[QMHouse] \uD83C\uDF89 Password Reset Request Verification";
         String senderName = "Users Verification Service";
-        String mailContent = "<p> Hi "+ user.getName()+ ", </p>"+
-                "<p><b>You recently requested to reset your password,</b>"+
-                "<p>Thank you for using our service.</p>"+
-                "<p>To reset your password,"+
-                "Please, follow the link below to complete the action.</p>"+
-                "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;\" align=\"center\" border=\"0\">\n" +
+        String mailContent = "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;\" align=\"center\"\n" +
+                "        border=\"0\">\n" +
                 "        <tbody>\n" +
-                "          <tr>\n" +
-                "            <td style=\"border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;\" align=\"center\" valign=\"middle\" bgcolor=\"#505050\">\n" +
-                "              <a href=\"" +url+ "\" style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">Reset password</a>\n" +
-                "            </td>\n" +
-                "          </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;\">\n" +
+                "                    <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">\n" +
+                "                        Reset Your Password</h1>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">\n" +
+                "                    <p style=\"margin: 0;\">Say hi to \"" + user.getName() + "\".</p>\n" +
+                "                    <p style=\"margin: 0;\">You recently requested to reset your password, \n" +
+                "                        Please follow the link to reset your password.</p>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td style=\"border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;\"\n" +
+                "                    align=\"center\" valign=\"middle\" bgcolor=\"#505050\">\n" +
+                "                    <a href=\"\\" + url + "\n" +
+                "                        style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">Reset\n" +
+                "                        Password</a>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">\n" +
+                "                    <p style=\"margin: 0;\">If that doesn't work, you can contact us with:</p>\n" +
+                "                    <p style=\"margin: 0;\"><a href=\"realestatemq.up.railway.app/help\"\n" +
+                "                            target=\"_blank\">QMHouse Webside</a></p>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td align=\"left\" bgcolor=\"#ffffff\"\n" +
+                "                    style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">\n" +
+                "                    <p style=\"margin: 0;\">Thank you for use QMHouse Service,<br> qmhouse.re@gmail.com</p>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
                 "        </tbody>\n" +
-                "      </table>"+
-                "<p> Users Verification Service</p>";
+                "    </table>";;
         emailMessage(subject, senderName, mailContent, mailSender, user);
     }
     private static void emailMessage(String subject, String senderName,

@@ -37,17 +37,44 @@
                 <h1 class="heading" data-aos="fade-up">
                     Easiest way to find your dream home
                 </h1>
-                <form
-                        action="#"
-                        class="narrow-w form-search d-flex align-items-stretch mb-3"
-                        data-aos="fade-up"
-                        data-aos-delay="200"
-                >
-                    <input
-                            type="text"
-                            class="form-control px-4"
-                            placeholder="Your ZIP code or City. e.g. New York"
-                    />
+                <form action="/properties"
+                      method="get"
+                      class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"
+                      data-aos="fade-up"
+                      data-aos-delay="200">
+                    <input type="text"
+                           class="form-control px-4 mb-2"
+                           name="title"
+                           id="titleID"
+                           placeholder="Your ZIP code or City. e.g. New York"/>
+                    <div class="d-flex flex-row flex-wrap justify-content-evenly" id="advanceSearch" style="display: none !important">
+                        <div class=" first mb-3">
+                            <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>
+                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="type" id="typeID">
+                                <option>Select Type</option>
+                                <option value="sell">For Sell</option>
+                                <option value="rent">For Rent</option>
+                            </select>
+                        </div>
+                        <div class=" first mb-3">
+                            <label class="fs-6 text-white ms-2" for="cityID">City</label>
+                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="city" id="cityID">
+                                <option value="">Select City</option>
+                            </select>
+                        </div>
+                        <div class=" first mb-3">
+                            <label class="fs-6 text-white ms-2" for="districtID">District</label>
+                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="district" id="districtID">
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                        <div class=" first mb-3">
+                            <label class="fs-6 text-white ms-2" for="wardID">Ward</label>
+                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="ward" id="wardID">
+                                <option value="">Select ward</option>
+                            </select>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
@@ -968,5 +995,48 @@
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/counter.js"></script>
 <script src="/static/js/custom.js"></script>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script type="text/javascript">
+    var cities = document.getElementById("cityID");
+    var districts = document.getElementById("districtID");
+    var wards = document.getElementById("wardID");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            cities.options[cities.options.length] = new Option(x.Name, x.Name);
+        }
+        cities.onchange = function () {
+            districts.length = 1;
+            wards.length = 1;
+            if (this.value !== "") {
+                const result = data.filter(n => n.Name === this.value);
+                for (const k of result[0].Districts) {
+                    districts.options[districts.options.length] = new Option(k.Name, k.Name);
+                }
+            }
+        };
+        districts.onchange = function () {
+            wards.length = 1;
+            const dataCity = data.filter((n) => n.Name === cities.value);
+            if (this.value !== "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Name);
+                }
+            }
+        };
+    }
+</script>
 </body>
 </html>

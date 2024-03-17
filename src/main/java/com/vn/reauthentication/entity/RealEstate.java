@@ -35,4 +35,22 @@ public class RealEstate {
     private User user;
     @ElementCollection
     private List<String> imagesList;
+
+    public RealEstate(String title, Integer price, Integer landArea, String mainImage, String cityRe, String districtRe, String wardRe, String address, String description, LocalDate dateStart, LocalDate dateEnd, Integer type, String statusRe, User user, List<String> imagesList) {
+        this.title = title;
+        this.price = price;
+        this.landArea = landArea;
+        this.mainImage = mainImage;
+        this.cityRe = cityRe;
+        this.districtRe = districtRe;
+        this.wardRe = wardRe;
+        this.address = address;
+        this.description = description;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.type = type;
+        this.statusRe = statusRe;
+        this.user = user;
+        this.imagesList = imagesList;
+    }
 }

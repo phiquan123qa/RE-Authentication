@@ -10375,3 +10375,9 @@ nav[aria-label="breadcrumb"] li:before {
       .site-footer .social li a:hover {
         background: #00204a;
         color: #fff; }
+
+      .home-selector{
+        height: 3.5rem;
+        width: 15rem;
+      }
+

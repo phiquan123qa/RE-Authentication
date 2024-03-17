@@ -29,7 +29,7 @@
               data-aos-delay="200"
             >
               <ol class="breadcrumb text-center justify-content-center">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li
                   class="breadcrumb-item active text-white-50"
                   aria-current="page"
@@ -38,6 +38,51 @@
                 </li>
               </ol>
             </nav>
+
+            <form action="/properties"
+                  method="get"
+                  class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"
+                  data-aos="fade-up"
+                  data-aos-delay="200">
+              <input type="text"
+                     class="form-control px-4 mb-2"
+                     name="title"
+                     id="titleID"
+                     placeholder="Your ZIP code or City. e.g. New York"
+              th:value="${searchTitle}"/>
+              <div class="d-flex flex-row flex-wrap justify-content-evenly" id="advanceSearch">
+                <div class=" first mb-3">
+                  <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>
+                  <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="type" id="typeID">
+                    <option>Select Type</option>
+                    <option value="sell" th:selected="${searchType}">For Sell</option>
+                    <option value="rent" th:selected="${searchType}">For Rent</option>
+                  </select>
+                </div>
+                <div class=" first mb-3">
+                  <label class="fs-6 text-white ms-2" for="cityID">City</label>
+                  <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="city" id="cityID">
+                    <option value="">Select City</option>
+                  </select>
+                </div>
+                <div class=" first mb-3">
+                  <label class="fs-6 text-white ms-2" for="districtID">District</label>
+                  <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="district" id="districtID">
+                    <option value="">Select District</option>
+                  </select>
+                </div>
+                <div class=" first mb-3">
+                  <label class="fs-6 text-white ms-2" for="wardID">Ward</label>
+                  <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="ward" id="wardID">
+                    <option value="">Select ward</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+
+
           </div>
         </div>
       </div>

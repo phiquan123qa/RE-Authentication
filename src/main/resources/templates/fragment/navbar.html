@@ -8,23 +8,25 @@
                     <img class="col-2 my-1 h-auto" src="/static/images/Logo.png" alt="Logo" style="max-width: 4rem">
                 </a>
                 <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end my-3">
-                    <li th:classappend="${request.requestURI == '/'} ? 'active' : ''"><a href="/">Home</a></li>
-                    <li th:classappend="${request.requestURI == '/properties'} ? 'active' : ''" class="has-children">
+                    <!--/*@thymesVar id="requestURI" type="url"*/-->
+                    <li th:classappend="${requestURI == '/'} ? 'active' : ''"><a href="/">Home</a></li>
+                    <li th:classappend="${requestURI == '/properties'} ? 'active' : ''" class="has-children">
                         <a href="/properties">Properties</a>
                         <ul class="dropdown">
                             <li><a href="#">Buy Property</a></li>
                             <li><a href="#">Sell Property</a></li>
                         </ul>
                     </li>
-                    <li th:classappend="${request.requestURI == '/services'} ? 'active' : ''"><a href="/services">Services</a>
+                    <li th:classappend="${requestURI == '/services'} ? 'active' : ''"><a href="/services">Services</a>
                     </li>
-                    <li th:classappend="${request.requestURI == '/about'} ? 'active' : ''"><a href="/about">About</a>
+                    <li th:classappend="${requestURI == '/about'} ? 'active' : ''"><a href="/about">About</a>
                     </li>
-                    <li th:classappend="${request.requestURI == '/wiki'} ? 'active' : ''"><a href="/wiki">Wiki</a></li>
-                    <li th:classappend="${request.requestURI == '/login' || request.requestURI == '/register'} ? 'active' : ''"
+                    <li th:classappend="${requestURI == '/wiki'} ? 'active' : ''"><a href="/wiki">Wiki</a></li>
+                    <li th:classappend="${requestURI == '/login' || requestURI == '/register'} ? 'active' : ''"
                         sec:authorize="!isAuthenticated()"><a href="/login">Log in</a>
                     </li>
                     <li class="has-children" sec:authorize="isAuthenticated()">
+                        <!--/*@thymesVar id="username" type="username"*/-->
                         <a th:text="${username}">Username</a>
                         <ul class="dropdown">
                             <li><a href="/user_info">User Information</a></li>
