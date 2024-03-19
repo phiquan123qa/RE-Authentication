@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,56 +31,42 @@ public class HomeController {
         return "home";
     }
     @GetMapping("/properties")
-    public String properties(@RequestParam(value = "title", required = false) String title,
-                             @RequestParam(value = "type", required = false) String type,
-                             @RequestParam(value = "city", required = false) String city,
-                             @RequestParam(value = "district", required = false) String district,
-                             @RequestParam(value = "ward", required = false) String ward,
-                             Model model,
+    public String properties(Model model,
                              HttpServletRequest request) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
-        if (title != null && !title.isEmpty()) {
-            model.addAttribute("searchTitle", title);
-        }
-        if (type != null && !type.isEmpty()) {
-            model.addAttribute("searchType", type);
-        }
-        if (city != null && !city.isEmpty()) {
-            model.addAttribute("selectedCity", city);
-        }
-        if (district != null && !district.isEmpty()) {
-            model.addAttribute("selectedDistrict", district);
-        }
-        if (ward != null && !ward.isEmpty()) {
-            model.addAttribute("selectedWard", ward);
-        }
-
-        model.addAttribute("requestURI", request.getRequestURI());
-        return "properties";
-    }
-    @PostMapping("/properties")
-    public String propertiesPost(@RequestParam("title") String title,
-                                 @RequestParam("type") String type,
-                                 @RequestParam("city") String city,
-                                 @RequestParam("district") String district,
-                                 @RequestParam("ward") String ward,
-                                 Model model,
-                                 HttpServletRequest request) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-        model.addAttribute("searchTitle", title);
-        model.addAttribute("searchType", type);
-        model.addAttribute("searchCity", city);
-        model.addAttribute("searchDistrict", district);
-        model.addAttribute("searchWard", ward);
         model.addAttribute("requestURI", request.getRequestURI());
+        return "properties";
+    }
+    @PostMapping("/properties")
+    public String propertiesPost(String title,
+                                 String type,
+                                 String city,
+                                 String district,
+                                 String ward,
+                                 Model model,
+                                 HttpServletRequest request,
+                                 RedirectAttributes redirectAttributes) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            model.addAttribute("username", username);
+        }
+
+        redirectAttributes.addFlashAttribute("searchTitle", title);
+        redirectAttributes.addFlashAttribute("searchType", type);
+        redirectAttributes.addFlashAttribute("searchCity", city);
+        redirectAttributes.addFlashAttribute("searchDistrict", district);
+        redirectAttributes.addFlashAttribute("searchWard", ward);
+//        model.addAttribute("searchTitle", title);
+//        model.addAttribute("searchType", type);
+//        model.addAttribute("searchCity", city);
+//        model.addAttribute("searchDistrict", district);
+//        model.addAttribute("searchWard", ward);
+//        model.addAttribute("requestURI", request.getRequestURI());
         return "redirect:/properties";
     }
     @GetMapping("/login")

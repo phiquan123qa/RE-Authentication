@@ -40,7 +40,7 @@
             </nav>
 
             <form action="/properties"
-                  method="get"
+                  method="post"
                   class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"
                   data-aos="fade-up"
                   data-aos-delay="200">
@@ -55,8 +55,8 @@
                   <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>
                   <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="type" id="typeID">
                     <option>Select Type</option>
-                    <option value="sell" th:selected="${searchType}">For Sell</option>
-                    <option value="rent" th:selected="${searchType}">For Rent</option>
+                    <option value="sell" th:selected="${searchType == 'sell'} ">For Sell</option>
+                    <option value="rent" th:selected="${searchType == 'rent'}">For Rent</option>
                   </select>
                 </div>
                 <div class=" first mb-3">
@@ -64,18 +64,21 @@
                   <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="city" id="cityID">
                     <option value="">Select City</option>
                   </select>
+                  <p id="my_city" th:text="${searchCity}" hidden></p>
                 </div>
                 <div class=" first mb-3">
                   <label class="fs-6 text-white ms-2" for="districtID">District</label>
                   <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="district" id="districtID">
                     <option value="">Select District</option>
                   </select>
+                  <p id="my_district" th:text="${searchDistrict}" hidden></p>
                 </div>
                 <div class=" first mb-3">
                   <label class="fs-6 text-white ms-2" for="wardID">Ward</label>
                   <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="ward" id="wardID">
                     <option value="">Select ward</option>
                   </select>
+                  <p id="my_ward" th:text="${searchWard}" hidden></p>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Search</button>
@@ -891,5 +894,76 @@
     <script src="/static/js/navbar.js"></script>
     <script src="/static/js/counter.js"></script>
     <script src="/static/js/custom.js"></script>
+    <script src="/static/jquery/jquery-3.7.1.js"></script>
+    <script src="/static/js/axios.min.js"></script>
+    <script type="text/javascript">
+      //json input location
+      var cities = document.getElementById("cityID");
+      var districts = document.getElementById("districtID");
+      var wards = document.getElementById("wardID");
+      var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+      };
+      var promise = axios(Parameter);
+      promise.then(function (result) {
+        renderCity(result.data);
+      });
+
+      function renderCity(data) {
+        for (const c of data) {
+          let option1 = new Option(c.Name, c.Name);
+          cities.options[cities.options.length] = option1;
+          if (c.Name === $("#my_city").text()) {
+            option1.selected = true;
+          }
+        }
+        renderDistrict(data, $("#my_city").text(), 1);
+        renderWard(data, $("#my_city").text(), $("#my_district").text(), 1)
+        cities.onchange = function () {
+          renderDistrict(data, this.value, 2)
+        };
+        districts.onchange = function () {
+          renderWard(data, cities.value, this.value, 2);
+        }
+      }
+
+      function renderDistrict(data, cityName, type) {
+        districts.length = 1;
+        wards.length = 1;
+        if (cityName !== "") {
+          const result = data.filter(n => n.Name === cityName);
+          if (type === 2) {
+            districts.options[0].selected = true;
+          }
+          for (const k of result[0].Districts) {
+            let option2 = new Option(k.Name, k.Name);
+            districts.options[districts.options.length] = option2;
+            if (type === 1 && k.Name === $("#my_district").text()) {
+              option2.selected = true;
+            }
+          }
+        }
+      }
+
+      function renderWard(data, cityName, districtName, type) {
+        wards.length = 1;
+        const dataCity = data.filter(n => n.Name === cityName);
+        if (districtName !== "") {
+          const dataWards = dataCity[0].Districts.filter(n => n.Name === districtName)[0].Wards;
+          if (type === 2) {
+            wards.options[0].selected = true;
+          }
+          for (const w of dataWards) {
+            let option3 = new Option(w.Name, w.Name);
+            wards.options[wards.options.length] = option3;
+            if (type === 1 && w.Name === $("#my_ward").text()) {
+              option3.selected = true;
+            }
+          }
+        }
+      }
+    </script>
   </body>
 </html>

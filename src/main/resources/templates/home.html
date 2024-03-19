@@ -38,7 +38,7 @@
                     Easiest way to find your dream home
                 </h1>
                 <form action="/properties"
-                      method="get"
+                      method="post"
                       class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"
                       data-aos="fade-up"
                       data-aos-delay="200">
@@ -51,7 +51,7 @@
                         <div class=" first mb-3">
                             <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>
                             <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector" name="type" id="typeID">
-                                <option>Select Type</option>
+                                <option value="">Select Type</option>
                                 <option value="sell">For Sell</option>
                                 <option value="rent">For Rent</option>
                             </select>
