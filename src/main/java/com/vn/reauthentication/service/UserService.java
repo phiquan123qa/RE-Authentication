@@ -26,16 +26,22 @@ public class UserService implements IUserService {
 
     @Override
     public User registerUser(RegisterRequest registerRequest) {
-        var user = new User(registerRequest.getEmail(),
-                registerRequest.getName(),
-                passwordEncoder.encode(registerRequest.getPassword()),
-                registerRequest.getDob(),
-                registerRequest.getPhoneNumber(),
-                registerRequest.getCity(),
-                registerRequest.getDistrict(),
-                registerRequest.getWard(),
-                List.of(new Role("USER")));
-        return userRepository.save(user);
+        Optional<User> existingUser = userRepository.findByEmail(registerRequest.getEmail());
+        if (existingUser.isPresent()) {
+            // User already exists, so you can resend the confirmation email
+            return existingUser.get();
+        } else {
+            var user = new User(registerRequest.getEmail(),
+                    registerRequest.getName(),
+                    passwordEncoder.encode(registerRequest.getPassword()),
+                    registerRequest.getDob(),
+                    registerRequest.getPhoneNumber(),
+                    registerRequest.getCity(),
+                    registerRequest.getDistrict(),
+                    registerRequest.getWard(),
+                    List.of(new Role("USER")));
+            return userRepository.save(user);
+        }
     }
 
     @Override

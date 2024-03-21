@@ -61,7 +61,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
                 "            <tr>\n" +
                 "                <td style=\"border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;\"\n" +
                 "                    align=\"center\" valign=\"middle\" bgcolor=\"#505050\">\n" +
-                "                    <a href=\"\\" + url + "\n" +
+                "                    <a href=" + url + "\n" +
                 "                        style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">Confirm\n" +
                 "                        Email Address</a>\n" +
                 "                </td>\n" +
@@ -109,7 +109,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
                 "            <tr>\n" +
                 "                <td style=\"border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;\"\n" +
                 "                    align=\"center\" valign=\"middle\" bgcolor=\"#505050\">\n" +
-                "                    <a href=\"\\" + url + "\n" +
+                "                    <a href=" + url + "\n" +
                 "                        style=\"text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;\">Reset\n" +
                 "                        Password</a>\n" +
                 "                </td>\n" +

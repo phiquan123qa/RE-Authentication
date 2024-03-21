@@ -24,7 +24,6 @@ public class UserController {
     private final IUserService iUserService;
 
     @GetMapping("/users")
-//    @PreAuthorize("hasRole('ADMIN')")
     public String getUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

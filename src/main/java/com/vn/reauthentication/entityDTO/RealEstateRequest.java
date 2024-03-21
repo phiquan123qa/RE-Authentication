@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 public class RealEstateRequest {
     private String title;
-    private Integer price;
-    private Integer landArea;
+    private Double price;
+    private Double landArea;
     private String mainImage;
     private String cityRe;
     private String districtRe;
@@ -19,7 +19,7 @@ public class RealEstateRequest {
     private String description;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    private Integer type;
+    private String type;
     private String statusRe;
     private User user;
     private List<String> imagesList;

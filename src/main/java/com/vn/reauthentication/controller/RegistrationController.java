@@ -35,7 +35,7 @@ public class RegistrationController {
     private final RegistrationCompleteEventListener eventListener;
     @GetMapping("/register")
     public String showRegistrationForm(Model model, HttpServletRequest request){
-        model.addAttribute("request", request);
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("user", new RegisterRequest());
         return "register";
     }
@@ -57,14 +57,11 @@ public class RegistrationController {
             return "redirect:/login?verified";
         }
         String verificationResult = tokenService.validateToken(token);
-        switch (verificationResult.toLowerCase()) {
-            case "expired":
-                return "redirect:/error?expired";
-            case "valid":
-                return "redirect:/login?valid";
-            default:
-                return "redirect:/error?invalid";
-        }
+        return switch (verificationResult.toLowerCase()) {
+            case "expired" -> "redirect:/error?expired";
+            case "valid" -> "redirect:/login?valid";
+            default -> "redirect:/error?invalid";
+        };
     }
     @GetMapping("/forgot_password")
     public String forgotPasswordForm(Model model, HttpServletRequest request){
@@ -73,7 +70,7 @@ public class RegistrationController {
             String username = authentication.getName(); // Get the username from the authentication object
             model.addAttribute("username", username);
         }
-        model.addAttribute("request", request);
+        model.addAttribute("requestURI", request.getRequestURI());
         return "forgot-password-form";
     }
     @PostMapping("/forgot_password")
@@ -100,7 +97,7 @@ public class RegistrationController {
             String username = authentication.getName(); // Get the username from the authentication object
             model.addAttribute("username", username);
         }
-        model.addAttribute("request", request);
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("token", token);
         return "password-reset-form";
     }

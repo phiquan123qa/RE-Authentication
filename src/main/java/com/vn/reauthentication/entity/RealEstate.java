@@ -18,8 +18,8 @@ public class RealEstate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Integer price;
-    private Integer landArea;
+    private Double price;
+    private Double landArea;
     private String mainImage;
     private String cityRe;
     private String districtRe;
@@ -28,7 +28,7 @@ public class RealEstate {
     private String description;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    private Integer type;
+    private String type;
     private String statusRe;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -36,7 +36,7 @@ public class RealEstate {
     @ElementCollection
     private List<String> imagesList;
 
-    public RealEstate(String title, Integer price, Integer landArea, String mainImage, String cityRe, String districtRe, String wardRe, String address, String description, LocalDate dateStart, LocalDate dateEnd, Integer type, String statusRe, User user, List<String> imagesList) {
+    public RealEstate(String title, Double price, Double landArea, String mainImage, String cityRe, String districtRe, String wardRe, String address, String description, LocalDate dateStart, LocalDate dateEnd, String type, String statusRe, User user, List<String> imagesList) {
         this.title = title;
         this.price = price;
         this.landArea = landArea;

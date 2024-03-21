@@ -4,10 +4,17 @@ import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
 import com.vn.reauthentication.repository.RealEstateRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
+import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,13 +48,13 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public void updateRealEstate(String title, Integer price,
-                                 Integer landArea, String mainImage,
+    public void updateRealEstate(String title, Double price,
+                                 Double landArea, String mainImage,
                                  String cityRe, String districtRe,
                                  String wardRe, String address,
                                  String description,
                                  LocalDate dateStart,
-                                 LocalDate dateEnd, Integer type,
+                                 LocalDate dateEnd, String type,
                                  String statusRe, Long id){
         realEstateRepository.update(title, price, landArea, mainImage, cityRe, districtRe, wardRe, address, description, dateStart, dateEnd, type, statusRe, id);
     }
@@ -55,5 +62,27 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Optional<RealEstate> findRealEstateById(Long id) {
         return Optional.ofNullable(realEstateRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Real estate not found")));
+    }
+
+    @Override
+    public Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String cityRe, String districtRe, String wardRe, String field) {
+        Specification<RealEstate> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (title != null && !title.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+            }
+            if (cityRe != null && !cityRe.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("city")), cityRe.toLowerCase()));
+            }
+            if (districtRe != null && !districtRe.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("district")), districtRe.toLowerCase()));
+            }
+            if (wardRe != null && !wardRe.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("ward")), wardRe.toLowerCase()));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(field));
+        return realEstateRepository.findAll(spec, pageable);
     }
 }
