@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <!-- Content will be loaded here via AJAX -->
+</div>
+<div id="pagination">
+    <!-- Pagination controls will be loaded here via AJAX -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function fetchPage(pageNumber) {
+        $.ajax({
+            url: '/re/findall', // Replace with your actual endpoint
+            type: 'GET',
+            data: {
+                offset: pageNumber,
+                pageSize: 9 // or any other page size you desire
+            },
+            success: function(response){
+                // Assuming 'response' is the data you showed in your example
+                updatePage(response);
+                createPagination(response.response.totalPages, pageNumber);
+            },
+            error: function(error){
+                console.log('Error fetching data: ', error);
+            }
+        });
+    }
+
+    function updatePage(data) {
+        $('#content').empty();
+        data.response.content.forEach(function(item) {
+            $('#content').append(
+                `<div>
+                <h3>${item.title}</h3>
+                <p>Price: ${item.price}</p>
+            </div>`
+            );
+        });
+    }
+
+    function createPagination(totalPages, currentPage) {
+        $('#pagination').empty();
+        // Add new pagination
+        for(let i = 1; i <= totalPages; i++) {
+            let activeClass = i === currentPage ? 'active' : '';
+            $('#pagination').append(
+                `<span class="page ${activeClass}" onclick="fetchPage(${i})">${i}</span>`
+            );
+        }
+    }
+    // Initial fetch
+    fetchPage(1);
+</script>
+</body>
+</html>

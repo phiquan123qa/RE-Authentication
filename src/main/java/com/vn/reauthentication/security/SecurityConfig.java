@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/",
                         "/static/**",
+                        "/re/**",
                         "/about",
                         "/properties",
                         "/property-single",
@@ -48,7 +49,8 @@ public class SecurityConfig {
                         "/error",
                         "/verify_email",
                         "/forgot_password",
-                        "/reset_password")
+                        "/reset_password",
+                        "/test")
                 .permitAll()
                 .requestMatchers("/users")
                 .hasAuthority("ADMIN")

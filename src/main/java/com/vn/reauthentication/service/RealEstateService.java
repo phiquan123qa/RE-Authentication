@@ -82,7 +82,11 @@ public class RealEstateService implements IRealEstateService {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(field));
+        Pageable pageable;
+        if(field != null && !field.isEmpty()) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by(field));
+        }else pageable = PageRequest.of(pageNumber, pageSize);
+
         return realEstateRepository.findAll(spec, pageable);
     }
 }
