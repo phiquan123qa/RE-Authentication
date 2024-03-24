@@ -646,6 +646,7 @@
 		background: rgba($primary, .1);
 		color: $primary;
 		text-align: center;
+		margin: 5px;
 		&:hover, &.active {
 			background: $primary;
 			color: $white;

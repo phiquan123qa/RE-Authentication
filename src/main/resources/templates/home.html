@@ -998,45 +998,6 @@
 <script src="/static/jquery/jquery-3.7.1.js"></script>
 <script src="/static/js/home.js"></script>
 <script src="/static/js/axios.min.js"></script>
-<script type="text/javascript">
-    var cities = document.getElementById("cityID");
-    var districts = document.getElementById("districtID");
-    var wards = document.getElementById("wardID");
-    var Parameter = {
-        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-        method: "GET",
-        responseType: "application/json",
-    };
-    var promise = axios(Parameter);
-    promise.then(function (result) {
-        renderCity(result.data);
-    });
-
-    function renderCity(data) {
-        for (const x of data) {
-            cities.options[cities.options.length] = new Option(x.Name, x.Name);
-        }
-        cities.onchange = function () {
-            districts.length = 1;
-            wards.length = 1;
-            if (this.value !== "") {
-                const result = data.filter(n => n.Name === this.value);
-                for (const k of result[0].Districts) {
-                    districts.options[districts.options.length] = new Option(k.Name, k.Name);
-                }
-            }
-        };
-        districts.onchange = function () {
-            wards.length = 1;
-            const dataCity = data.filter((n) => n.Name === cities.value);
-            if (this.value !== "") {
-                const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
-                for (const w of dataWards) {
-                    wards.options[wards.options.length] = new Option(w.Name, w.Name);
-                }
-            }
-        };
-    }
-</script>
+<script src="/static/js/location.js"></script>
 </body>
 </html>

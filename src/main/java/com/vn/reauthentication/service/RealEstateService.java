@@ -72,13 +72,13 @@ public class RealEstateService implements IRealEstateService {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
             }
             if (cityRe != null && !cityRe.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("city")), cityRe.toLowerCase()));
+                predicates.add(cb.equal(cb.lower(root.get("cityRe")), cityRe.toLowerCase()));
             }
             if (districtRe != null && !districtRe.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("district")), districtRe.toLowerCase()));
+                predicates.add(cb.equal(cb.lower(root.get("districtRe")), districtRe.toLowerCase()));
             }
             if (wardRe != null && !wardRe.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("ward")), wardRe.toLowerCase()));
+                predicates.add(cb.equal(cb.lower(root.get("wardRe")), wardRe.toLowerCase()));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };

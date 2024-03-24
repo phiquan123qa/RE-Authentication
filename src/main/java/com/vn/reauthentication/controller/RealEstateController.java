@@ -16,7 +16,7 @@ public class RealEstateController {
     @GetMapping("/findall")
     public APIResponse<Page<RealEstate>> getAllRealEstates(
             @RequestParam(defaultValue = "0") int offset,
-            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "9") int pageSize,
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "city", required = false) String cityRe,
             @RequestParam(name = "district", required = false) String districtRe,

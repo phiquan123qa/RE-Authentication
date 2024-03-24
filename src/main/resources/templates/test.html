@@ -15,14 +15,13 @@
 <script>
     function fetchPage(pageNumber) {
         $.ajax({
-            url: '/re/findall', // Replace with your actual endpoint
+            url: '/re/findall',
             type: 'GET',
             data: {
                 offset: pageNumber,
-                pageSize: 9 // or any other page size you desire
+                pageSize: 9
             },
             success: function(response){
-                // Assuming 'response' is the data you showed in your example
                 updatePage(response);
                 createPagination(response.response.totalPages, pageNumber);
             },
@@ -31,7 +30,6 @@
             }
         });
     }
-
     function updatePage(data) {
         $('#content').empty();
         data.response.content.forEach(function(item) {
