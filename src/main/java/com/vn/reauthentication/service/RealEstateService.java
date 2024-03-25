@@ -37,6 +37,9 @@ public class RealEstateService implements IRealEstateService {
                 realEstateRequest.getDistrictRe(),
                 realEstateRequest.getWardRe(),
                 realEstateRequest.getAddress(),
+                realEstateRequest.getRoom(),
+                realEstateRequest.getBedRoom(),
+                realEstateRequest.getBathRoom(),
                 realEstateRequest.getDescription(),
                 realEstateRequest.getDateStart(),
                 realEstateRequest.getDateEnd(),
@@ -65,11 +68,21 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String cityRe, String districtRe, String wardRe, String field) {
+    public Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber,
+                                                                         Integer pageSize,
+                                                                         String title,
+                                                                         String type,
+                                                                         String cityRe,
+                                                                         String districtRe,
+                                                                         String wardRe,
+                                                                         String field) {
         Specification<RealEstate> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (title != null && !title.isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+            }
+            if (type != null && !type.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("type")), type.toLowerCase()));
             }
             if (cityRe != null && !cityRe.isEmpty()) {
                 predicates.add(cb.equal(cb.lower(root.get("cityRe")), cityRe.toLowerCase()));

@@ -1,6 +1,7 @@
+
 function fetchPage(pageNumber) {
     var titleValue = $('#titleID').val();
-    var typeValue = $('#searchType').find(":selected").val();
+    var typeValue = $('#typeID').find(":selected").val();
     var cityValue = $('#cityID').find(":selected").val();
     var districtValue = $('#districtID').find(":selected").val();
     var wardValue = $('#wardID').find(":selected").val();
@@ -13,7 +14,7 @@ function fetchPage(pageNumber) {
             offset: pageNumber,
             pageSize: 9,
             title: titleValue,
-            type: typeValue,
+            typeRe: typeValue,
             city: cityValue,
             district: districtValue,
             ward: wardValue
@@ -21,6 +22,7 @@ function fetchPage(pageNumber) {
         },
         success: function(response){
             updatePage(response);
+            updatePaginationText(pageNumber, response.response.totalPages);
             createPagination(response.response.totalPages, pageNumber);
             console.log(response);
         },
@@ -31,12 +33,12 @@ function fetchPage(pageNumber) {
 }
 function updatePage(data) {
     var content = $('#content');
-    $('#content').empty();
+    content.empty();
     data.response.content.forEach(function(item) {
         $('#content').append(
             `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <div class="property-item mb-30">
-              <a href="/property-single" class="img">
+              <a href="/property/${item.id}" class="img">
                 <img loading="lazy" src="/static/images/img_1.jpg" alt="Image" class="img-fluid" />
               </a>
 
@@ -60,7 +62,7 @@ function updatePage(data) {
                   </div>
 
                   <a
-                    href="/property-single"
+                    href="/property/${item.id}"
                     class="btn btn-primary py-2 px-3"
                     >See details</a
                   >
@@ -103,6 +105,11 @@ function createPagination(totalPages, currentPage) {
 function createPageItem(pageNumber, currentPage) {
     let activeClass = pageNumber === currentPage ? 'active' : '';
     return `<a class="page ${activeClass}" onclick="fetchPage(${pageNumber})">${pageNumber + 1}</a>`;
+}
+
+function updatePaginationText(currentPage, totalPages) {
+    // Update the pagination text
+    $('.pagination-text').text(`Pagination (${currentPage+1} of ${totalPages})`);
 }
 
 function showSkeletonLoader() {

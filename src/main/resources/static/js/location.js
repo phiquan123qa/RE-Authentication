@@ -2,6 +2,8 @@
 var cities = document.getElementById("cityID");
 var districts = document.getElementById("districtID");
 var wards = document.getElementById("wardID");
+const $modifyButton = $('#modifyButton');
+var cityData = null;
 var Parameter = {
     url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
     method: "GET",
@@ -9,8 +11,15 @@ var Parameter = {
 };
 var promise = axios(Parameter);
 promise.then(function (result) {
+    cityData = result.data;
     renderCity(result.data);
 });
+
+    $modifyButton.on('click', function() {
+        if (cityData) {
+            renderCity(cityData);
+        }
+    });
 
 function renderCity(data) {
     for (const c of data) {

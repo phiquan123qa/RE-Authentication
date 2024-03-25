@@ -41,7 +41,7 @@ public class SecurityConfig {
                         "/re/**",
                         "/about",
                         "/properties",
-                        "/property-single",
+                        "/property/**",
                         "/services",
                         "/wiki",
                         "/register",

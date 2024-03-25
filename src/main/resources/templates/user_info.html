@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head th:replace="fragment/header_css_title :: header">
+    <title>Services</title>
+</head>
+<body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav th:replace="fragment/navbar :: navbar"></nav>
+<div class="hero page-inner overlay"
+     style="background-image: url('/static/images/hero_bg_1.jpg')">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">User Information</h1>
+
+                <nav aria-label="breadcrumb"
+                     data-aos="fade-up"
+                     data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50"
+                            aria-current="page">
+                            User Information
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-5 mb-lg-0"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <div class="contact-info">
+                    <div class="address mt-2">
+                        <i class="icon-room"></i>
+                        <h4 class="mb-2">Location:</h4>
+                        <p th:utext="${user.ward} + '&lt;br&gt;' + ${user.district} + '&lt;br&gt;' + ${user.city}">
+                            Address show
+                        </p>
+                    </div>
+                    <div class="email mt-4">
+                        <i class="icon-envelope"></i>
+                        <h4 class="mb-2">Email:</h4>
+                        <p th:text="${user.email}">Email</p>
+                    </div>
+                    <div class="phone mt-4">
+                        <i class="icon-phone"></i>
+                        <h4 class="mb-2">Call:</h4>
+                        <p th:text="${user.phoneNumber}">Phone</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <div class="input-group mb-3">
+                                <div class="file-drop-area">
+                                    <span class="fake-btn">Choose files</span>
+                                    <span class="file-msg">or drop files here</span>
+                                    <input class="file-input" type="file"
+                                           accept=".png, .jpg, .jpeg" name="avatar"
+                                    disabled/>
+                                    <div class="item-delete"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="input-group mb-3">
+                                <img id="imagePreview" src="#" alt="Image preview" style="display: none; max-width: 100%; height: 6rem;"/>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Your Name"
+                                   name="name"
+                                   th:value="${user.name}"
+                                   disabled/>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="Your Email"
+                                   name="email"
+                                   th:value="${user.email}"
+                                   disabled/>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <input type="tel"
+                                   class="form-control"
+                                   placeholder="Your Phone Number"
+                                   name="phoneNumber"
+                                   th:value="${user.phoneNumber}"
+                                   disabled/>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <input type="date"
+                                   class="form-control"
+                                   placeholder="Date of birth"
+                                   name="dob"
+                                   th:value="${user.dob}"
+                                   disabled/>
+                        </div>
+                        <div class="col-12 mb-3">
+                              <textarea name="description"
+                                        id=""
+                                        cols="30"
+                                        rows="7"
+                                        class="form-control"
+                                        placeholder="Message"
+                                        th:text="${user.description}"
+                                        disabled>
+                              </textarea>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <select class="form-select form-control col-md-10 select-custom home-selector"
+                                    name="city" id="cityID" disabled>
+                                <option value="">Select City</option>
+                            </select>
+                            <p id="my_city" th:text="${user.city}" hidden></p>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <select class="form-select form-control col-md-10 select-custom home-selector"
+                                    name="district" id="districtID" disabled>
+                                <option value="">Select District</option>
+                            </select>
+                            <p id="my_district" th:text="${user.district}" hidden></p>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <select class="form-select form-control col-md-10 select-custom home-selector"
+                                    name="ward" id="wardID" disabled>
+                                <option value="">Select ward</option>
+                            </select>
+                            <p id="my_ward" th:text="${user.ward}" hidden></p>
+                        </div>
+                        <div class="col-12">
+                            <input type="submit"
+                                   value="Update Profile"
+                                   class="btn btn-primary"
+                                   id="updateButton" disabled/>
+                            <input type="button"
+                                   value="Modify Profile"
+                                   class="btn btn-secondary"
+                                   id="modifyButton"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragment/footer :: footer"></div>
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/tiny-slider.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/navbar.js"></script>
+<script src="/static/js/counter.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+<script src="/static/js/upload_image.js"></script>
+<script src="/static/js/btnUpdateProfile.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/location.js"></script>
+</body>
+</html>

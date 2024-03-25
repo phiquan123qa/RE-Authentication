@@ -38,15 +38,18 @@
                     or requestURI == '/forgot_password'
                     or requestURI == '/reset_password')}" rel="stylesheet"
                     href="/static/css/loginStyle.css">
+    <link th:if="${requestURI != null and requestURI == '/user_info'}" rel="stylesheet"
+          href="/static/css/upload_image.css">
 
     <title th:if="${requestURI != null and requestURI == ''}">QMHouse, The best real estate trading platform for richness</title>
-    <title th:if="${requestURI != null and requestURI == '/properties'}">QMhouse Properties</title>
-    <title th:if="${requestURI != null and requestURI == '/services'}">QMhouse Services</title>
+    <title th:if="${requestURI != null and requestURI == '/properties'}">QMHouse Properties</title>
+    <title th:if="${requestURI != null and requestURI == '/services'}">QMHouse Services</title>
     <title th:if="${requestURI != null and requestURI == '/about'}">QMHouse About Us</title>
     <title th:if="${requestURI != null and requestURI == '/wiki'}">QMHouse Wiki</title>
     <title th:if="${requestURI != null and requestURI == '/login'}">QMHouse Login</title>
     <title th:if="${requestURI != null and requestURI == '/register'}">QMHouse Register</title>
     <title th:if="${requestURI != null and requestURI == '/forgot_password'}">QMHouse Forgot Password</title>
     <title th:if="${requestURI != null and requestURI == '/reset_password'}">QMHouse Reset Password</title>
+    <title th:if="${requestURI != null and requestURI == '/user_info'}">QMHouse User Information</title>
     <title th:if="${requestURI != null and requestURI == '/error'}">QMHouse Error</title>
 </head>

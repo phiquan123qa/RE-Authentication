@@ -18,25 +18,13 @@ public class RealEstateController {
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "9") int pageSize,
             @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "typeRe", required = false) String type,
             @RequestParam(name = "city", required = false) String cityRe,
             @RequestParam(name = "district", required = false) String districtRe,
             @RequestParam(name = "ward", required = false) String wardRe,
             @RequestParam(required = false) String field) {
         Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSort(
-                offset, pageSize, title, cityRe, districtRe, wardRe, field);
+                offset, pageSize, title, type, cityRe, districtRe, wardRe, field);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
-
-    //    @GetMapping("/findall/{offset}/{pageSize}/{title}/{cityRe}/{districtRe}/{wardRe}/{field}")
-//    public APIResponse<Page<RealEstate>> getAllRealEstates(@PathVariable int offset,
-//                                                           @PathVariable int pageSize,
-//                                                           @PathVariable String title,
-//                                                           @PathVariable String cityRe,
-//                                                           @PathVariable String districtRe,
-//                                                           @PathVariable String wardRe,
-//                                                           @PathVariable String field) {
-//        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSort(
-//                offset, pageSize, title, cityRe, districtRe, wardRe, field);
-//        return new APIResponse<>(realEstates.getSize(), realEstates);
-//    }
 }

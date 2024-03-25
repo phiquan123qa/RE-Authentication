@@ -32,7 +32,7 @@ public class User {
     private String password;
     private LocalDate dob;
     @Size(min = 10, max = 13)
-    private Long phoneNumber;
+    private String phoneNumber;
     private String city;
     private String district;
     private String ward;
@@ -46,13 +46,15 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<RealEstate> realEstates;
+    private String description;
     private Boolean isEnable = false;
 
-    public User(String email, String name, String password, LocalDate dob
-            , Long phoneNumber, String city, String district, String ward
+    public User(String email, String name, String avatar, String password, LocalDate dob
+            , String phoneNumber, String city, String district, String ward
             , Collection<Role> roles) {
         this.email = email;
         this.name = name;
+        this.avatar = avatar;
         this.password = password;
         this.dob = dob;
         this.phoneNumber = phoneNumber;

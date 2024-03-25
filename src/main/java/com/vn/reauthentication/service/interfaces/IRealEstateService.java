@@ -30,5 +30,5 @@ public interface IRealEstateService {
                           String statusRe, Long id);
 
     Optional<RealEstate> findRealEstateById(Long id);
-    Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String cityRe, String districtRe, String wardRe, String field);
+    Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String type, String cityRe, String districtRe, String wardRe, String field);
 }

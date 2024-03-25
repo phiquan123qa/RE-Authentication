@@ -16,6 +16,9 @@ public class RealEstateRequest {
     private String districtRe;
     private String wardRe;
     private String address;
+    private Integer room;
+    private Integer bedRoom;
+    private Integer bathRoom;
     private String description;
     private LocalDate dateStart;
     private LocalDate dateEnd;

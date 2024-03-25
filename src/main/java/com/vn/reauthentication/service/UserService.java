@@ -33,6 +33,7 @@ public class UserService implements IUserService {
         } else {
             var user = new User(registerRequest.getEmail(),
                     registerRequest.getName(),
+                    String.valueOf("default_avatar.png"),
                     passwordEncoder.encode(registerRequest.getPassword()),
                     registerRequest.getDob(),
                     registerRequest.getPhoneNumber(),

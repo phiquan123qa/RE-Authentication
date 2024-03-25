@@ -1,25 +1,27 @@
 package com.vn.reauthentication.controller;
 
+import com.vn.reauthentication.entity.RealEstate;
+import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.service.interfaces.IRealEstateService;
+import com.vn.reauthentication.service.interfaces.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping
+@RequiredArgsConstructor
 public class HomeController {
+    private final IRealEstateService realEstateService;
+    private final IUserService userService;
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -55,19 +57,26 @@ public class HomeController {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-
         redirectAttributes.addFlashAttribute("searchTitle", title);
         redirectAttributes.addFlashAttribute("searchType", type);
         redirectAttributes.addFlashAttribute("searchCity", city);
         redirectAttributes.addFlashAttribute("searchDistrict", district);
         redirectAttributes.addFlashAttribute("searchWard", ward);
-//        model.addAttribute("searchTitle", title);
-//        model.addAttribute("searchType", type);
-//        model.addAttribute("searchCity", city);
-//        model.addAttribute("searchDistrict", district);
-//        model.addAttribute("searchWard", ward);
-//        model.addAttribute("requestURI", request.getRequestURI());
         return "redirect:/properties";
+    }
+    @GetMapping("/property/{id}")
+    public String properties_single(Model model,
+                                    HttpServletRequest request,
+                                    @PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            model.addAttribute("username", username);
+        }
+        model.addAttribute("requestURI", request.getRequestURI());
+        RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow();
+        model.addAttribute("realEstate", realEstate);
+        return "property-single";
     }
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request){
@@ -113,6 +122,20 @@ public class HomeController {
         }
         model.addAttribute("requestURI", request.getRequestURI());
         return "property-single";
+    }
+
+    @GetMapping("/user_info")
+    public String user_info(Model model, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user;
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            user = userService.findUserByEmail(username).orElseThrow();
+            model.addAttribute("user", user);
+            model.addAttribute("username", username);
+        }
+        model.addAttribute("requestURI", request.getRequestURI());
+        return "user_info";
     }
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){
