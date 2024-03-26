@@ -3,6 +3,7 @@ package com.vn.reauthentication.service.interfaces;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RegisterRequest;
 import com.vn.reauthentication.repository.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,4 +17,9 @@ public interface IUserService{
     void updateUser(String name, String email,
                     String avatar, LocalDate dob, Long phoneNumber,
                     String city, String district, String ward, Long id);
+    User updateUserInfo(String avatar, String name,
+                        String email, String phoneNumber,
+                        LocalDate dob, String description,
+                        String city, String district,
+                        String ward);
 }

@@ -137,6 +137,11 @@ public class HomeController {
         model.addAttribute("requestURI", request.getRequestURI());
         return "user_info";
     }
+//    @PostMapping("/user_info")
+//    public String user_info_update(Model model, HttpServletRequest request){
+//
+//        return "redirect:/user_info";
+//    }
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){
         model.addAttribute("requestURI", request.getRequestURI());

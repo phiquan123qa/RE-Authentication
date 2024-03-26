@@ -4,11 +4,13 @@ import com.vn.reauthentication.entity.Role;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RegisterRequest;
 import com.vn.reauthentication.repository.UserRepository;
+import com.vn.reauthentication.service.interfaces.IFileStorageService;
 import com.vn.reauthentication.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final IFileStorageService fileStorageService;
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -63,6 +66,23 @@ public class UserService implements IUserService {
         userRepository.update(name, email,
                  avatar, dob, phoneNumber,
                  city, district, ward, id);
+    }
+
+    @Override
+    public User updateUserInfo(String avatar, String name, String email,
+                               String phoneNumber, LocalDate dob, String description,
+                               String city, String district, String ward) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setAvatar(avatar);
+        user.setName(name);
+        user.setPhoneNumber(phoneNumber);
+        user.setDob(dob);
+        user.setDescription(description);
+        user.setCity(city);
+        user.setDistrict(district);
+        user.setWard(ward);
+        return userRepository.save(user);
     }
 
 
