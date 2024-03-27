@@ -81,7 +81,7 @@
                         <div class="col-6 mb-3">
                             <div class="input-group mb-3">
                                 <img id="imagePreview"
-                                     th:src="@{/static/images/avatars/{avatar}(avatar=${user.avatar})}"
+                                     th:src="@{../static/images/avatars/{avatar}(avatar=${user.avatar})}"
                                      th:style="'max-width: 100%; height: 5.4rem;' + (${user.avatar} != null ? 'display: block;' : 'display: none;')"
                                      alt="Image preview" style="max-width: 100%; height: 5.4rem;"/>
                             </div>

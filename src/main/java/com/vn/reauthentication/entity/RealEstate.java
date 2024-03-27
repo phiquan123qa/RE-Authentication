@@ -1,5 +1,6 @@
 package com.vn.reauthentication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +37,9 @@ public class RealEstate {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<LikedRealEstate> likedByUsers;
     @ElementCollection
     private List<String> imagesList;
 

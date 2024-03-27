@@ -61,32 +61,116 @@
                 <p class="meta"
                    th:text="${realEstate.address+', '+realEstate.wardRe+', '+realEstate.districtRe+', '+realEstate.cityRe}">
                     Location</p>
+
+
+                <div class="d-flex flex-wrap py-3 mb-3"
+                     style="border-top: 1px solid #F2F2F2; border-bottom: 1px solid #F2F2F2">
+                    <div class="d-flex flex-wrap flex-column me-4">
+                        <span class="icon-attach_money mb-3 fs-6"> Price</span>
+                        <span class="fs-4"
+                              style="color: #005555;"
+                              th:text="${realEstate.price != null ?'$'+realEstate.price : 'Negotiated Price'}"></span>
+                    </div>
+                    <div class="d-flex flex-wrap flex-column me-4">
+                        <span class="icon-compass mb-3 fs-6"> Area</span>
+                        <span class="fs-4"
+                              style="color: #005555;"
+                              th:text="${realEstate.landArea}+'m&sup2'"></span>
+                    </div>
+                </div>
+                <h5 class="heading text-primary mb-3">Description</h5>
                 <p class="text-black-50" th:text="${realEstate.description}">
                     Description
                 </p>
+
+                <h5 class="heading text-primary mb-3">Real Estate Details</h5>
+                <div class="d-flex flex-wrap py-3 mb-3" style="border-top: 1px solid #F2F2F2">
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                                width: calc(50% - 5px);">
+                        <span class="icon-compass fs-6 pe-2"> Area</span>
+                        <span class="fs-6"
+                              style="color: #005555;"
+                              th:text="${realEstate.landArea}+'m&sup2'"></span>
+                    </div>
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                         width: calc(50% - 5px);">
+                        <span class="icon-attach_money fs-6 pe-2"> Price</span>
+                        <span class="fs-6"
+                              style="color: #005555;"
+                              th:text="${realEstate.price != null ?'$'+realEstate.price : 'Negotiated Price'}"></span>
+                    </div>
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                                width: calc(50% - 5px);">
+                        <span class="icon-compass fs-6 pe-2"> Room</span>
+                        <span class="fs-6"
+                              style="color: #005555;"
+                              th:text="${realEstate.room}"></span>
+                    </div>
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                                width: calc(50% - 5px);">
+                        <span class="icon-compass fs-6 pe-2"> Bed Room</span>
+                        <span class="fs-6"
+                              style="color: #005555;"
+                              th:text="${realEstate.bedRoom}"></span>
+                    </div>
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                                width: calc(50% - 5px);">
+                        <span class="icon-compass fs-6 pe-2"> Bath Room</span>
+                        <span class="fs-6"
+                              style="color: #005555;"
+                              th:text="${realEstate.bathRoom}"></span>
+                    </div>
+                    <div class="d-flex flex-nowrap flex-row py-3 align-items-baseline"
+                         style="border-bottom: 1px solid #F2F2F2;
+                                width: calc(50% - 5px);">
+                        <span class="icon-compass fs-6 pe-2">Juridical</span>
+                        <span class="fs-6"
+                              style="color: #005555;">
+                            Certificate
+                        </span>
+                    </div>
+                </div>
+
+
                 <div class="d-block agent-box p-5">
                     <div class="d-flex align-items-center flex-wrap">
                         <div class="img mb-4">
                             <img src="/static/images/person_2-min.jpg"
+                                 th:src="${'../static/images/avatars/'+realEstate.user.avatar}"
                                  alt="Image"
                                  class="img-fluid"/>
                         </div>
                         <div class="text">
                             <h3 class="mb-0" th:text="${realEstate.user.name}">Owner</h3>
-                            <div class="meta mb-3" th:each="role : ${realEstate.user.roles}"
-                                 th:text="${role.role} + ' '">
-                                Role
+                            <div class="meta mb-3">
+                                Owner
                             </div>
                         </div>
                     </div>
                     <div class="text">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Ratione laborum quo quos omnis sed magnam id ducimus saepe
+                        <p th:text="${realEstate.user.description}">
+                            User description
                         </p>
-                        <div class="d-flex align-items-center flex-wrap">
-                            <button type="button" class="btn btn-primary py-2 px-3 me-3 mb-3" th:text="${realEstate.user.phoneNumber}">phone</button>
-                            <button type="button" class="btn btn-primary py-2 px-3 me-3 mb-3" th:text="${realEstate.user.email}">email</button>
+                        <div class="d-flex flex-wrap py-3 mb-3" style="border-top: 1px solid #F2F2F2">
+                            <div class="d-flex flex-wrap flex-row py-3 align-items-baseline w-100"
+                                 style="border-bottom: 1px solid #F2F2F2;">
+                                <span class="icon-phone2 fs-6 pe-2"> Phone: </span>
+                                <span class="fs-6" style="color: #005555;">
+                                    <a class="link-underline-success" th:href="'tell://'+${realEstate.user.phoneNumber}" th:text="${realEstate.user.phoneNumber}">PhoneNumber</a>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-wrap flex-row py-3 align-items-baseline w-100"
+                                 style="border-bottom: 1px solid #F2F2F2;">
+                                <span class="icon-contact_mail fs-6 pe-2"> Email: </span>
+                                <span class="fs-6" style="color: #005555;">
+                                    <a class="link-underline-success" th:href="'mailto:'+${realEstate.user.email}" th:text="${realEstate.user.email}">Email</a>
+                                </span>
+                            </div>
                         </div>
                         <ul class="list-unstyled social dark-hover d-flex">
                             <li class="me-1">

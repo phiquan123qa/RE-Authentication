@@ -39,64 +39,55 @@ function updatePage(data) {
             `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <div class="property-item mb-30">
               <a href="/property/${item.id}" class="img">
-                <img loading="lazy" src="/static/images/img_1.jpg" alt="Image" class="img-fluid" />
+                <img loading="lazy" src="/static/images/img_1.jpg" alt="Image" class="img-fluid"/>
               </a>
-
               <div class="property-content">
-                <div class="price mb-2"><span>$${item.price}</span></div>
+                <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
                 <div>
-                  <span class="d-block mb-2 text-black-50"
-                    >  ${item.address} , ${item.wardRe}, ${item.districtRe}, ${item.cityRe}</span
-                  >
+                  <span class="d-block mb-2 text-black-50">${item.wardRe}, ${item.districtRe}, ${item.cityRe}</span>
                   <span class="city d-block mb-3">${item.title}</span>
 
-                  <div class="specs d-flex mb-4">
-                    <span class="d-block d-flex align-items-center me-3">
+                  <div class="specs d-flex flex-wrap mb-4">
+                    <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-bed me-2"></span>
-                      <span class="caption">2 beds</span>
+                      <span class="caption">${item.room != null ? item.room : 1} bed</span>
                     </span>
-                    <span class="d-block d-flex align-items-center">
+                    <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-bath me-2"></span>
-                      <span class="caption">2 baths</span>
+                      <span class="caption">${item.bedRoom != null ? item.bedRoom : 1} bath</span>
+                    </span>
+                    <span class="d-block d-flex align-items-center me-3 mb-2">
+                      <span class="icon-home me-2"></span>
+                      <span class="caption" >${item.landArea != null ? item.landArea : '?'} m&sup2</span>
                     </span>
                   </div>
-
                   <a
                     href="/property/${item.id}"
-                    class="btn btn-primary py-2 px-3"
-                    >See details</a
-                  >
+                    class="btn btn-primary py-2 px-3">
+                    See details
+                    </a>
                 </div>
               </div>
             </div>
           </div>`
         );
+        console.log(item.title);
     });
 }
 
 function createPagination(totalPages, currentPage) {
-    const range = 2; // Number of pages to show before and after the current page
-    $('#pagination').empty(); // Clear the existing pagination
-
-    // Always add the first page
+    const range = 2;
+    $('#pagination').empty();
     $('#pagination').append(createPageItem(0, currentPage));
-
-    // Add ellipsis if there are pages between the first page and the current range
     if (currentPage - range > 1) {
         $('#pagination').append('<a class="pagination-ellipsis">&hellip;</a>');
     }
-
-    // Display pages around the current page
     for (let i = Math.max(1, currentPage - range); i < Math.min(totalPages - 1, currentPage + range + 1); i++) {
         $('#pagination').append(createPageItem(i, currentPage));
     }
-
-    // Add ellipsis if there are pages between the current range and the last page
     if (currentPage + range < totalPages - 2) {
         $('#pagination').append('<a class="pagination-ellipsis">&hellip;</a>');
     }
-
-    // Always add the last page
     if (totalPages > 1) {
         $('#pagination').append(createPageItem(totalPages - 1, currentPage));
     }
@@ -108,7 +99,6 @@ function createPageItem(pageNumber, currentPage) {
 }
 
 function updatePaginationText(currentPage, totalPages) {
-    // Update the pagination text
     $('.pagination-text').text(`Pagination (${currentPage+1} of ${totalPages})`);
 }
 
@@ -148,12 +138,10 @@ function showSkeletonLoader() {
     $('#content').html(loaderHTML);
 }
 
-// Initial fetch
-fetchPage(0);
+
 $(document).ready(function() {
-    // Handle form submission
     $('form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
-        fetchPage(0); // Call fetchPage with the first page number
+        e.preventDefault();
+        fetchPage(0);
     });
 });
