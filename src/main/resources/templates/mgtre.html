@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head th:replace="fragment/header_css_title :: header">
+    <title>Services</title>
+</head>
+<body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav th:replace="fragment/navbar :: navbar"></nav>
+<div class="hero page-inner overlay"
+     style="background-image: url('/static/images/hero_bg_1.jpg')">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">Manager Real Estate</h1>
+
+                <nav aria-label="breadcrumb"
+                     data-aos="fade-up"
+                     data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50"
+                            aria-current="page">
+                            Manager Real Estate
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-3 d-flex justify-content-end">
+                <button class="btn btn-primary">Add Real Estate</button>
+            </div>
+            <div class="col-md-12 mb-3 d-flex">
+                <div class="col-md-3 mb-3" style="border-top: 1px solid #F2F2F2;">
+                    <span class="d-flex flex-wrap me-3 my-3 py-3 align-item-baseline" style="border-bottom: 1px solid #F2F2F2;">
+                        <span class="icon-list fs-6 pe-2"></span>
+                        <a class="links me-3 fs-5" href="#">List Of Real Estate</a>
+                    </span>
+                    <span class="d-flex flex-wrap me-3 my-3 py-3 align-item-baseline" style="border-bottom: 1px solid #F2F2F2;">
+                        <span class="icon-newspaper-o fs-6 pe-2"></span>
+                        <a class="links me-3 fs-5" href="#">Add New Real Estate</a>
+                    </span>
+                    <span class="d-flex flex-wrap me-3 my-3 py-3 align-item-baseline" style="border-bottom: 1px solid #F2F2F2;">
+                        <span class="icon-history fs-6 pe-2"></span>
+                        <a class="links me-3 fs-5" href="#">History Transactions</a>
+                    </span>
+                </div>
+                <div class="col-md-9 mb-3 px-3 py-3" style="border-top: 1px solid #F2F2F2;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragment/footer :: footer"></div>
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/tiny-slider.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/navbar.js"></script>
+<script src="/static/js/counter.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+<script src="/static/js/upload_image.js"></script>
+<script src="/static/js/btnUpdateProfile.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/location.js"></script>
+</body>
+</html>

@@ -137,11 +137,21 @@ public class HomeController {
         model.addAttribute("requestURI", request.getRequestURI());
         return "user_info";
     }
-//    @PostMapping("/user_info")
-//    public String user_info_update(Model model, HttpServletRequest request){
-//
-//        return "redirect:/user_info";
-//    }
+
+    @GetMapping("/mgtre")
+    public String mgtre(Model model, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user;
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            user = userService.findUserByEmail(username).orElseThrow();
+            model.addAttribute("user", user);
+            model.addAttribute("username", username);
+        }
+        model.addAttribute("requestURI", request.getRequestURI());
+        return "mgtre";
+    }
+
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){
         model.addAttribute("requestURI", request.getRequestURI());
