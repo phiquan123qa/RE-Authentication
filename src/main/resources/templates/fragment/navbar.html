@@ -25,12 +25,13 @@
                     <li th:classappend="${requestURI == '/login' || requestURI == '/register'} ? 'active' : ''"
                         sec:authorize="!isAuthenticated()"><a href="/login">Log in</a>
                     </li>
-                    <li class="has-children" sec:authorize="isAuthenticated()" th:classappend="${requestURI == '/user_info'} ? 'active' : ''">
+                    <li class="has-children" sec:authorize="isAuthenticated()"
+                        th:classappend="${requestURI == '/user_info' || requestURI == '/mgtre/**' } ? 'active' : ''">
                         <!--/*@thymesVar id="username" type="username"*/-->
                         <a th:text="${username}">Username</a>
                         <ul class="dropdown">
                             <li><a href="/user_info">User Information</a></li>
-                            <li><a href="/mgtre">Manager Real Estate</a></li>
+                            <li><a href="/mgtre/add">Manager Real Estate</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>

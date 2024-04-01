@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head th:replace="fragment/header_css_title :: header">
+    <title>Services</title>
+</head>
+<body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+<nav th:replace="fragment/navbar :: navbar"></nav>
+<!--image overlay-->
+<div class="hero page-inner overlay"
+     style="background-image: url('/static/images/hero_bg_1.jpg')">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">Manager Real Estate</h1>
+
+                <nav aria-label="breadcrumb"
+                     data-aos="fade-up"
+                     data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Manager Real Estate</a></li>
+                        <li class="breadcrumb-item active text-white-50"
+                            aria-current="page">
+                            Add New Real Estate
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Slide bar left menu-->
+<div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-secondary btn-no-hover">
+                <i class="icon-menu"></i>
+            </button>
+        </div>
+        <div class="p-4">
+            <ul class="list-unstyled components mb-5">
+                <li th:classappend="${requestURI == '/mgtre/add' ? 'active' : ''}">
+                    <a href="/mgtre/add"><span class="icon-newspaper-o mr-3"></span> Post New Real Estate</a>
+                </li>
+                <li th:classappend="${requestURI == '/mgtre/list' ? 'active' : ''}">
+                    <a href="/mgtre/list"><span class="icon-list mr-3"></span> List Of Real Estate</a>
+                </li>
+                <li th:classappend="${requestURI == '/mgtre/his' ? 'active' : ''}">
+                    <a href="/mgtre/his"><span class="icon-history mr-3"></span> History Transactions</a>
+                </li>
+                <li th:classappend="${requestURI == '/mgtre/cont' ? 'active' : ''}">
+                    <a href="/mgtre/cont"><span class="icon-contacts mr-3"></span> Contacts</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<!--    Start form input-->
+    <form id="content" class="p-4 p-md-5 pt-5" method="get">
+        <div class="col-12"
+             style="background-color: rgb(255, 255, 255);box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
+            <div class="row px-4 pt-4" role="group">
+                <h4 class="mb-2">Basic Information</h4>
+<!--                Select the type of Real Estate-->
+                <div class="d-flex justify-content-center">
+                    <input type="radio" class="btn-check "
+                           name="type" id="type1"
+                           autocomplete="off" value="sell" checked>
+                    <label class="btn btn-outline-secondary rounded-end w-50" for="type1"
+                           style="">Sell</label>
+                    <input type="radio" class="btn-check"
+                           name="type" id="type2"
+                           autocomplete="off" value="rent">
+                    <label class="btn btn-outline-secondary rounded-start w-50" for="type2"
+                           style="">Rent</label>
+                </div>
+            </div>
+            <div class="row g-2 p-4">
+<!--                Title of Real Estate-->
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="titleID" name="title"
+                               placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6;">
+                        <label for="titleID">Title of RE</label>
+                    </div>
+                </div>
+<!--                Select city-->
+                <div class="col-md-12">
+                    <label class="form-label fs-5 fw-medium text-black">Location</label>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="form-floating">
+                        <select class="form-select" id="cityID" name="city"
+                                aria-label="Floating label select city">
+                            <option value="">Select Your City</option>
+                        </select>
+                        <label for="cityID">City</label>
+                    </div>
+                </div>
+<!--                Select district-->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="form-floating">
+                        <select class="form-select" id="districtID" name="district"
+                                aria-label="Floating label select example">
+                            <option value="">Select Your District</option>
+                        </select>
+                        <label for="districtID">District</label>
+                    </div>
+                </div>
+<!--                Select ward-->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="form-floating">
+                        <select class="form-select" id="wardID" name="ward"
+                                aria-label="Floating label select example">
+                            <option value="">Select Your Ward</option>
+                        </select>
+                        <label for="wardID">Ward</label>
+                    </div>
+                </div>
+<!--                Address of Real Estate-->
+                <div class="col-lg-12 col-md-6 col-sm-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control"
+                               id="addressID" name="address"
+                               placeholder="Your Address"
+                               style="border: 1px solid #dee2e6;">
+                        <label for="addressID">Address</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-3 pt-4"
+             style="background-color: rgb(255, 255, 255);box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
+            <div class="row px-4" role="group">
+                <h4 class="mb-2">Real Estate Details</h4>
+            </div>
+            <div class="row g-2 p-4">
+<!--                Land Area of Real Estate-->
+                <div class="col-md-12">
+                    <div class="form-floating input-group">
+                        <input type="number" class="form-control" id="landAreaID" name="landArea"
+                               placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6;">
+                        <span class="input-group-text">m&sup2</span>
+                        <label for="landAreaID">Land Area of RE</label>
+                    </div>
+                </div>
+<!--                Price of Real Estate-->
+                <div class="col-md-12">
+                    <div class="form-floating input-group">
+                        <input type="number" class="form-control" id="priceID" name="price"
+                               placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6">
+                        <span class="input-group-text">$</span>
+                        <label for="priceID">Price of RE</label>
+                    </div>
+                </div>
+<!--                Legal Document-->
+                <div class="col-md-6 col-sm-12">
+                    <div class="">
+                        <label class="form-label fs-5 fw-medium text-black">Legal Document</label>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="legalDocument"
+                                   id="legalDocumentID1" value="Certificate Of Land Use Rights">
+                            <label for="legalDocumentID1" class="p-2 border border-1 border-opacity-75 rounded-2">
+                                Certificate Of Land Use Rights</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="legalDocument"
+                                   id="legalDocumentID2" value="House Ownership Certificate">
+                            <label for="legalDocumentID2" class="p-2 border border-1 border-opacity-75 rounded-2">
+                                House Ownership Certificate</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="legalDocument"
+                                   id="legalDocumentID3" value="Transfer Deeds">
+                            <label for="legalDocumentID3" class="p-2 border border-1 border-opacity-75 rounded-2">
+                                Transfer Deeds</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="legalDocument"
+                                   id="legalDocumentID4" value="Agreement Contract">
+                            <label for="legalDocumentID4" class="p-2 border border-1 border-opacity-75 rounded-2">
+                                Agreement Contract</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="legalDocument"
+                                   id="legalDocumentID5" value="Land Awaiting Certificate">
+                            <label for="legalDocumentID5" class="p-2 border border-1 border-opacity-75 rounded-2">Land
+                                Awaiting Certificate</label>
+                        </div>
+                    </div>
+                </div>
+<!--                Interior Decoration-->
+                <div class="col-md-6 col-sm-12">
+                    <div class="">
+                        <label class="form-label fs-5 fw-medium text-black">Interior Decoration</label>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="interior"
+                                   id="interiorID1" value="Fully Furniture">
+                            <label for="interiorID1" class="p-2 border border-1 border-opacity-75 rounded-2">Fully
+                                Furniture</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="interior"
+                                   id="interiorID2" value="Basic Furniture">
+                            <label for="interiorID2" class="p-2 border border-1 border-opacity-75 rounded-2">Basic
+                                Furniture</label>
+                        </div>
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check btn-checker" name="interior"
+                                   id="interiorID3" value="No Furniture">
+                            <label for="interiorID3" class="p-2 border border-1 border-opacity-75 rounded-2">No
+                                Furniture</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label fs-6 fw-medium text-black">Images Description</label>
+                    <div class="input-group mb-3">
+                        <div class="file-drop-area">
+                            <span class="fake-btn">Choose files</span>
+                            <span class="file-msg">or drop files here</span>
+                            <input class="file-input" type="file" multiple
+                                   accept=".png, .jpg, .jpeg" name="imagesList"/>
+                            <div class="item-delete"></div>
+                        </div>
+                    </div>
+                </div>
+<!--                Description of Real Estate-->
+                <div class="col-md-12">
+                    <div class="form-floating">
+							<textarea class="form-control" placeholder="Leave a comment here"
+                                      name="description" id="descriptionID"
+                                      style="border: 1px solid #dee2e6;"
+                                      rows="4"></textarea>
+                        <label for="descriptionID">Description</label>
+                    </div>
+                </div>
+<!--                Number of rooms, bedrooms, bathroom-->
+                <div class="col-md-8 d-flex align-items-center">
+                    <label class="form-label fs-6 fw-medium text-black" for="room">Number Of Rooms</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" name="room" id="room" data-numspin
+                           numspin-input-scheme="flat"
+                           step="1" min="0" max="100" value="0">
+                </div>
+                <div class="col-md-8 d-flex align-items-center">
+                    <label class="form-label fs-6 fw-medium text-black" for="bedRoom">Number Of Bedrooms</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" name="bedRoom" id="bedRoom" data-numspin
+                           numspin-input-scheme="flat"
+                           step="1" min="0" max="100" value="0">
+                </div>
+                <div class="col-md-8 d-flex align-items-center">
+                    <label class="form-label fs-6 fw-medium text-black" for="bathRoom">Number Of Bathrooms</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" name="bathRoom" id="bathRoom" data-numspin
+                           numspin-input-scheme="flat"
+                           step="1" min="0" max="100" value="0">
+                </div>
+                <div class="col-md-12">
+                    <button type="button" id="btnSubmit" class="btn btn-secondary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/tiny-slider.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/navbar.js"></script>
+<script src="/static/js/counter.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/location.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/slide-bar.js"></script>
+<script src="/static/js/input-numspin.min.js"></script>
+<script src="/static/js/upload_image.js"></script>
+<script src="/static/js/postCreateRE.js"></script>
+</body>
+</html>

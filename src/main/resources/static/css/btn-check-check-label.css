@@ -1,0 +1,10 @@
+.btn-checker:checked + label {
+    background-color: #005555;
+    color: #fff;
+}
+.btn-checker:checked + label::after {
+    font-family: 'icomoon', serif;
+    content: '\f00c';
+    padding-left: 8px;
+    color: #fff;
+}

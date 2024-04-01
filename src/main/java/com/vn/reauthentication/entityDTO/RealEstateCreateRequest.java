@@ -1,17 +1,14 @@
 package com.vn.reauthentication.entityDTO;
 
-import com.vn.reauthentication.entity.User;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class RealEstateRequest {
+public class RealEstateCreateRequest {
     private String title;
     private Double price;
     private Double landArea;
-    private String mainImage;
     private String cityRe;
     private String districtRe;
     private String wardRe;
@@ -20,12 +17,9 @@ public class RealEstateRequest {
     private Integer bedRoom;
     private Integer bathRoom;
     private String description;
-    private LocalDate dateStart;
-    private LocalDate dateEnd;
     private String type;
     private String legalDocument;
     private String interior;
-    private String statusRe;
-    private User user;
     private List<String> imagesList;
+
 }

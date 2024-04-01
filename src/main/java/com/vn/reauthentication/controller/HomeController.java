@@ -4,6 +4,7 @@ import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import com.vn.reauthentication.service.interfaces.IUserService;
+import com.vn.reauthentication.utility.SetAuthToHeader;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,22 +25,14 @@ public class HomeController {
     private final IUserService userService;
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "home";
     }
     @GetMapping("/properties")
     public String properties(Model model,
                              HttpServletRequest request) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "properties";
     }
@@ -52,11 +45,7 @@ public class HomeController {
                                  Model model,
                                  HttpServletRequest request,
                                  RedirectAttributes redirectAttributes) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         redirectAttributes.addFlashAttribute("searchTitle", title);
         redirectAttributes.addFlashAttribute("searchType", type);
         redirectAttributes.addFlashAttribute("searchCity", city);
@@ -68,11 +57,7 @@ public class HomeController {
     public String properties_single(Model model,
                                     HttpServletRequest request,
                                     @PathVariable Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow();
         model.addAttribute("realEstate", realEstate);
@@ -85,41 +70,25 @@ public class HomeController {
     }
     @GetMapping("/services")
     public String services(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "services";
     }
     @GetMapping("/wiki")
     public String wiki(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "wiki";
     }
     @GetMapping("/about")
     public String about(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "about";
     }
     @GetMapping("/property-single")
     public String property_single(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName(); // Get the username from the authentication object
-            model.addAttribute("username", username);
-        }
+        SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "property-single";
     }
@@ -138,19 +107,12 @@ public class HomeController {
         return "user_info";
     }
 
-    @GetMapping("/mgtre")
-    public String mgtre(Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user;
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            user = userService.findUserByEmail(username).orElseThrow();
-            model.addAttribute("user", user);
-            model.addAttribute("username", username);
-        }
-        model.addAttribute("requestURI", request.getRequestURI());
-        return "mgtre";
-    }
+//    @GetMapping("/mgtre")
+//    public String mgtre(Model model, HttpServletRequest request){
+//        SetAuthToHeader.setUserDetailsToModel(model);
+//        model.addAttribute("requestURI", request.getRequestURI());
+//        return "mgtre";
+//    }
 
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){

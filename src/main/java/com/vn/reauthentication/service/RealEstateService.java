@@ -1,8 +1,10 @@
 package com.vn.reauthentication.service;
 
 import com.vn.reauthentication.entity.RealEstate;
+import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
 import com.vn.reauthentication.repository.RealEstateRepository;
+import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RealEstateService implements IRealEstateService {
     private final RealEstateRepository realEstateRepository;
+    private final UserRepository userRepository;
     @Override
     public List<RealEstate> getAllRealEstates() {
         return realEstateRepository.findAll();
@@ -29,7 +35,12 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public RealEstate createRealEstate(RealEstateRequest realEstateRequest) {
-        var realEstate = new RealEstate(realEstateRequest.getTitle(),
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName(); // Assuming the username is the email
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        var realEstate = new RealEstate(
+                realEstateRequest.getTitle(),
                 realEstateRequest.getPrice(),
                 realEstateRequest.getLandArea(),
                 realEstateRequest.getMainImage(),
@@ -41,11 +52,13 @@ public class RealEstateService implements IRealEstateService {
                 realEstateRequest.getBedRoom(),
                 realEstateRequest.getBathRoom(),
                 realEstateRequest.getDescription(),
-                realEstateRequest.getDateStart(),
-                realEstateRequest.getDateEnd(),
+                LocalDate.now(),
+                LocalDate.ofEpochDay(LocalDate.now().plusDays(10).toEpochDay()),
                 realEstateRequest.getType(),
-                realEstateRequest.getStatusRe(),
-                realEstateRequest.getUser(),
+                realEstateRequest.getLegalDocument(),
+                realEstateRequest.getInterior(),
+                "INACTIVE",
+                user,
                 realEstateRequest.getImagesList());
         return realEstateRepository.save(realEstate);
     }

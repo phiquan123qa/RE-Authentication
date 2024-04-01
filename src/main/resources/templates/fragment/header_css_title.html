@@ -40,6 +40,12 @@
                     href="/static/css/loginStyle.css">
     <link th:if="${requestURI != null and requestURI == '/user_info'}" rel="stylesheet"
           href="/static/css/upload_image.css">
+    <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
+          href="/static/css/btn-check-check-label.css">
+    <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
+          href="/static/css/input-numspin.min.css">
+    <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
+          href="/static/css/upload_image.css">
 
     <title th:if="${requestURI != null and requestURI == ''}">QMHouse, The best real estate trading platform for richness</title>
     <title th:if="${requestURI != null and requestURI == '/properties'}">QMHouse Properties</title>
@@ -52,5 +58,9 @@
     <title th:if="${requestURI != null and requestURI == '/reset_password'}">QMHouse Reset Password</title>
     <title th:if="${requestURI != null and requestURI == '/user_info'}">QMHouse User Information</title>
     <title th:if="${requestURI != null and requestURI == '/mgtre'}">QMHouse Manager Real Estate</title>
+    <title th:if="${requestURI != null and requestURI == '/mgtre/add'}">QMHouse Manager Add</title>
+    <title th:if="${requestURI != null and requestURI == '/mgtre/list'}">QMHouse Manager List</title>
+    <title th:if="${requestURI != null and requestURI == '/mgtre/his'}">QMHouse Manager History</title>
+    <title th:if="${requestURI != null and requestURI == '/mgtre/cont'}">QMHouse Manager Contact</title>
     <title th:if="${requestURI != null and requestURI == '/error'}">QMHouse Error</title>
 </head>

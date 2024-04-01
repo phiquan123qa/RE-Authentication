@@ -43,10 +43,12 @@ public class UserController {
         );
         return ResponseEntity.ok(updatedUser);
     }
-    @PostMapping("upload-avatar")
+    @PostMapping("/upload-avatar")
     public ResponseEntity<?> uploadAvatar(@RequestParam("avatar") MultipartFile file) {
         String avatarUrl = ImageUtil.saveImage(file);
         return ResponseEntity.ok(Collections.singletonMap("avatarUrl", avatarUrl));
     }
+
+
 }
 

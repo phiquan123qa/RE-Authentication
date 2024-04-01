@@ -33,6 +33,8 @@ public class RealEstate {
     private LocalDate dateStart;
     private LocalDate dateEnd;
     private String type;
+    private String legalDocument;
+    private String interior;
     private String statusRe;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -52,6 +54,7 @@ public class RealEstate {
                       String description,
                       LocalDate dateStart,
                       LocalDate dateEnd, String type,
+                      String legalDocument, String interior,
                       String statusRe, User user,
                       List<String> imagesList) {
         this.title = title;
@@ -69,6 +72,8 @@ public class RealEstate {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.type = type;
+        this.legalDocument = legalDocument;
+        this.interior = interior;
         this.statusRe = statusRe;
         this.user = user;
         this.imagesList = imagesList;

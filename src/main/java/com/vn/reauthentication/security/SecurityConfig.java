@@ -50,7 +50,6 @@ public class SecurityConfig {
                         "/verify_email",
                         "/forgot_password",
                         "/reset_password",
-                        "/mgtre",
                         "/test")
                 .permitAll()
                 .requestMatchers("/users")
