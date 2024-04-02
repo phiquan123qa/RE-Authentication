@@ -89,7 +89,7 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="titleID" name="title"
                                placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6;">
-                        <label for="titleID">Title of RE</label>
+                        <label class="d-flex flex-nowrap" for="titleID">Title of RE<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Select city-->
@@ -102,7 +102,7 @@
                                 aria-label="Floating label select city">
                             <option value="">Select Your City</option>
                         </select>
-                        <label for="cityID">City</label>
+                        <label class="d-flex flex-nowrap" for="cityID">City<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Select district-->
@@ -112,7 +112,7 @@
                                 aria-label="Floating label select example">
                             <option value="">Select Your District</option>
                         </select>
-                        <label for="districtID">District</label>
+                        <label class="d-flex flex-nowrap" for="districtID">District<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Select ward-->
@@ -122,7 +122,7 @@
                                 aria-label="Floating label select example">
                             <option value="">Select Your Ward</option>
                         </select>
-                        <label for="wardID">Ward</label>
+                        <label class="d-flex flex-nowrap" for="wardID">Ward<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Address of Real Estate-->
@@ -132,7 +132,7 @@
                                id="addressID" name="address"
                                placeholder="Your Address"
                                style="border: 1px solid #dee2e6;">
-                        <label for="addressID">Address</label>
+                        <label class="d-flex flex-nowrap" for="addressID">Address<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                         <input type="number" class="form-control" id="landAreaID" name="landArea"
                                placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6;">
                         <span class="input-group-text">m&sup2</span>
-                        <label for="landAreaID">Land Area of RE</label>
+                        <label class="d-flex flex-nowrap" for="landAreaID">Land Area of RE<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Price of Real Estate-->
@@ -158,13 +158,13 @@
                         <input type="number" class="form-control" id="priceID" name="price"
                                placeholder="Your Title Of Real Estate" style="border: 1px solid #dee2e6">
                         <span class="input-group-text">$</span>
-                        <label for="priceID">Price of RE</label>
+                        <label class="d-flex flex-nowrap" for="priceID">Price of RE<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Legal Document-->
                 <div class="col-md-6 col-sm-12">
                     <div class="">
-                        <label class="form-label fs-5 fw-medium text-black">Legal Document</label>
+                        <label class="form-label fs-5 fw-medium text-black d-flex flex-nowrap">Legal Document<div class="of-star">&nbsp;*</div></label>
                         <div class="mb-2">
                             <input type="radio" class="btn-check btn-checker" name="legalDocument"
                                    id="legalDocumentID1" value="Certificate Of Land Use Rights">
@@ -200,7 +200,7 @@
 <!--                Interior Decoration-->
                 <div class="col-md-6 col-sm-12">
                     <div class="">
-                        <label class="form-label fs-5 fw-medium text-black">Interior Decoration</label>
+                        <label class="form-label fs-5 fw-medium text-black d-flex flex-nowrap">Interior Decoration<div class="of-star">&nbsp;*</div></label>
                         <div class="mb-2">
                             <input type="radio" class="btn-check btn-checker" name="interior"
                                    id="interiorID1" value="Fully Furniture">
@@ -240,7 +240,7 @@
                                       name="description" id="descriptionID"
                                       style="border: 1px solid #dee2e6;"
                                       rows="4"></textarea>
-                        <label for="descriptionID">Description</label>
+                        <label for="descriptionID" class="d-flex flex-nowrap">Description<div class="of-star">&nbsp;*</div></label>
                     </div>
                 </div>
 <!--                Number of rooms, bedrooms, bathroom-->
@@ -270,6 +270,7 @@
                 </div>
                 <div class="col-md-12">
                     <button type="button" id="btnSubmit" class="btn btn-secondary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
                 </div>
             </div>
         </div>

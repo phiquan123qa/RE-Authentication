@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TokenExpirationTime {
-    private static final int EXPIRATION_TIME = 10;
+    private static final int EXPIRATION_TIME = 60;
 
     public static LocalDate getExpirationTime(){
         LocalDateTime currentTime = LocalDateTime.now();

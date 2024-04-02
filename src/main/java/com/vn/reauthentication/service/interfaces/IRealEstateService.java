@@ -14,12 +14,6 @@ public interface IRealEstateService {
 
     RealEstate createRealEstate(RealEstateRequest realEstateRequest);
 
-//    void updateRealEstate(String title, Integer price,Integer landArea,
-//                          String mainImage, String cityRe, String districtRe,
-//                          String wardRe, String address, String description,
-//                          LocalDate dateStart, LocalDate dateEnd,
-//                          String type, String statusRe, Long id);
-
     void updateRealEstate(String title, Double price,
                           Double landArea, String mainImage,
                           String cityRe, String districtRe,
@@ -31,4 +25,6 @@ public interface IRealEstateService {
 
     Optional<RealEstate> findRealEstateById(Long id);
     Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String type, String cityRe, String districtRe, String wardRe, String field);
+
+    Page<RealEstate> findRealEstateWithPaginationAndTitleAndSortByDate(Integer pageNumber, Integer pageSize, String title, String field);
 }

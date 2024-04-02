@@ -115,4 +115,9 @@ public class RealEstateService implements IRealEstateService {
 
         return realEstateRepository.findAll(spec, pageable);
     }
+
+    @Override
+    public Page<RealEstate> findRealEstateWithPaginationAndTitleAndSortByDate(Integer pageNumber, Integer pageSize, String title, String field) {
+        return null;
+    }
 }

@@ -14916,5 +14916,11 @@ a[data-toggle="collapse"] {
     border-color: #005555;
     box-shadow: none;
 }
+.of-star{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: rgb(224, 60, 49);
+}
 
 
