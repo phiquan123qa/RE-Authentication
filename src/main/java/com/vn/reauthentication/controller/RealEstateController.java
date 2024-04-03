@@ -53,4 +53,14 @@ public class RealEstateController {
         RealEstate realEstate = service.createRealEstate(request);
         return ResponseEntity.ok(realEstate);
     }
+
+    @GetMapping("/listRe")
+    public ResponseEntity<?> getListRe(@RequestParam(required = false, defaultValue = "") String title,
+                                       @RequestParam(required = false, defaultValue = "") String city,
+                                       @RequestParam(required = false, defaultValue = "") String district,
+                                       @RequestParam(required = false, defaultValue = "") String ward,
+                                       @RequestParam(required = false, defaultValue = "false" ) Boolean sortByDate
+    ) {
+        return ResponseEntity.ok(service.findRealEstateWithFilters(title, city, district, ward, sortByDate));
+    }
 }

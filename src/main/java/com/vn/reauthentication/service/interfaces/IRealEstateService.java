@@ -26,5 +26,5 @@ public interface IRealEstateService {
     Optional<RealEstate> findRealEstateById(Long id);
     Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String type, String cityRe, String districtRe, String wardRe, String field);
 
-    Page<RealEstate> findRealEstateWithPaginationAndTitleAndSortByDate(Integer pageNumber, Integer pageSize, String title, String field);
+    List<RealEstate> findRealEstateWithFilters(String title, String city, String district, String ward, boolean sortByDate) ;
 }

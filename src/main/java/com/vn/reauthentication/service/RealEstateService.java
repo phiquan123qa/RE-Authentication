@@ -20,8 +20,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -117,7 +120,43 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public Page<RealEstate> findRealEstateWithPaginationAndTitleAndSortByDate(Integer pageNumber, Integer pageSize, String title, String field) {
-        return null;
+    public List<RealEstate> findRealEstateWithFilters(String title, String city, String district, String ward, boolean sortByDate) {
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        User owner = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//        List<RealEstate> listings = owner.getRealEstates();
+//
+//        Stream<RealEstate> filteredStream = listings.stream();
+//
+//        if (title != null && !title.trim().isEmpty()) {
+//            filteredStream = filteredStream
+//                    .filter(listing -> listing.getTitle().toLowerCase().contains(title.toLowerCase()));
+//        }
+//        if (city != null && !city.trim().isEmpty()) {
+//            filteredStream = filteredStream
+//                    .filter(listing -> city.equalsIgnoreCase(listing.getCityRe()));
+//        }
+//        if (district != null && !district.trim().isEmpty()) {
+//            filteredStream = filteredStream
+//                    .filter(listing -> district.equalsIgnoreCase(listing.getDistrictRe()));
+//        }
+//        if (ward != null && !ward.trim().isEmpty()) {
+//            filteredStream = filteredStream
+//                    .filter(listing -> ward.equalsIgnoreCase(listing.getWardRe()));
+//        }
+//
+//        Comparator<RealEstate> dateComparator = Comparator.comparing(RealEstate::getDateStart);
+//
+//        return filteredStream
+//                .sorted(sortByDate ? dateComparator.reversed() : dateComparator)
+//                .collect(Collectors.toList());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User owner = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<RealEstate> realEstates = realEstateRepository.findByOwnerAndFilters(owner, title, city, district, ward);
+        if (sortByDate) {
+            realEstates.sort(Comparator.comparing(RealEstate::getDateStart).reversed());
+        }
+
+        return realEstates;
     }
 }

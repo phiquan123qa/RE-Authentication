@@ -39,7 +39,7 @@ public class RealEstate {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<LikedRealEstate> likedByUsers;
     @ElementCollection
