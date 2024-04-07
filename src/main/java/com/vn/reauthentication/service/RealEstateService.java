@@ -2,7 +2,9 @@ package com.vn.reauthentication.service;
 
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.entityDTO.RealEstateCardResponse;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
+import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
 import com.vn.reauthentication.repository.RealEstateRepository;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,6 +34,7 @@ import java.util.stream.Stream;
 public class RealEstateService implements IRealEstateService {
     private final RealEstateRepository realEstateRepository;
     private final UserRepository userRepository;
+
     @Override
     public List<RealEstate> getAllRealEstates() {
         return realEstateRepository.findAll();
@@ -67,20 +71,24 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public void updateRealEstate(String title, Double price,
-                                 Double landArea, String mainImage,
-                                 String cityRe, String districtRe,
-                                 String wardRe, String address,
-                                 String description,
-                                 LocalDate dateStart,
-                                 LocalDate dateEnd, String type,
-                                 String statusRe, Long id){
-        realEstateRepository.update(title, price, landArea, mainImage, cityRe, districtRe, wardRe, address, description, dateStart, dateEnd, type, statusRe, id);
+    public RealEstate updateRealEstate(RealEstateUpdateRequest request) {
+        RealEstate realEstate = realEstateRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("Real estate not found"));
+        realEstate.setTitle(request.getTitle());
+        realEstate.setPrice(request.getPrice());
+        realEstate.setAddress(request.getAddress());
+        realEstate.setDescription(request.getDescription());
+        realEstate.setType(request.getType());
+        realEstate.setLegalDocument(request.getLegalDocument());
+        realEstate.setInterior(request.getInterior());
+        realEstate.setRoom(request.getRoom());
+        realEstate.setBedRoom(request.getBedRoom());
+        realEstate.setBathRoom(request.getBathRoom());
+        return realEstateRepository.save(realEstate);
     }
 
     @Override
     public Optional<RealEstate> findRealEstateById(Long id) {
-        return Optional.ofNullable(realEstateRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Real estate not found")));
+        return Optional.ofNullable(realEstateRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Real estate not found")));
     }
 
     @Override
@@ -112,51 +120,78 @@ public class RealEstateService implements IRealEstateService {
             return cb.and(predicates.toArray(new Predicate[0]));
         };
         Pageable pageable;
-        if(field != null && !field.isEmpty()) {
+        if (field != null && !field.isEmpty()) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(field));
-        }else pageable = PageRequest.of(pageNumber, pageSize);
+        } else pageable = PageRequest.of(pageNumber, pageSize);
 
         return realEstateRepository.findAll(spec, pageable);
     }
 
     @Override
-    public List<RealEstate> findRealEstateWithFilters(String title, String city, String district, String ward, boolean sortByDate) {
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        User owner = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//        List<RealEstate> listings = owner.getRealEstates();
-//
-//        Stream<RealEstate> filteredStream = listings.stream();
-//
-//        if (title != null && !title.trim().isEmpty()) {
-//            filteredStream = filteredStream
-//                    .filter(listing -> listing.getTitle().toLowerCase().contains(title.toLowerCase()));
-//        }
-//        if (city != null && !city.trim().isEmpty()) {
-//            filteredStream = filteredStream
-//                    .filter(listing -> city.equalsIgnoreCase(listing.getCityRe()));
-//        }
-//        if (district != null && !district.trim().isEmpty()) {
-//            filteredStream = filteredStream
-//                    .filter(listing -> district.equalsIgnoreCase(listing.getDistrictRe()));
-//        }
-//        if (ward != null && !ward.trim().isEmpty()) {
-//            filteredStream = filteredStream
-//                    .filter(listing -> ward.equalsIgnoreCase(listing.getWardRe()));
-//        }
-//
-//        Comparator<RealEstate> dateComparator = Comparator.comparing(RealEstate::getDateStart);
-//
-//        return filteredStream
-//                .sorted(sortByDate ? dateComparator.reversed() : dateComparator)
-//                .collect(Collectors.toList());
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User owner = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        List<RealEstate> realEstates = realEstateRepository.findByOwnerAndFilters(owner, title, city, district, ward);
-        if (sortByDate) {
-            realEstates.sort(Comparator.comparing(RealEstate::getDateStart).reversed());
+    public Page<RealEstateCardResponse> findRealEstateWithFiltersOfUser(Integer pageNumber,
+                                                                        Integer pageSize,
+                                                                        String title,
+                                                                        String type,
+                                                                        String city,
+                                                                        String district,
+                                                                        String ward,
+                                                                        String sort,
+                                                                        User user) {
+        Specification<RealEstate> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.equal(root.get("user"), user));
+            if (title != null && !title.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+            }
+            if (type != null && !type.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("type")), type.toLowerCase()));
+            }
+            if (city != null && !city.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("cityRe")), city.toLowerCase()));
+            }
+            if (district != null && !district.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("districtRe")), district.toLowerCase()));
+            }
+            if (ward != null && !ward.isEmpty()) {
+                predicates.add(cb.equal(cb.lower(root.get("wardRe")), ward.toLowerCase()));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+        Pageable pageable;
+        if (sort != null && sort.equals("dateDesc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("dateStart").descending());
+        } else if (sort != null && sort.equals("dateAsc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("dateStart").ascending());
+        } else if (sort != null && sort.equals("priceDesc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").descending());
+        } else if (sort != null && sort.equals("priceAsc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending());
+        } else{
+            pageable = PageRequest.of(pageNumber, pageSize);
         }
 
-        return realEstates;
+
+        Page<RealEstate> realEstatePage = realEstateRepository.findAll(spec, pageable);
+        return realEstatePage.map(realEstate -> new RealEstateCardResponse(
+                realEstate.getId(),
+                realEstate.getTitle(),
+                realEstate.getPrice(),
+                realEstate.getLandArea(),
+                realEstate.getMainImage(),
+                realEstate.getCityRe(),
+                realEstate.getDistrictRe(),
+                realEstate.getWardRe(),
+                realEstate.getAddress(),
+                realEstate.getRoom(),
+                realEstate.getBedRoom(),
+                realEstate.getBathRoom(),
+                realEstate.getDescription(),
+                realEstate.getLegalDocument(),
+                realEstate.getInterior(),
+                realEstate.getDateStart(),
+                realEstate.getDateEnd(),
+                realEstate.getType()
+        ));
     }
+
 }

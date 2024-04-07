@@ -1,18 +1,26 @@
 package com.vn.reauthentication.service;
 
+import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.Role;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RegisterRequest;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IFileStorageService;
 import com.vn.reauthentication.service.interfaces.IUserService;
+import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +92,7 @@ public class UserService implements IUserService {
         user.setWard(ward);
         return userRepository.save(user);
     }
+
 
 
 }

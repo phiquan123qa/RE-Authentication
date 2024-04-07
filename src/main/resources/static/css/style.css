@@ -13774,12 +13774,12 @@ a {
     text-decoration: none;
 }
 
-.form-control {
-    font-size: 16px;
-    height: 52px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
+/*.form-control {*/
+/*    font-size: 16px;*/
+/*    height: 52px;*/
+/*    padding-left: 15px;*/
+/*    padding-right: 15px;*/
+/*}*/
 
 .form-control:hover, .form-control:active, .form-control:focus {
     outline: none;
@@ -13997,7 +13997,7 @@ textarea {
     padding-bottom: 15px;
     padding-left: 30px;
     padding-right: 30px;
-    border-width: 2px;
+    border-width: 1px;
     border-color: transparent;
     border: none !important;
     top: 0;
@@ -14013,9 +14013,9 @@ textarea {
 }
 
 .btn:hover {
-    top: -2px;
-    -webkit-box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    top: -1px;
+    -webkit-box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
 }
 
 .hero-slider-wrap .tns-controls {
@@ -14922,5 +14922,11 @@ a[data-toggle="collapse"] {
     font-weight: 500;
     color: rgb(224, 60, 49);
 }
+.icon-rotate:before{
+    transition: opacity 1.5s ease;
+    opacity: 0.7;
+}
+
+
 
 

@@ -45,7 +45,7 @@ public class UserController {
     }
     @PostMapping("/upload-avatar")
     public ResponseEntity<?> uploadAvatar(@RequestParam("avatar") MultipartFile file) {
-        String avatarUrl = ImageUtil.saveImage(file);
+        String avatarUrl = ImageUtil.saveImage(file, "./src/main/resources/static/images/avatars");
         return ResponseEntity.ok(Collections.singletonMap("avatarUrl", avatarUrl));
     }
 

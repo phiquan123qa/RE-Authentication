@@ -24,6 +24,12 @@ public class UserManager {
     @GetMapping("/list")
     public String list(Model model, HttpServletRequest request){
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("title", request.getParameter("title"));
+        model.addAttribute("city", request.getParameter("city"));
+        model.addAttribute("district", request.getParameter("district"));
+        model.addAttribute("ward", request.getParameter("ward"));
+        model.addAttribute("type", request.getParameter("type"));
+        model.addAttribute("sort", request.getParameter("sort"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "mgtre/list";
     }

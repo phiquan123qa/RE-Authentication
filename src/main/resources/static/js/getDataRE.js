@@ -1,10 +1,21 @@
-
+const currentUrl = window.location.href;
+const url = new URL(currentUrl);
+const searchParams = new URLSearchParams(url.search);
+const titleValue = searchParams.get('title');
+const typeValue = searchParams.get('type');
+const cityValue = searchParams.get('city');
+const districtValue = searchParams.get('district');
+const wardValue = searchParams.get('ward');
+const sortValue = searchParams.get('sort');
+function allParamsAreEmpty() {
+    return !titleValue && !typeValue && !cityValue && !districtValue && !wardValue && !sortValue;
+}
 function fetchPage(pageNumber) {
-    var titleValue = $('#titleID').val();
-    var typeValue = $('#typeID').find(":selected").val();
-    var cityValue = $('#cityID').find(":selected").val();
-    var districtValue = $('#districtID').find(":selected").val();
-    var wardValue = $('#wardID').find(":selected").val();
+    // var titleValue = $('#titleID').val();
+    // var typeValue = $('#typeID').find(":selected").val();
+    // var cityValue = $('#cityID').find(":selected").val();
+    // var districtValue = $('#districtID').find(":selected").val();
+    // var wardValue = $('#wardID').find(":selected").val();
     // var fieldValue = $('#fieldID').val();
     showSkeletonLoader();
     $.ajax({
@@ -138,10 +149,4 @@ function showSkeletonLoader() {
     $('#content').html(loaderHTML);
 }
 
-
-$(document).ready(function() {
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        fetchPage(0);
-    });
-});
+fetchPage(0);

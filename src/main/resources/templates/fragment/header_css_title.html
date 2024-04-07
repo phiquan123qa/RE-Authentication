@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/css/style.css"/>
     <link rel="stylesheet" href="/static/css/saber-toast.css"/>
     <link rel="stylesheet" href="/static/css/test.css"/>
+    <link rel="stylesheet" href="/static/css/nouislider.min.css"/>
 
     <!--/*@thymesVar id="requestURI" type="url"*/-->
     <link th:if="${requestURI != null and (requestURI == '/login'
@@ -40,9 +41,11 @@
                     href="/static/css/loginStyle.css">
     <link th:if="${requestURI != null and requestURI == '/user_info'}" rel="stylesheet"
           href="/static/css/upload_image.css">
-    <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
+    <link th:if="${requestURI != null and (requestURI == '/mgtre/add'
+                    or requestURI == '/mgtre/list')}" rel="stylesheet"
           href="/static/css/btn-check-check-label.css">
-    <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
+    <link th:if="${requestURI != null and (requestURI == '/mgtre/add'
+                    or requestURI == '/mgtre/list')}" rel="stylesheet"
           href="/static/css/input-numspin.min.css">
     <link th:if="${requestURI != null and requestURI == '/mgtre/add'}" rel="stylesheet"
           href="/static/css/upload_image.css">
@@ -63,4 +66,5 @@
     <title th:if="${requestURI != null and requestURI == '/mgtre/his'}">QMHouse Manager History</title>
     <title th:if="${requestURI != null and requestURI == '/mgtre/cont'}">QMHouse Manager Contact</title>
     <title th:if="${requestURI != null and requestURI == '/error'}">QMHouse Error</title>
+
 </head>

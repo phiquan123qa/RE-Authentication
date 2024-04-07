@@ -1,8 +1,10 @@
 package com.vn.reauthentication.service.interfaces;
 
+import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RegisterRequest;
 import com.vn.reauthentication.repository.UserRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;

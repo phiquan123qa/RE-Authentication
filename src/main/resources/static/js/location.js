@@ -13,7 +13,6 @@ var promise = axios(Parameter);
 promise.then(function (result) {
     cityData = result.data;
     renderCity(result.data);
-    fetchPage(0);
 });
 
     $modifyButton.on('click', function() {

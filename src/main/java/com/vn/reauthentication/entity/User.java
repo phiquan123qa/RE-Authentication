@@ -43,19 +43,19 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
             ,inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<RealEstate> realEstates;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LikedRealEstate> likedRealEstates;
     private String description;
     private Boolean isEnable = false;
     @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Wiki> wikis;
     @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<News> news;
 
     public User(String email, String name, String avatar, String password, LocalDate dob

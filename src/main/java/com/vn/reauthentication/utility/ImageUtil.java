@@ -10,11 +10,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
 public class ImageUtil {
-    public static String saveImage(MultipartFile file) {
+    public static String saveImage(MultipartFile file, String url) {
         try{
             String originName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             String fileName =  System.currentTimeMillis()+ originName;
-            Path folderPath = Paths.get("./src/main/resources/static/images/avatars");
+            Path folderPath = Paths.get(url);
             if(!Files.exists(folderPath)){
                 Files.createDirectories(folderPath);
             }

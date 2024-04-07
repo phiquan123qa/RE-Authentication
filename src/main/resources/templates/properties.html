@@ -16,70 +16,70 @@
 <nav th:replace="fragment/navbar :: navbar"></nav>
 <div
         class="hero page-inner overlay"
-        style="background-image: url('/static/images/hero_bg_1.jpg')"
->
+        style="background-image: url('/static/images/hero_bg_1.jpg')">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
                 <h1 class="heading" data-aos="fade-up">Properties</h1>
                 <nav aria-label="breadcrumb"
-                        data-aos="fade-up"
-                        data-aos-delay="200">
+                     data-aos="fade-up"
+                     data-aos-delay="200">
                     <ol class="breadcrumb text-center justify-content-center">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item active text-white-50"
-                                aria-current="page">
+                            aria-current="page">
                             Properties
                         </li>
                     </ol>
                 </nav>
 
-                <form class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"
-                      data-aos="fade-up"
-                      data-aos-delay="200">
-                    <input type="text"
-                           class="form-control px-4 mb-2"
-                           name="title"
-                           id="titleID"
-                           placeholder="Insert your title here to find real estate"
-                           th:value="${searchTitle}"/>
-                    <div class="d-flex flex-row flex-wrap justify-content-evenly" id="advanceSearch">
-                        <div class=" first mb-3">
-                            <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>
-                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"
-                                    name="type" id="typeID">
-                                <option value="">Select Type</option>
-                                <option value="sell" th:selected="${searchType == 'sell'} ">For Sell</option>
-                                <option value="rent" th:selected="${searchType == 'rent'}">For Rent</option>
-                            </select>
-                        </div>
-                        <div class=" first mb-3">
-                            <label class="fs-6 text-white ms-2" for="cityID">City</label>
-                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"
-                                    name="city" id="cityID">
-                                <option value="">Select City</option>
-                            </select>
-                            <p id="my_city" th:text="${searchCity}" hidden></p>
-                        </div>
-                        <div class=" first mb-3">
-                            <label class="fs-6 text-white ms-2" for="districtID">District</label>
-                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"
-                                    name="district" id="districtID">
-                                <option value="">Select District</option>
-                            </select>
-                            <p id="my_district" th:text="${searchDistrict}" hidden></p>
-                        </div>
-                        <div class=" first mb-3">
-                            <label class="fs-6 text-white ms-2" for="wardID">Ward</label>
-                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"
-                                    name="ward" id="wardID">
-                                <option value="">Select ward</option>
-                            </select>
-                            <p id="my_ward" th:text="${searchWard}" hidden></p>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
+                <!--                <form class="narrow-w form-search d-flex align-items-stretch mb-3 flex-column"-->
+                <!--                      data-aos="fade-up"-->
+                <!--                      data-aos-delay="200"-->
+                <!--                      method="get">-->
+                <!--                    <input type="text"-->
+                <!--                           class="form-control px-4 mb-2"-->
+                <!--                           name="title"-->
+                <!--                           id="titleID"-->
+                <!--                           placeholder="Insert your title here to find real estate"-->
+                <!--                           th:value="${title}"/>-->
+                <!--                    <div class="d-flex flex-row flex-wrap justify-content-evenly" id="advanceSearch">-->
+                <!--                        <div class=" first mb-3">-->
+                <!--                            <label class="fs-6 text-white ms-2" for="typeID">Type of real estate</label>-->
+                <!--                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"-->
+                <!--                                    name="type" id="typeID">-->
+                <!--                                <option value="">Select Type</option>-->
+                <!--                                <option value="sell" th:selected="${type == 'sell'} ">For Sell</option>-->
+                <!--                                <option value="rent" th:selected="${type == 'rent'}">For Rent</option>-->
+                <!--                            </select>-->
+                <!--                        </div>-->
+                <!--                        <div class=" first mb-3">-->
+                <!--                            <label class="fs-6 text-white ms-2" for="cityID">City</label>-->
+                <!--                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"-->
+                <!--                                    name="city" id="cityID">-->
+                <!--                                <option value="">Select City</option>-->
+                <!--                            </select>-->
+                <!--                            <p id="my_city" th:text="${city}" hidden></p>-->
+                <!--                        </div>-->
+                <!--                        <div class=" first mb-3">-->
+                <!--                            <label class="fs-6 text-white ms-2" for="districtID">District</label>-->
+                <!--                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"-->
+                <!--                                    name="district" id="districtID">-->
+                <!--                                <option value="">Select District</option>-->
+                <!--                            </select>-->
+                <!--                            <p id="my_district" th:text="${district}" hidden></p>-->
+                <!--                        </div>-->
+                <!--                        <div class=" first mb-3">-->
+                <!--                            <label class="fs-6 text-white ms-2" for="wardID">Ward</label>-->
+                <!--                            <select class="form-select form-control col-md-10 select-custom rounded-pill home-selector"-->
+                <!--                                    name="ward" id="wardID">-->
+                <!--                                <option value="">Select ward</option>-->
+                <!--                            </select>-->
+                <!--                            <p id="my_ward" th:text="${ward}" hidden></p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <button type="submit" class="btn btn-primary">Search</button>-->
+                <!--                </form>-->
             </div>
         </div>
     </div>
@@ -433,8 +433,132 @@
 <!--      </div>-->
 <!--    </div>-->
 
+
 <div class="section section-properties">
     <div class="container">
+        <div class="col-12" id="content-container">
+            <div class="mb-3" style="background-color: rgb(255, 255, 255);
+                box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
+                <form class="row px-4 py-4" method="get"
+                      data-aos="fade-up"
+                      data-aos-delay="200">
+                    <div class="col-md-10">
+                        <div class="form-floating">
+                            <input class="form-control" name="title" id="titleInput" type="text" th:value="${title}">
+                            <button class="icon-search position-absolute end-0 me-3 border-0 bg-white" type="submit"
+                                    style="top:40%"></button>
+                            <label for="titleInput" class="d-flex flex-nowrap">Title Search</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex flex-wrap align-items-lg-center align-items-md-center align-items-start">
+                        <p class="text-secondary mt-sm-3" id="advanceSearchBtn"
+                           style="cursor: pointer">
+                            Advanced
+                            Search
+                            <span class="icon-keyboard_arrow_down"></span>
+                        </p>
+                    </div>
+                    <div class="row mt-3" id="advanceSearch" style="display: none">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <label for="cityID" class="form-label">City</label>
+                            <select class="form-select" id="cityID" name="city"
+                                    aria-label="Floating label select city">
+                                <option value="">Select Your City</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <label for="districtID" class="form-label">District</label>
+                            <select class="form-select" id="districtID" name="district"
+                                    aria-label="Floating label select example">
+                                <option value="">Select Your District</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <label for="wardID" class="form-label">Ward</label>
+                            <select class="form-select" id="wardID" name="ward"
+                                    aria-label="Floating label select example">
+                                <option value="">Select Your Ward</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                            <label for="type" class="form-label">Type</label>
+                            <select class="form-select" id="type" name="type"
+                                    aria-label="Type of Real Estate">
+                                <option value="">Select Type</option>
+                                <option th:selected="${type == 'sell'}" value="sell">Sell</option>
+                                <option th:selected="${type == 'rent'}" value="rent">Rent</option>
+                            </select>
+                            <p id="my_city" th:text="${city}" hidden></p>
+                            <p id="my_district" th:text="${district}" hidden></p>
+                            <p id="my_ward" th:text="${ward}" hidden></p>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-6 mb-3">
+                            <label for="sort" class="form-label">Sorting by</label>
+                            <select class="form-select" id="sort" name="sort"
+                                    aria-label="Sort of Real Estate">
+                                <option value="">Select Sorting</option>
+                                <option th:selected="${sort == 'dateDesc'}" value="dateDesc">Date Down</option>
+                                <option th:selected="${sort == 'dateAsc'}" value="dateAsc">Date Up</option>
+                                <option th:selected="${sort == 'priceDesc'}" value="priceDesc">Price Down</option>
+                                <option th:selected="${sort == 'priceAsc'}" value="priceAsc">Price Up</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                            <label for="landArea" class="form-label">Land Area</label>
+                            <div class="form-select" id="landArea" aria-label="Land Area">
+                                Land Area
+                            </div>
+                            <div class="border p-2" id="landAreaFilter">
+                                <div class="land-area-filter mx-2 my-3"></div>
+                                <div class="row px-2">
+                                    <div class="input-group col-5" style="width: 41.66667%">
+                                        <input type="number" class="land-area-filter-min form-control" id="minArea">
+                                        <span class="input-group-text">m<sup>2</sup></span>
+                                    </div>
+                                    <span class="icon-arrow-right col-2 d-flex align-content-center align-items-center"></span>
+                                    <div class="input-group col-5" style="width: 41.66667%">
+                                        <input type="number" class="land-area-filter-max form-control" id="maxArea">
+                                        <span class="input-group-text">m<sup>2</sup></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                            <label for="priceRange" class="form-label">Price Range</label>
+                            <div class="form-select" id="priceRange" aria-label="Price Range">
+                                Price
+                            </div>
+                            <div class="border p-2" id="priceRangeFilter">
+                                <div class="price-filter mx-2 my-3"></div>
+                                <div class="row px-2">
+                                    <div class="input-group col-5" style="width: 41.66667%">
+                                        <input type="number" class="price-filter-min-price form-control" id="minPrice">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <span class="icon-arrow-right col-2 d-flex align-content-center align-items-center"></span>
+                                    <div class="input-group col-5" style="width: 41.66667%">
+                                        <input type="number" class="price-filter-max-price form-control" id="maxPrice">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-3 mb-3 me-lg-3 pe-md-0 pe-sm-0">
+                            <button class="btn btn-secondary" type="submit" style="padding: 10px 15px;">Submit</button>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-3 mb-3 ps-md-0 ps-sm-0">
+                            <button class="btn btn-secondary" type="reset" style="padding: 10px 15px;">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mb-3 px-2" id="list-card-content">
+
+
+            </div>
+        </div>
+
+
         <div class="row" id="content">
         </div>
         <div class="row align-items-center py-5">
@@ -451,6 +575,7 @@
         </div>
     </div>
 </div>
+
 
 <div th:replace="fragment/footer :: footer"></div>
 
@@ -472,6 +597,62 @@
 <script src="/static/js/axios.min.js"></script>
 <script defer src="/static/js/location.js"></script>
 <script defer src="/static/js/getDataRE.js"></script>
+<script src="/static/js/userListRe.js"></script>
+<script src="/static/js/nouislider.min.js"></script>
+<script>
+    function bindValues(slider, inputNumberMin, inputNumberMax) {
+        slider.noUiSlider.on('update', function (values, handle) {
+            var value = values[handle];
+            if (handle) {
+                inputNumberMax.value = Math.round(value);
+            } else {
+                inputNumberMin.value = Math.round(value);
+            }
+        });
+        inputNumberMin.addEventListener('change', function () {
+            slider.noUiSlider.set(this.value);
+        });
+        inputNumberMax.addEventListener('change', function () {
+            slider.noUiSlider.set([null, this.value]);
+        });
+
+    }
+
+    var priceSlider = $('.price-filter');
+    var priceMinInput = $('.price-filter-min-price');
+    var priceMaxInput = $('.price-filter-max-price');
+    for (var i = 0; i < priceSlider.length; i++) {
+        noUiSlider.create(priceSlider[i], {
+            start: [0, 1000000],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 1000000
+            }
+        });
+        bindValues(priceSlider[i], priceMinInput[i], priceMaxInput[i]);
+    }
+
+    var landAreaSlider = $('.land-area-filter');
+    var landAreaMinInput = $('.land-area-filter-min');
+    var landAreaMaxInput = $('.land-area-filter-max');
+    for (var i = 0; i < landAreaSlider.length; i++) {
+        noUiSlider.create(landAreaSlider[i], {
+            start: [0, 500],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 500
+            }
+        });
+        bindValues(landAreaSlider[i], landAreaMinInput[i], landAreaMaxInput[i]);
+    }
+
+    $('#qwe').click(function () {
+        priceSlider[0].noUiSlider.set([0, 200]);
+    });
+</script>
+
 
 </body>
 </html>

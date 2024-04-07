@@ -33,26 +33,32 @@ public class HomeController {
     public String properties(Model model,
                              HttpServletRequest request) throws IOException {
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("title", request.getParameter("title"));
+        model.addAttribute("city", request.getParameter("city"));
+        model.addAttribute("district", request.getParameter("district"));
+        model.addAttribute("ward", request.getParameter("ward"));
+        model.addAttribute("type", request.getParameter("type"));
+        model.addAttribute("sort", request.getParameter("sort"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "properties";
     }
-    @PostMapping("/properties")
-    public String propertiesPost(String title,
-                                 String type,
-                                 String city,
-                                 String district,
-                                 String ward,
-                                 Model model,
-                                 HttpServletRequest request,
-                                 RedirectAttributes redirectAttributes) throws IOException {
-        SetAuthToHeader.setUserDetailsToModel(model);
-        redirectAttributes.addFlashAttribute("searchTitle", title);
-        redirectAttributes.addFlashAttribute("searchType", type);
-        redirectAttributes.addFlashAttribute("searchCity", city);
-        redirectAttributes.addFlashAttribute("searchDistrict", district);
-        redirectAttributes.addFlashAttribute("searchWard", ward);
-        return "redirect:/properties";
-    }
+//    @PostMapping("/properties")
+//    public String propertiesPost(String title,
+//                                 String type,
+//                                 String city,
+//                                 String district,
+//                                 String ward,
+//                                 Model model,
+//                                 HttpServletRequest request,
+//                                 RedirectAttributes redirectAttributes) throws IOException {
+//        SetAuthToHeader.setUserDetailsToModel(model);
+//        redirectAttributes.addFlashAttribute("searchTitle", title);
+//        redirectAttributes.addFlashAttribute("searchType", type);
+//        redirectAttributes.addFlashAttribute("searchCity", city);
+//        redirectAttributes.addFlashAttribute("searchDistrict", district);
+//        redirectAttributes.addFlashAttribute("searchWard", ward);
+//        return "redirect:/properties";
+//    }
     @GetMapping("/property/{id}")
     public String properties_single(Model model,
                                     HttpServletRequest request,

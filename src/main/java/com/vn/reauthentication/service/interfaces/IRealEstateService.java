@@ -1,7 +1,10 @@
 package com.vn.reauthentication.service.interfaces;
 
 import com.vn.reauthentication.entity.RealEstate;
+import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.entityDTO.RealEstateCardResponse;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
+import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -14,17 +17,26 @@ public interface IRealEstateService {
 
     RealEstate createRealEstate(RealEstateRequest realEstateRequest);
 
-    void updateRealEstate(String title, Double price,
-                          Double landArea, String mainImage,
-                          String cityRe, String districtRe,
-                          String wardRe, String address,
-                          String description,
-                          LocalDate dateStart,
-                          LocalDate dateEnd, String type,
-                          String statusRe, Long id);
+    RealEstate updateRealEstate(RealEstateUpdateRequest request);
 
     Optional<RealEstate> findRealEstateById(Long id);
-    Page<RealEstate> findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String type, String cityRe, String districtRe, String wardRe, String field);
-
-    List<RealEstate> findRealEstateWithFilters(String title, String city, String district, String ward, boolean sortByDate) ;
+    Page<RealEstate>
+    findRealEstateWithPaginationAndFilterAndSort(Integer pageNumber,
+                                                 Integer pageSize,
+                                                 String title,
+                                                 String type,
+                                                 String cityRe,
+                                                 String districtRe,
+                                                 String wardRe,
+                                                 String field);
+    Page<RealEstateCardResponse>
+    findRealEstateWithFiltersOfUser(Integer pageNumber,
+                                    Integer pageSize,
+                                    String title,
+                                    String type,
+                                    String city,
+                                    String district,
+                                    String ward,
+                                    String sort,
+                                    User user);
 }
