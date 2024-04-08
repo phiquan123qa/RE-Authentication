@@ -1,10 +1,13 @@
 package com.vn.reauthentication.controller;
 
+import com.vn.reauthentication.entity.LikedRealEstate;
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.APIResponse;
+import com.vn.reauthentication.entityDTO.AddFavoriteRequest;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
 import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
+import com.vn.reauthentication.repository.LikedRealEstateRepository;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import com.vn.reauthentication.utility.ImageUtil;
@@ -26,6 +29,7 @@ import java.util.List;
 public class RealEstateController {
     private final IRealEstateService service;
     private final UserRepository userRepository;
+    private final LikedRealEstateRepository likedRealEstateRepository;
 
     @GetMapping("/findall")
     public APIResponse<Page<RealEstate>> getAllRealEstates(
@@ -36,9 +40,13 @@ public class RealEstateController {
             @RequestParam(name = "city", required = false) String cityRe,
             @RequestParam(name = "district", required = false) String districtRe,
             @RequestParam(name = "ward", required = false) String wardRe,
-            @RequestParam(required = false) String field) {
+            @RequestParam(name = "sort", required = false) String sort,
+            @RequestParam(name = "minArea", required = false) Integer minArea,
+            @RequestParam(name = "maxArea", required = false) Integer maxArea,
+            @RequestParam(name = "minPrice", required = false) Integer minPrice,
+            @RequestParam(name = "maxPrice", required = false) Integer maxPrice) {
         Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSort(
-                offset, pageSize, title, type, cityRe, districtRe, wardRe, field);
+                offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, minArea, maxArea, minPrice, maxPrice);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
     @PostMapping("/upload-images")
@@ -77,5 +85,28 @@ public class RealEstateController {
     public ResponseEntity<?> updateRealEstate(@RequestBody RealEstateUpdateRequest request) {
         RealEstate realEstate = service.updateRealEstate(request);
         return ResponseEntity.ok(realEstate);
+    }
+
+    @PostMapping("/favorite/add")
+    public ResponseEntity<?> addRealEstateToFavorite(@RequestBody AddFavoriteRequest request) {
+        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        LikedRealEstate likedRealEstate = new LikedRealEstate(user, realEstate);
+        likedRealEstateRepository.save(likedRealEstate);
+        return ResponseEntity.ok().body( "Add success" );
+    }
+    @PostMapping("/favorite/delete")
+    public ResponseEntity<?> deleteRealEstateFromFavorite(@RequestBody AddFavoriteRequest request) {
+        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        likedRealEstateRepository.delete(user, realEstate);
+        return ResponseEntity.ok().body( "Delete success" );
+    }
+    @PostMapping("/favorite/check")
+    public ResponseEntity<?> checkRealEstateInFavorite(@RequestBody AddFavoriteRequest request) {
+        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        boolean exists = likedRealEstateRepository.existsByUserAndRealEstate(user, realEstate);
+        return ResponseEntity.ok(exists);
     }
 }

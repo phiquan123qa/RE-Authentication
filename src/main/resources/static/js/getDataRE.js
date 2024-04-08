@@ -7,16 +7,16 @@ const cityValue = searchParams.get('city');
 const districtValue = searchParams.get('district');
 const wardValue = searchParams.get('ward');
 const sortValue = searchParams.get('sort');
+const minAreaValue = searchParams.get('minArea');
+const maxAreaValue = searchParams.get('maxArea');
+const minPriceValue = searchParams.get('minPrice');
+const maxPriceValue = searchParams.get('maxPrice');
+
 function allParamsAreEmpty() {
-    return !titleValue && !typeValue && !cityValue && !districtValue && !wardValue && !sortValue;
+    return !typeValue && !cityValue && !districtValue && !wardValue && !sortValue;
 }
 function fetchPage(pageNumber) {
-    // var titleValue = $('#titleID').val();
-    // var typeValue = $('#typeID').find(":selected").val();
-    // var cityValue = $('#cityID').find(":selected").val();
-    // var districtValue = $('#districtID').find(":selected").val();
-    // var wardValue = $('#wardID').find(":selected").val();
-    // var fieldValue = $('#fieldID').val();
+    scrollToElement('content-container');
     showSkeletonLoader();
     $.ajax({
         url: '/re/findall',
@@ -28,8 +28,12 @@ function fetchPage(pageNumber) {
             typeRe: typeValue,
             city: cityValue,
             district: districtValue,
-            ward: wardValue
-            // field: ""
+            ward: wardValue,
+            sort: sortValue,
+            minArea: minAreaValue,
+            maxArea: maxAreaValue,
+            minPrice: minPriceValue,
+            maxPrice: maxPriceValue,
         },
         success: function(response){
             updatePage(response);
@@ -49,8 +53,8 @@ function updatePage(data) {
         $('#content').append(
             `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <div class="property-item mb-30">
-              <a href="/property/${item.id}" class="img">
-                <img loading="lazy" src="/static/images/img_1.jpg" alt="Image" class="img-fluid"/>
+              <a href="/property/${item.id}" class="">
+                <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid"/>
               </a>
               <div class="property-content">
                 <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
@@ -76,7 +80,7 @@ function updatePage(data) {
                     href="/property/${item.id}"
                     class="btn btn-primary py-2 px-3">
                     See details
-                    </a>
+                  </a>
                 </div>
               </div>
             </div>
@@ -123,7 +127,7 @@ function showSkeletonLoader() {
                      xmlns="http://www.w3.org/2000/svg"
                      role="img" aria-label="Placeholder"
                      preserveAspectRatio="xMidYMid slice"
-                     focusable="false">
+                     focusable="false" style="position: static !important;">
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#868e96"></rect>
                 </svg>
@@ -148,5 +152,22 @@ function showSkeletonLoader() {
     }
     $('#content').html(loaderHTML);
 }
+function scrollToElement(id) {
+    var element = $('#' + id);
+    if (element.length) {
+        $('html, body').animate({
+            scrollTop: element.offset().top
+        }, 700);
+    } else {
+        console.error("Element with id '" + id + "' not found.");
+    }
+}
+
+$('#clear-button').on('click', function() {
+    $('#titleInput').val('');
+    $('#cityID, #districtID, #wardID, #type, #sort').val('');
+    priceSlider[0].noUiSlider.set([0, 1000000]);
+    landAreaSlider[0].noUiSlider.set([0, 500]);
+});
 
 fetchPage(0);

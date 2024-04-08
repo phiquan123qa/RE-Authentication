@@ -21,4 +21,8 @@ public class LikedRealEstate {
     @JoinColumn(name = "real_estate_id")
     private RealEstate realEstate;
 
+    public LikedRealEstate(User user, RealEstate realEstate) {
+        this.user = user;
+        this.realEstate = realEstate;
+    }
 }

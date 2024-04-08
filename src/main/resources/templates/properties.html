@@ -441,7 +441,8 @@
                 box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
                 <form class="row px-4 py-4" method="get"
                       data-aos="fade-up"
-                      data-aos-delay="200">
+                      data-aos-delay="200"
+                    id="searchForm">
                     <div class="col-md-10">
                         <div class="form-floating">
                             <input class="form-control" name="title" id="titleInput" type="text" th:value="${title}">
@@ -503,62 +504,93 @@
                                 <option th:selected="${sort == 'priceAsc'}" value="priceAsc">Price Up</option>
                             </select>
                         </div>
+
+
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
                             <label for="landArea" class="form-label">Land Area</label>
-                            <div class="form-select" id="landArea" aria-label="Land Area">
+                            <div class="form-select" id="landArea"
+                                 aria-label="Land Area"
+                                 data-bs-toggle="dropdown"
+                                 data-bs-auto-close="outside"
+                                 aria-expanded="false">
                                 Land Area
                             </div>
-                            <div class="border p-2" id="landAreaFilter">
+                            <div class="dropdown-menu col-lg-5 col-md-5 col-sm-10  px-2" id="landAreaFilter"
+                                 aria-labelledby="landArea">
                                 <div class="land-area-filter mx-2 my-3"></div>
                                 <div class="row px-2">
                                     <div class="input-group col-5" style="width: 41.66667%">
-                                        <input type="number" class="land-area-filter-min form-control" id="minArea">
+                                        <input type="number" name="minArea" class="land-area-filter-min form-control"
+                                               id="minArea" th:value="${minArea}">
                                         <span class="input-group-text">m<sup>2</sup></span>
                                     </div>
                                     <span class="icon-arrow-right col-2 d-flex align-content-center align-items-center"></span>
                                     <div class="input-group col-5" style="width: 41.66667%">
-                                        <input type="number" class="land-area-filter-max form-control" id="maxArea">
+                                        <input type="number" name="maxArea" class="land-area-filter-max form-control"
+                                               id="maxArea" th:value="${maxArea}">
                                         <span class="input-group-text">m<sup>2</sup></span>
                                     </div>
                                 </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([0, 50])">Under 50 m<sup>2</sup> </div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([50, 120])">50 - 120 m<sup>2</sup></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([120, 200])">120 - 200 m<sup>2</sup></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([200, 300])">200 - 300 m<sup>2</sup></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([300, 400])">300 - 400 m<sup>2</sup></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([400, 500])">400 - 500 m<sup>2</sup></div>
+                                <div class="dropdown-item" onclick="landAreaSlider[0].noUiSlider.set([500, 500])">Over 500 m<sup>2</sup> </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
                             <label for="priceRange" class="form-label">Price Range</label>
-                            <div class="form-select" id="priceRange" aria-label="Price Range">
+                            <div class="form-select" id="priceRange"
+                                 aria-label="Price Range"
+                                 data-bs-toggle="dropdown"
+                                 data-bs-auto-close="outside"
+                                 aria-expanded="false">
                                 Price
                             </div>
-                            <div class="border p-2" id="priceRangeFilter">
+                            <div class="dropdown-menu px-2 col-lg-5 col-md-5 col-sm-10" id="priceRangeFilter"
+                                 aria-labelledby="priceRange">
                                 <div class="price-filter mx-2 my-3"></div>
                                 <div class="row px-2">
                                     <div class="input-group col-5" style="width: 41.66667%">
-                                        <input type="number" class="price-filter-min-price form-control" id="minPrice">
+                                        <input type="number" name="minPrice" class="price-filter-min-price form-control"
+                                               id="minPrice" th:value="${minPrice}">
                                         <span class="input-group-text">$</span>
                                     </div>
                                     <span class="icon-arrow-right col-2 d-flex align-content-center align-items-center"></span>
                                     <div class="input-group col-5" style="width: 41.66667%">
-                                        <input type="number" class="price-filter-max-price form-control" id="maxPrice">
+                                        <input type="number" name="maxPrice" class="price-filter-max-price form-control"
+                                               id="maxPrice" th:value="${maxPrice}">
                                         <span class="input-group-text">$</span>
                                     </div>
                                 </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([0, 30000]);">Under $30000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([30000, 100000]);">$30000 - $100000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([100000, 250000]);">$100000 - $250000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([250000, 500000]);">$250000 - $500000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([500000, 1000000]);">$500000 - $1000000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([1000000, 1000000]);">Over $1000000</div>
+                                <div class="dropdown-item" onclick="priceSlider[0].noUiSlider.set([0, 0]);">Negotiated price</div>
                             </div>
                         </div>
                         <div class="col-lg-1 col-md-2 col-sm-3 mb-3 me-lg-3 pe-md-0 pe-sm-0">
                             <button class="btn btn-secondary" type="submit" style="padding: 10px 15px;">Submit</button>
                         </div>
                         <div class="col-lg-1 col-md-2 col-sm-3 mb-3 ps-md-0 ps-sm-0">
-                            <button class="btn btn-secondary" type="reset" style="padding: 10px 15px;">Reset</button>
+                            <button class="btn btn-secondary" type="button" id="clear-button" style="padding: 10px 15px;">Clear</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="mb-3 px-2" id="list-card-content">
-
-
+                <p class="h4 mb-3 mb-md-4"> -Land Sales Services For Everyone - </p>
             </div>
         </div>
-
-
         <div class="row" id="content">
         </div>
         <div class="row align-items-center py-5">
@@ -575,10 +607,7 @@
         </div>
     </div>
 </div>
-
-
 <div th:replace="fragment/footer :: footer"></div>
-
 <!-- Preloader -->
 <div id="overlayer"></div>
 <div class="loader">
@@ -597,61 +626,9 @@
 <script src="/static/js/axios.min.js"></script>
 <script defer src="/static/js/location.js"></script>
 <script defer src="/static/js/getDataRE.js"></script>
-<script src="/static/js/userListRe.js"></script>
+<script src="/static/js/advancedSearchBar.js"></script>
 <script src="/static/js/nouislider.min.js"></script>
-<script>
-    function bindValues(slider, inputNumberMin, inputNumberMax) {
-        slider.noUiSlider.on('update', function (values, handle) {
-            var value = values[handle];
-            if (handle) {
-                inputNumberMax.value = Math.round(value);
-            } else {
-                inputNumberMin.value = Math.round(value);
-            }
-        });
-        inputNumberMin.addEventListener('change', function () {
-            slider.noUiSlider.set(this.value);
-        });
-        inputNumberMax.addEventListener('change', function () {
-            slider.noUiSlider.set([null, this.value]);
-        });
-
-    }
-
-    var priceSlider = $('.price-filter');
-    var priceMinInput = $('.price-filter-min-price');
-    var priceMaxInput = $('.price-filter-max-price');
-    for (var i = 0; i < priceSlider.length; i++) {
-        noUiSlider.create(priceSlider[i], {
-            start: [0, 1000000],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 1000000
-            }
-        });
-        bindValues(priceSlider[i], priceMinInput[i], priceMaxInput[i]);
-    }
-
-    var landAreaSlider = $('.land-area-filter');
-    var landAreaMinInput = $('.land-area-filter-min');
-    var landAreaMaxInput = $('.land-area-filter-max');
-    for (var i = 0; i < landAreaSlider.length; i++) {
-        noUiSlider.create(landAreaSlider[i], {
-            start: [0, 500],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 500
-            }
-        });
-        bindValues(landAreaSlider[i], landAreaMinInput[i], landAreaMaxInput[i]);
-    }
-
-    $('#qwe').click(function () {
-        priceSlider[0].noUiSlider.set([0, 200]);
-    });
-</script>
+<script src="/static/js/noUiSliderHandle.js"></script>
 
 
 </body>

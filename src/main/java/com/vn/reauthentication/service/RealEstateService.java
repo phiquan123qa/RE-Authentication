@@ -99,7 +99,11 @@ public class RealEstateService implements IRealEstateService {
                                                                          String cityRe,
                                                                          String districtRe,
                                                                          String wardRe,
-                                                                         String field) {
+                                                                         String sort,
+                                                                         Integer minArea,
+                                                                         Integer maxArea,
+                                                                         Integer minPrice,
+                                                                         Integer maxPrice) {
         Specification<RealEstate> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (title != null && !title.isEmpty()) {
@@ -117,12 +121,39 @@ public class RealEstateService implements IRealEstateService {
             if (wardRe != null && !wardRe.isEmpty()) {
                 predicates.add(cb.equal(cb.lower(root.get("wardRe")), wardRe.toLowerCase()));
             }
+            if(minArea != null && maxArea != null){
+                if(minArea.equals(maxArea) && minArea == 500){
+                    predicates.add(cb.greaterThanOrEqualTo(root.get("landArea"), minArea));
+                } else if (minArea == 0 && maxArea == 500){
+                    // No action needed when both minArea and maxArea are null
+                }
+                else{
+                    predicates.add(cb.between(root.get("landArea"), minArea, maxArea));
+                }
+            }
+            if(minPrice != null && maxPrice != null){
+                if(minPrice.equals(maxPrice) && minPrice == 0){
+                    predicates.add(cb.isNull(root.get("price")));
+                } else if (minPrice.equals(maxPrice) && minPrice == 1000000){
+                    predicates.add(cb.greaterThanOrEqualTo(root.get("price"), minPrice));
+                } else {
+                    predicates.add(cb.between(root.get("price"), minPrice, maxPrice));
+                }
+            }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
         Pageable pageable;
-        if (field != null && !field.isEmpty()) {
-            pageable = PageRequest.of(pageNumber, pageSize, Sort.by(field));
-        } else pageable = PageRequest.of(pageNumber, pageSize);
+        if (sort != null && sort.equals("dateDesc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("dateStart").descending());
+        } else if (sort != null && sort.equals("dateAsc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("dateStart").ascending());
+        } else if (sort != null && sort.equals("priceDesc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").descending());
+        } else if (sort != null && sort.equals("priceAsc")) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending());
+        } else{
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
 
         return realEstateRepository.findAll(spec, pageable);
     }

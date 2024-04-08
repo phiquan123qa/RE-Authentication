@@ -28,7 +28,11 @@ public interface IRealEstateService {
                                                  String cityRe,
                                                  String districtRe,
                                                  String wardRe,
-                                                 String field);
+                                                 String sort,
+                                                 Integer minArea,
+                                                 Integer maxArea,
+                                                 Integer minPrice,
+                                                 Integer maxPrice);
     Page<RealEstateCardResponse>
     findRealEstateWithFiltersOfUser(Integer pageNumber,
                                     Integer pageSize,

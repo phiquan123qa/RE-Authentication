@@ -1,5 +1,6 @@
 package com.vn.reauthentication.controller;
 
+import com.vn.reauthentication.entity.LikedRealEstate;
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -39,26 +41,13 @@ public class HomeController {
         model.addAttribute("ward", request.getParameter("ward"));
         model.addAttribute("type", request.getParameter("type"));
         model.addAttribute("sort", request.getParameter("sort"));
+        model.addAttribute("minArea", request.getParameter("minArea"));
+        model.addAttribute("maxArea", request.getParameter("maxArea"));
+        model.addAttribute("minPrice", request.getParameter("minPrice"));
+        model.addAttribute("maxPrice", request.getParameter("maxPrice"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "properties";
     }
-//    @PostMapping("/properties")
-//    public String propertiesPost(String title,
-//                                 String type,
-//                                 String city,
-//                                 String district,
-//                                 String ward,
-//                                 Model model,
-//                                 HttpServletRequest request,
-//                                 RedirectAttributes redirectAttributes) throws IOException {
-//        SetAuthToHeader.setUserDetailsToModel(model);
-//        redirectAttributes.addFlashAttribute("searchTitle", title);
-//        redirectAttributes.addFlashAttribute("searchType", type);
-//        redirectAttributes.addFlashAttribute("searchCity", city);
-//        redirectAttributes.addFlashAttribute("searchDistrict", district);
-//        redirectAttributes.addFlashAttribute("searchWard", ward);
-//        return "redirect:/properties";
-//    }
     @GetMapping("/property/{id}")
     public String properties_single(Model model,
                                     HttpServletRequest request,
@@ -66,6 +55,7 @@ public class HomeController {
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow();
+        model.addAttribute("realEstateId", id);
         model.addAttribute("realEstate", realEstate);
         return "property-single";
     }
