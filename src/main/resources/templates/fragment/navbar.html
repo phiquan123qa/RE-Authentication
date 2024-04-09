@@ -13,8 +13,8 @@
                     <li th:classappend="${requestURI == '/properties'} ? 'active' : ''" class="has-children">
                         <a href="/properties">Properties</a>
                         <ul class="dropdown">
-                            <li><a href="#">Buy Property</a></li>
-                            <li><a href="#">Sell Property</a></li>
+                            <li><a href="/properties?type=sell">Buy Property</a></li>
+                            <li><a href="/properties?type=rent">Sell Property</a></li>
                         </ul>
                     </li>
                     <li th:classappend="${requestURI == '/services'} ? 'active' : ''"><a href="/services">Services</a>

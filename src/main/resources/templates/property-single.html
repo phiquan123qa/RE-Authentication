@@ -50,19 +50,19 @@
             <div class="col-lg-7">
                 <div class="img-property-slide-wrap">
                     <div class="img-property-slide">
-                        <img src="/static/images/img_1.jpg" alt="Image" class="img-fluid"/>
-                        <img src="/static/images/img_2.jpg" alt="Image" class="img-fluid"/>
-                        <img src="/static/images/img_3.jpg" alt="Image" class="img-fluid"/>
+                        <th:block th:each="image : ${realEstate.imagesList}">
+                            <img th:src="'/static/images/real_estate_images/' + ${image}" alt="Image"
+                                 class="img-fluid"/>
+                        </th:block>
                     </div>
                 </div>
+                <div id="map"></div>
             </div>
             <div class="col-lg-4">
                 <h2 class="heading text-primary" th:text="${realEstate.title}">Title</h2>
-                <p class="meta"
+                <p class="meta" id="fullAddress"
                    th:text="${realEstate.address+', '+realEstate.wardRe+', '+realEstate.districtRe+', '+realEstate.cityRe}">
                     Location</p>
-
-
                 <div class="d-flex flex-wrap py-3 mb-3"
                      style="border-top: 1px solid #F2F2F2; border-bottom: 1px solid #F2F2F2">
                     <div class="d-flex flex-wrap flex-column me-4">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <h5 class="heading text-primary mb-3">Description</h5>
-                <p class="text-black-50" th:text="${realEstate.description}">
+                <p class="text-black-50 break-desc" id="descriptionRe" th:text="${realEstate.description}">
                     Description
                 </p>
 
@@ -145,7 +145,6 @@
                 </div>
 
 
-
                 <div class="d-block agent-box p-5">
                     <div class="d-flex align-items-center flex-wrap">
                         <div class="img mb-4">
@@ -170,14 +169,16 @@
                                  style="border-bottom: 1px solid #F2F2F2;">
                                 <span class="icon-phone2 fs-6 pe-2"> Phone: </span>
                                 <span class="fs-6" style="color: #005555;">
-                                    <a class="link-underline-success" th:href="'tel://'+${realEstate.user.phoneNumber}" th:text="${realEstate.user.phoneNumber}">PhoneNumber</a>
+                                    <a class="link-underline-success" th:href="'tel://'+${realEstate.user.phoneNumber}"
+                                       th:text="${realEstate.user.phoneNumber}">PhoneNumber</a>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap flex-row py-3 align-items-baseline w-100"
                                  style="border-bottom: 1px solid #F2F2F2;">
                                 <span class="icon-contact_mail fs-6 pe-2"> Email: </span>
                                 <span class="fs-6" style="color: #005555;">
-                                    <a class="link-underline-success" th:href="'mailto:'+${realEstate.user.email}" th:text="${realEstate.user.email}">Email</a>
+                                    <a class="link-underline-success" th:href="'mailto:'+${realEstate.user.email}"
+                                       th:text="${realEstate.user.email}">Email</a>
                                 </span>
                             </div>
                         </div>
@@ -220,5 +221,9 @@
 <script src="/static/js/custom.js"></script>
 <script src="/static/jquery/jquery-3.7.1.js"></script>
 <script src="/static/js/addReToLikedList.js"></script>
+<script src="/static/js/replaceBreakLine.js"></script>
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+({key: "AIzaSyD9o8pm_KSr_tS02vngCTjgzx71yTFoLhA", v: "weekly"});</script>
+<script src="/static/js/googlemapApiSinglePropety.js"></script>
 </body>
 </html>

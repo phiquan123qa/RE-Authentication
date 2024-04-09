@@ -38,3 +38,6 @@ $delete.on('click', function () {
     $(this).hide();
     $imagePreview.hide();
 });
+$('#btnClear').on('click', function () {
+    $delete.click();
+});

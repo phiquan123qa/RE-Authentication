@@ -52,23 +52,25 @@ function toggleFavorite() {
     }
 }
 document.addEventListener("DOMContentLoaded", function() {
-    $.ajax({
-        type: 'POST',
-        url: '/re/favorite/check',
-        data: JSON.stringify({
-            userName: userId,
-            realEstateId: realEstateId
-        }),
-        contentType: 'application/json',
-        success: function (response) {
-            if (response) {
-                checkbox.checked = true;
-                icon.classList.remove("icon-heart-o");
-                icon.classList.add("icon-heart");
+    if(userId && realEstateId) {
+        $.ajax({
+            type: 'POST',
+            url: '/re/favorite/check',
+            data: JSON.stringify({
+                userName: userId,
+                realEstateId: realEstateId
+            }),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response) {
+                    checkbox.checked = true;
+                    icon.classList.remove("icon-heart-o");
+                    icon.classList.add("icon-heart");
+                }
+            },
+            error: function (error) {
+                console.log(error);
             }
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
+        })
+    }
 });

@@ -242,7 +242,7 @@ $('#list-card-content').on('click', '.update-re', function () {
     $('[name="priceUpdate"]').val(selectedItem.price);
     $('input[name="legalDocumentUpdate"][value="' + selectedItem.legalDocument + '"]').prop('checked', true);
     $('input[name="interiorUpdate"][value="' + selectedItem.interior + '"]').prop('checked', true);
-    $('[name="descriptionUpdate"]').val(selectedItem.description);
+    $('[name="descriptionUpdate"]').val(selectedItem.description.replace(/<br\/>/g, "\n"));
     $('[name="roomUpdate"]').val(selectedItem.room);
     $('[name="bathRoomUpdate"]').val(selectedItem.bathRoom);
     $('[name="bedRoomUpdate"]').val(selectedItem.bedRoom);
@@ -254,7 +254,7 @@ $('#btnUpdate').click(function () {
     let priceUpdate = $('[name="priceUpdate"]').val();
     let legalDocumentUpdate = $('input[name="legalDocumentUpdate"]:checked').val();
     let interiorUpdate = $('input[name="interiorUpdate"]:checked').val();
-    let descriptionUpdate = $('[name="descriptionUpdate"]').val();
+    let descriptionUpdate = $('[name="descriptionUpdate"]').val().replace(/\n/g, "<br/>");
     let roomUpdate = $('[name="roomUpdate"]').val();
     let bathRoomUpdate = $('[name="bathRoomUpdate"]').val();
     let bedRoomUpdate = $('[name="bedRoomUpdate"]').val();

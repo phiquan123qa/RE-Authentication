@@ -14926,6 +14926,15 @@ a[data-toggle="collapse"] {
     transition: opacity 1.5s ease;
     opacity: 0.7;
 }
+#map{
+    height: 25rem;
+    margin: 0;
+    padding: 0;
+}
+.break-desc{
+    white-space: pre-line;
+}
+
 
 
 
