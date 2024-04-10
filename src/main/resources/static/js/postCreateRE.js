@@ -66,6 +66,8 @@ function fetchCreate() {
                         description: descriptionValue
                     }),
                     success: function (response) {
+                        alert('Post Successfully !');
+                        $('#btnClear').click();
                         console.log(response);
                     },
                     error: function (error) {
@@ -135,6 +137,29 @@ function validateForm() {
     }
     return isFormValid;
 }
+$('#btnClear').on('click', function () {
+    $('#descriptionID').val('');
+    $('#descriptionID').html('');
+});
+function updatePriceLabel(text) {
+    $('#priceLabel').html(text + '<div class="of-star">&nbsp;*</div>');
+}
+
+// Check the initial value of the radio buttons on page load
+if ($('#type1').is(':checked')) {
+    updatePriceLabel("Price of RE (Total price/ real estate)");
+} else if ($('#type2').is(':checked')) {
+    updatePriceLabel("Price of RE (Price/ month)");
+}
+
+// Update the label text when the radio buttons are changed
+$('input[name="type"]').on('change', function() {
+    if ($('#type1').is(':checked')) {
+        updatePriceLabel("Price of RE (Total price/ real estate)");
+    } else if ($('#type2').is(':checked')) {
+        updatePriceLabel("Price of RE (Price/ month)");
+    }
+});
 $(document).ready(function() {
     $('#btnSubmit').click(function () {
         let isFormValid = validateForm();

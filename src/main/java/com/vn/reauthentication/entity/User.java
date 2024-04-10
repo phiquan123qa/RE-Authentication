@@ -49,6 +49,23 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LikedRealEstate> likedRealEstates;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReportUser> sentReports;
+
+    @OneToMany(mappedBy = "reportedUser", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReportUser> receivedReports;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReportPostRealEstate> sentReportsPost;
+
+
+
+
+
     private String description;
     private Boolean isEnable = false;
     @JsonIgnore

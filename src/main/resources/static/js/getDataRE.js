@@ -54,7 +54,7 @@ function updatePage(data) {
             `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <div class="property-item mb-30">
               <a href="/property/${item.id}" class="">
-                <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid"/>
+                <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="min-height: 23rem"/>
               </a>
               <div class="property-content">
                 <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>

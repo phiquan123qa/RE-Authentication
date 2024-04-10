@@ -44,6 +44,9 @@ public class RealEstate {
     private List<LikedRealEstate> likedByUsers;
     @ElementCollection
     private List<String> imagesList;
+    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReportPostRealEstate> receivedReportsPost;
 
     public RealEstate(String title, Double price,
                       Double landArea, String mainImage,
