@@ -33,6 +33,19 @@ public interface IRealEstateService {
                                                  Integer maxArea,
                                                  Integer minPrice,
                                                  Integer maxPrice);
+    Page<RealEstate> findRealEstateWithPaginationAndFilterAndSortAdmin(Integer pageNumber,
+                                                                       Integer pageSize,
+                                                                       String title,
+                                                                       String type,
+                                                                       String cityRe,
+                                                                       String districtRe,
+                                                                       String wardRe,
+                                                                       String sort,
+                                                                       String status,
+                                                                       Integer minArea,
+                                                                       Integer maxArea,
+                                                                       Integer minPrice,
+                                                                       Integer maxPrice);
     Page<RealEstateCardResponse>
     findRealEstateWithFiltersOfUser(Integer pageNumber,
                                     Integer pageSize,

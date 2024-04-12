@@ -49,6 +49,25 @@ public class RealEstateController {
                 offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, minArea, maxArea, minPrice, maxPrice);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
+    @GetMapping("/admin/findallre")
+    public APIResponse<Page<RealEstate>> getAllRealEstatesAdmin(
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "9") int pageSize,
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "typeRe", required = false) String type,
+            @RequestParam(name = "city", required = false) String cityRe,
+            @RequestParam(name = "district", required = false) String districtRe,
+            @RequestParam(name = "ward", required = false) String wardRe,
+            @RequestParam(name = "sort", required = false) String sort,
+            @RequestParam(name = "status", required = false) String status,
+            @RequestParam(name = "minArea", required = false) Integer minArea,
+            @RequestParam(name = "maxArea", required = false) Integer maxArea,
+            @RequestParam(name = "minPrice", required = false) Integer minPrice,
+            @RequestParam(name = "maxPrice", required = false) Integer maxPrice) {
+        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSortAdmin(
+                offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, status, minArea, maxArea, minPrice, maxPrice);
+        return new APIResponse<>(realEstates.getSize(), realEstates);
+    }
     @PostMapping("/upload-images")
     public ResponseEntity<?> uploadImages(@RequestParam("imagesList") MultipartFile[] files) {
         List<String> imageUrls = new ArrayList<>() ;

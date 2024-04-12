@@ -52,7 +52,7 @@
                     <div class="img-property-slide">
                         <th:block th:each="image : ${realEstate.imagesList}">
                             <img th:src="'/static/images/real_estate_images/' + ${image}" alt="Image"
-                                 class="img-fluid"/>
+                                 class="img-fluid" style="max-height: 30rem"/>
                         </th:block>
                     </div>
                 </div>
@@ -136,10 +136,13 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-baseline">
+                <div class="d-flex align-items-center ">
                     <input type="checkbox" name="isFavorited" onchange="toggleFavorite()" id="isFavorited" hidden>
-                    <label class="text-black-50 fs-6 me-3" for="isFavorited">Like this property</label>
-                    <span id="isFavoritedIcon" class="icon-heart-o"></span>
+                    <label class="text-black-50 fs-6 d-flex align-items-center p-2 border rounded-2"
+                           for="isFavorited"
+                            style="cursor: pointer">
+                        Like this property<span id="isFavoritedIcon" class="icon-heart-o ms-2"></span>
+                    </label>
                     <p id="idReHolder" th:text="${realEstateId}" hidden></p>
                     <p id="userNameHolder" th:text="${username}" hidden></p>
                 </div>
@@ -222,6 +225,7 @@
 <script src="/static/jquery/jquery-3.7.1.js"></script>
 <script src="/static/js/addReToLikedList.js"></script>
 <script src="/static/js/replaceBreakLine.js"></script>
+<script src="/static/js/saber-toast.js"></script>
 <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
 ({key: "AIzaSyD9o8pm_KSr_tS02vngCTjgzx71yTFoLhA", v: "weekly"});</script>
 <script src="/static/js/googlemapApiSinglePropety.js"></script>

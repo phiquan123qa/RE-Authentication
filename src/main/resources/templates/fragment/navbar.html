@@ -14,7 +14,7 @@
                         <a href="/properties">Properties</a>
                         <ul class="dropdown">
                             <li><a href="/properties?type=sell">Buy Property</a></li>
-                            <li><a href="/properties?type=rent">Sell Property</a></li>
+                            <li><a href="/properties?type=rent">Rent Property</a></li>
                         </ul>
                     </li>
                     <li th:classappend="${requestURI == '/services'} ? 'active' : ''"><a href="/services">Services</a>
@@ -32,6 +32,9 @@
                         <ul class="dropdown">
                             <li><a href="/user_info">User Information</a></li>
                             <li><a href="/mgtre/add">Manager Real Estate</a></li>
+                            <li th:if="${#lists.contains(authorities.![authority], 'ADMIN')}">
+                                <a href="/admin/home">Admin Panel</a>
+                            </li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>

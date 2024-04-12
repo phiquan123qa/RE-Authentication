@@ -52,7 +52,7 @@ public class SecurityConfig {
                         "/reset_password",
                         "/test")
                 .permitAll()
-                .requestMatchers("/users")
+                .requestMatchers("/admin/**")
                 .hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")

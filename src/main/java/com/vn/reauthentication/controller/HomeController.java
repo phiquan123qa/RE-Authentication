@@ -91,13 +91,13 @@ public class HomeController {
 
     @GetMapping("/user_info")
     public String user_info(Model model, HttpServletRequest request){
+        SetAuthToHeader.setUserDetailsToModel(model);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user;
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String username = authentication.getName();
             user = userService.findUserByEmail(username).orElseThrow();
             model.addAttribute("user", user);
-            model.addAttribute("username", username);
         }
         model.addAttribute("requestURI", request.getRequestURI());
         return "user_info";

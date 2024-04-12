@@ -36,7 +36,11 @@ function fetchPage(pageNumber) {
             maxPrice: maxPriceValue,
         },
         success: function(response){
-            updatePage(response);
+            if(response.response.totalElements === 0) {
+                pageNotFoundData();
+            }else{
+                updatePage(response);
+            }
             updatePaginationText(pageNumber, response.response.totalPages);
             createPagination(response.response.totalPages, pageNumber);
             console.log(response);
@@ -45,6 +49,14 @@ function fetchPage(pageNumber) {
             console.log('Error fetching data: ', error);
         }
     });
+}
+
+function pageNotFoundData() {
+    var content = $('#content');
+    content.empty();
+    content.append('<div class="d-flex align-items-start justify-content-center">' +
+        '<img loading="lazy" src="/static/images/not_found_data.png" alt="Image" class="img-fluid"/>' +
+        '</div>');
 }
 function updatePage(data) {
     var content = $('#content');
@@ -86,7 +98,6 @@ function updatePage(data) {
             </div>
           </div>`
         );
-        console.log(item.title);
     });
 }
 
