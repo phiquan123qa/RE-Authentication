@@ -1,4 +1,4 @@
-function changestatusre(id, status) {
+function changestatusdisablere(id, status) {
     $.ajax({
         url: '/re/admin/status',
         data: JSON.stringify({

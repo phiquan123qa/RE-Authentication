@@ -65,6 +65,14 @@ public class RealEstateController {
                 offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, status, minArea, maxArea, minPrice, maxPrice);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
+    @GetMapping("/admin/findallreaccept")
+    public APIResponse<Page<RealEstate>> getAllRealEstatesAdminAccept(
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "9") int pageSize){
+        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSortAdminAccept(
+                offset, pageSize);
+        return new APIResponse<>(realEstates.getSize(), realEstates);
+    }
     @PostMapping("/upload-images")
     public ResponseEntity<?> uploadImages(@RequestParam("imagesList") MultipartFile[] files) {
         List<String> imageUrls = new ArrayList<>() ;

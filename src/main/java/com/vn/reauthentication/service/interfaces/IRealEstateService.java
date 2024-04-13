@@ -56,5 +56,9 @@ public interface IRealEstateService {
                                     String ward,
                                     String sort,
                                     User user);
+
+    Page<RealEstate>
+    findRealEstateWithPaginationAndFilterAndSortAdminAccept(Integer pageNumber,
+                                    Integer pageSize);
     Boolean statusRealEstate(Long id, String status);
 }

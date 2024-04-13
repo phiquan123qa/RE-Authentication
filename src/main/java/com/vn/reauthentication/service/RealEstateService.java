@@ -10,10 +10,7 @@ import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -294,6 +291,12 @@ public class RealEstateService implements IRealEstateService {
                 realEstate.getType()
         ));
     }
+
+    @Override
+    public Page<RealEstate> findRealEstateWithPaginationAndFilterAndSortAdminAccept(Integer pageNumber, Integer pageSize) {
+        return realEstateRepository.findByStatusRe("INACTIVE", PageRequest.of(pageNumber, pageSize));
+    }
+
     @Override
     public Boolean statusRealEstate(Long id, String status) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);

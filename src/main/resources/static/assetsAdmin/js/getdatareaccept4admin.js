@@ -1,42 +1,12 @@
-const currentUrl = window.location.href;
-const url = new URL(currentUrl);
-const searchParams = new URLSearchParams(url.search);
-const titleValue = searchParams.get('title');
-const typeValue = searchParams.get('type');
-const cityValue = searchParams.get('city');
-const districtValue = searchParams.get('district');
-const wardValue = searchParams.get('ward');
-const sortValue = searchParams.get('sort');
-const statusValue = searchParams.get('status');
-const minAreaValue = searchParams.get('minArea');
-const maxAreaValue = searchParams.get('maxArea');
-const minPriceValue = searchParams.get('minPrice');
-const maxPriceValue = searchParams.get('maxPrice');
-
-function allParamsAreEmpty() {
-    return !typeValue && !cityValue && !districtValue && !wardValue && !sortValue && !statusValue;
-}
-
 function fetchPage(pageNumber) {
-    scrollToElement('content-container');
+    scrollToElement('content');
     showSkeletonLoader();
     $.ajax({
-        url: '/re/admin/findallre',
+        url: '/re/admin/findallreaccept',
         type: 'GET',
         data: {
             offset: pageNumber,
             pageSize: 6,
-            title: titleValue,
-            typeRe: typeValue,
-            city: cityValue,
-            district: districtValue,
-            ward: wardValue,
-            sort: sortValue,
-            status: statusValue,
-            minArea: minAreaValue,
-            maxArea: maxAreaValue,
-            minPrice: minPriceValue,
-            maxPrice: maxPriceValue,
         },
         success: function (response) {
             if (response.response.totalElements === 0) {
@@ -46,7 +16,6 @@ function fetchPage(pageNumber) {
             }
             updatePaginationText(pageNumber, response.response.totalPages);
             createPagination(response.response.totalPages, pageNumber);
-            changestatustext();
             console.log(response);
         },
         error: function (error) {
@@ -70,16 +39,19 @@ function updatePage(data) {
         var typeBg = item.type === 'sell' ? 'bg-secondary' : 'bg-success';
         $('#table-content').append(
             `<tr>
+              <td>
+                  <button class="btn btn-success mt-3" onclick="changestatusdisablere(${item.id}, 'ACTIVE')">
+                      Accept
+                  </button>
+              </td>
               <th scope="row">${item.id}</th>
+              <td>
+                  <img src="/static/images/real_estate_images/${item.mainImage}" class="card-img" alt="...">
+              </td>
               <td>${item.title}</td>
               <td>
                   <div class="d-flex align-items-center gap-2">
                     <span class="badge ${typeBg} rounded-3 fw-semibold text-capitalize badgeType">${item.type}</span>
-                  </div>
-              </td>
-              <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <span class="badge rounded-3 fw-semibold text-capitalize badgeStatus">${item.statusRe}</span>
                   </div>
               </td>
               <td>${item.price != null ? `$${item.price}` : 'Negotiated price'}</td>
@@ -87,15 +59,13 @@ function updatePage(data) {
               <td>${item.cityRe}</td>
               <td>${item.districtRe}</td>
               <td>${item.wardRe}</td>
+              <td>${item.address}</td>
+              <td>${item.interior}</td>
+              <td>${item.legalDocument}</td>
+              <td>${item.room}</td>
+              <td>${item.bedRoom}</td>
+              <td>${item.bathRoom}</td>
               <td>${item.user.email}</td>
-              <td>
-                  <a href="/property/${item.id}" class="btn btn-secondary" target="_blank" >
-                      Preview
-                  </a>
-                  <button class="btn btn-danger mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
-                      Disable
-                  </button>
-              </td>
             </tr>`
         );
     });
@@ -181,6 +151,24 @@ function showSkeletonLoader() {
               <td class="h5 card-title placeholder-glow">
                 <span class="placeholder col-12"></span>
               </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
+              <td class="h5 card-title placeholder-glow">
+                <span class="placeholder col-12"></span>
+              </td>
             </tr>`;
     }
     $('#table-content').html(loaderHTML);
@@ -196,40 +184,4 @@ function scrollToElement(id) {
         console.error("Element with id '" + id + "' not found.");
     }
 }
-function changestatustext(){
-    $('.badgeStatus').each(function () {
-        var currentStatus = $(this).text();
-        if(currentStatus === 'ACTIVE'){
-            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-success');
-        } else if(currentStatus === 'INACTIVE'){
-            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-warning');
-        } else {
-            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-danger');
-        }
-        var row = $(this).closest('tr');
-        var disableButton = row.find('.btn.btn-danger');
-        if (currentStatus === 'DISABLED') {
-            disableButton.prop('disabled', true);
-        } else {
-            disableButton.prop('disabled', false);
-        }
-    });
-}
-
-$('#clear-button').on('click', function () {
-    $('#titleInput').val('');
-    $('#cityID, #districtID, #wardID, #type, #sort').val('');
-    priceSlider[0].noUiSlider.set([0, 1000000]);
-    landAreaSlider[0].noUiSlider.set([0, 500]);
-});
-$(document).on('click', '.btn-danger', function() {
-    var itemId = $(this).data('id');
-    $('#confirmDisableBtn').data('id', itemId);
-});
-$('#confirmDisableBtn').click(function() {
-    var itemId = $(this).data('id');
-    console.log('Confirm Disable for item ID: ' + itemId);
-    changestatusdisablere(itemId, 'DISABLED');
-});
-
 fetchPage(0);

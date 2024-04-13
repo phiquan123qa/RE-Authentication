@@ -2,7 +2,10 @@ package com.vn.reauthentication.repository;
 
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.entityDTO.RealEstateCardResponse;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -42,4 +45,6 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
                                            @Param("city") String city,
                                            @Param("district") String district,
                                            @Param("ward") String ward);
+
+    Page<RealEstate> findByStatusRe(String status, Pageable pageable);
 }
