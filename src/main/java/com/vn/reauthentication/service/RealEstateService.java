@@ -294,5 +294,14 @@ public class RealEstateService implements IRealEstateService {
                 realEstate.getType()
         ));
     }
-
+    @Override
+    public Boolean statusRealEstate(Long id, String status) {
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        if (realEstate != null) {
+            realEstate.setStatusRe(status);
+            realEstateRepository.save(realEstate);
+            return true;
+        }
+        return false;
+    }
 }

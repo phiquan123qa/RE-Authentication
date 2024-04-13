@@ -46,6 +46,7 @@ function fetchPage(pageNumber) {
             }
             updatePaginationText(pageNumber, response.response.totalPages);
             createPagination(response.response.totalPages, pageNumber);
+            changestatustext();
             console.log(response);
         },
         error: function (error) {
@@ -67,38 +68,33 @@ function updatePage(data) {
     content.empty();
     data.response.content.forEach(function (item) {
         var typeBg = item.type === 'sell' ? 'bg-secondary' : 'bg-success';
-        var statusBg;
-        if(item.statusRe === 'INACTIVE'){
-            statusBg = 'bg-warning';
-        }else if (item.statusRe === 'ACTIVE'){
-            statusBg = 'bg-success';
-        }else{
-            statusBg = 'bg-danger';
-        }
         $('#table-content').append(
             `<tr>
               <th scope="row">${item.id}</th>
               <td>${item.title}</td>
               <td>
                   <div class="d-flex align-items-center gap-2">
-                    <span class="badge ${typeBg} rounded-3 fw-semibold text-capitalize">${item.type}</span>
+                    <span class="badge ${typeBg} rounded-3 fw-semibold text-capitalize badgeType">${item.type}</span>
                   </div>
               </td>
               <td>
                   <div class="d-flex align-items-center gap-2">
-                    <span class="badge ${statusBg} rounded-3 fw-semibold text-capitalize">${item.statusRe}</span>
+                    <span class="badge rounded-3 fw-semibold text-capitalize badgeStatus">${item.statusRe}</span>
                   </div>
               </td>
-              <td>$${item.price}</td>
+              <td>${item.price != null ? `$${item.price}` : 'Negotiated price'}</td>
               <td>${item.landArea} m<sup>2</sup></td>
               <td>${item.cityRe}</td>
               <td>${item.districtRe}</td>
               <td>${item.wardRe}</td>
               <td>${item.user.email}</td>
               <td>
-                  <a href="/property/${item.id}" class="btn btn-secondary" target="_blank">
-                      View Live
+                  <a href="/property/${item.id}" class="btn btn-secondary" target="_blank" >
+                      Preview
                   </a>
+                  <button class="btn btn-danger mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
+                      Disable
+                  </button>
               </td>
             </tr>`
         );
@@ -200,12 +196,40 @@ function scrollToElement(id) {
         console.error("Element with id '" + id + "' not found.");
     }
 }
+function changestatustext(){
+    $('.badgeStatus').each(function () {
+        var currentStatus = $(this).text();
+        if(currentStatus === 'ACTIVE'){
+            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-success');
+        } else if(currentStatus === 'INACTIVE'){
+            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-warning');
+        } else {
+            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-danger');
+        }
+        var row = $(this).closest('tr');
+        var disableButton = row.find('.btn.btn-danger');
+        if (currentStatus === 'DISABLED') {
+            disableButton.prop('disabled', true);
+        } else {
+            disableButton.prop('disabled', false);
+        }
+    });
+}
 
 $('#clear-button').on('click', function () {
     $('#titleInput').val('');
     $('#cityID, #districtID, #wardID, #type, #sort').val('');
     priceSlider[0].noUiSlider.set([0, 1000000]);
     landAreaSlider[0].noUiSlider.set([0, 500]);
+});
+$(document).on('click', '.btn-danger', function() {
+    var itemId = $(this).data('id');
+    $('#confirmDisableBtn').data('id', itemId);
+});
+$('#confirmDisableBtn').click(function() {
+    var itemId = $(this).data('id');
+    console.log('Confirm Disable for item ID: ' + itemId);
+    changestatusre(itemId, 'DISABLED');
 });
 
 fetchPage(0);

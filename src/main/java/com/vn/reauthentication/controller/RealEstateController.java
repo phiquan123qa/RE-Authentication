@@ -3,10 +3,7 @@ package com.vn.reauthentication.controller;
 import com.vn.reauthentication.entity.LikedRealEstate;
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
-import com.vn.reauthentication.entityDTO.APIResponse;
-import com.vn.reauthentication.entityDTO.AddFavoriteRequest;
-import com.vn.reauthentication.entityDTO.RealEstateRequest;
-import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
+import com.vn.reauthentication.entityDTO.*;
 import com.vn.reauthentication.repository.LikedRealEstateRepository;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
@@ -127,5 +124,10 @@ public class RealEstateController {
         RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
         boolean exists = likedRealEstateRepository.existsByUserAndRealEstate(user, realEstate);
         return ResponseEntity.ok(exists);
+    }
+    @PostMapping("/admin/status")
+    public ResponseEntity<?> changeRealEstateStatus(@RequestBody RealEstateStatusRequest request) {
+        Boolean realEstateCheck = service.statusRealEstate(request.getId(), request.getStatus());
+        return ResponseEntity.ok(realEstateCheck);
     }
 }

@@ -4,17 +4,6 @@ const checkbox = document.getElementById("isFavorited");
 const icon = document.getElementById("isFavoritedIcon");
 
 function toggleFavorite() {
-
-    // console.log("Sending AJAX request:");
-    // console.log({
-    //     type: 'POST',
-    //     url: '/re/favorite/add',
-    //     data: JSON.stringify({
-    //         userName: userId,
-    //         realEstateId: realEstateId
-    //     }),
-    //     contentType: 'application/json'
-    // });
     if (userId == null || userId === "") {
         saberToast.warn({
             title: "Add to favorite fail",

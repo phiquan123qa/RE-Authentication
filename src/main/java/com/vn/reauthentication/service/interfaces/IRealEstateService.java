@@ -56,4 +56,5 @@ public interface IRealEstateService {
                                     String ward,
                                     String sort,
                                     User user);
+    Boolean statusRealEstate(Long id, String status);
 }
