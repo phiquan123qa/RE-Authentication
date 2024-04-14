@@ -61,4 +61,5 @@ public interface IRealEstateService {
     findRealEstateWithPaginationAndFilterAndSortAdminAccept(Integer pageNumber,
                                     Integer pageSize);
     Boolean statusRealEstate(Long id, String status);
+    void processRealEstateChanges(List<Long> realEstateIds);
 }

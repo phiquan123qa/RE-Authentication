@@ -1,10 +1,12 @@
 package com.vn.reauthentication.service;
 
 import com.vn.reauthentication.entity.RealEstate;
+import com.vn.reauthentication.entity.RealEstateRecommend;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RealEstateCardResponse;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
 import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
+import com.vn.reauthentication.repository.RealEstateRecommedRepository;
 import com.vn.reauthentication.repository.RealEstateRepository;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
@@ -19,18 +21,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class RealEstateService implements IRealEstateService {
     private final RealEstateRepository realEstateRepository;
     private final UserRepository userRepository;
+    private final RealEstateRecommedRepository recommedRepository;
 
     @Override
     public List<RealEstate> getAllRealEstates() {
@@ -306,5 +306,25 @@ public class RealEstateService implements IRealEstateService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void processRealEstateChanges(List<Long> realEstateIds) {
+        List<RealEstate> existingRealEstates  = recommedRepository.findAllRealEstate();
+        List<Long> existingIds = existingRealEstates .stream().map(RealEstate::getId).toList();
+        for(Long id : realEstateIds) {
+            if(!existingIds.contains(id)) {
+                RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+                recommedRepository.save(new RealEstateRecommend(realEstate));
+            }
+        }
+        List<Long> idsToRemove = existingIds.stream().filter(id -> !realEstateIds.contains(id)).toList();
+        for (Long id : idsToRemove) {
+            RealEstate realEstateToRemove = existingRealEstates.stream().filter(re -> re.getId().equals(id)).findFirst().orElse(null);
+            if (realEstateToRemove != null) {
+                recommedRepository.deleteByRealEstate(realEstateToRemove);
+            }
+        }
+
     }
 }

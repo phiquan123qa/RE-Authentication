@@ -138,4 +138,17 @@ public class RealEstateController {
         Boolean realEstateCheck = service.statusRealEstate(request.getId(), request.getStatus());
         return ResponseEntity.ok(realEstateCheck);
     }
+
+    @GetMapping("/admin/findallredata")
+    public APIResponse<List<RealEstate>> getAllRealEstatesAdminData(){
+        List<RealEstate> realEstates = service.getAllRealEstates();
+        return new APIResponse<>(realEstates.size(), realEstates);
+    }
+
+    @PostMapping("/admin/addrecomre")
+    public ResponseEntity<?> addRecommendRealEstate(@RequestBody AddToRecommendReRequest request) {
+        service.processRealEstateChanges(request.getRealEstateIds());
+        return ResponseEntity.ok("Changes saved successfully");
+    }
+
 }

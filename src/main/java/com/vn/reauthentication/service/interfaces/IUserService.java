@@ -24,4 +24,15 @@ public interface IUserService{
                         LocalDate dob, String description,
                         String city, String district,
                         String ward);
+
+    Page<User> findUsersWithPaginationAndFilterAndSort(Integer pageNumber,
+                                                       Integer pageSize,
+                                                       String email,
+                                                       String cityRe,
+                                                       String districtRe,
+                                                       String wardRe,
+                                                       Boolean isEnable,
+                                                       String sort);
+    Boolean disableUser(Long id, Boolean isEnable);
+
 }

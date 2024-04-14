@@ -1,11 +1,14 @@
 package com.vn.reauthentication.controller;
 
 import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.entityDTO.APIResponse;
+import com.vn.reauthentication.entityDTO.UserIsEnableRequest;
 import com.vn.reauthentication.entityDTO.UserUpdateDTO;
 import com.vn.reauthentication.service.interfaces.IFileStorageService;
 import com.vn.reauthentication.service.interfaces.IUserService;
 import com.vn.reauthentication.utility.ImageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authorization.AuthorityAuthorizationManager;
@@ -49,7 +52,25 @@ public class UserController {
         return ResponseEntity.ok(Collections.singletonMap("avatarUrl", avatarUrl));
     }
 
+    @GetMapping("/admin/findalluser")
+    public APIResponse<Page<User>> getAllUsers(
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "9") int pageSize,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "city", required = false) String city,
+            @RequestParam(name = "district", required = false) String district,
+            @RequestParam(name = "ward", required = false) String ward,
+            @RequestParam(name = "isEnable", required = false) Boolean isEnable,
+            @RequestParam(name = "sort", required = false) String sort) {
+        Page<User> users = userService.findUsersWithPaginationAndFilterAndSort(
+                offset, pageSize, email, city, district, ward, isEnable, sort);
+        return new APIResponse<>(users.getSize(), users);
+    }
 
-
+    @PostMapping("/admin/disableuser")
+    public ResponseEntity<?> disableUser(@RequestBody UserIsEnableRequest request) {
+        Boolean isEnableCheck = userService.disableUser(request.getId(), request.getIsEnable());
+        return ResponseEntity.ok(isEnableCheck);
+    }
 }
 

@@ -61,11 +61,6 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ReportPostRealEstate> sentReportsPost;
-
-
-
-
-
     private String description;
     private Boolean isEnable = false;
     @JsonIgnore

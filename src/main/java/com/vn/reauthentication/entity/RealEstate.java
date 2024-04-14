@@ -48,6 +48,10 @@ public class RealEstate {
     @JsonIgnore
     private List<ReportPostRealEstate> receivedReportsPost;
 
+    @OneToOne(mappedBy = "realEstate", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private RealEstateRecommend recommend;
+
     public RealEstate(String title, Double price,
                       Double landArea, String mainImage,
                       String cityRe, String districtRe,

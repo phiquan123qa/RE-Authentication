@@ -51,6 +51,12 @@ public class AdminController {
     @GetMapping("/all_acc")
     public String all_acc(Model model, HttpServletRequest request) {
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("email", request.getParameter("email"));
+        model.addAttribute("city", request.getParameter("city"));
+        model.addAttribute("district", request.getParameter("district"));
+        model.addAttribute("ward", request.getParameter("ward"));
+        model.addAttribute("isEnable", request.getParameter("isEnable"));
+        model.addAttribute("sort", request.getParameter("sort"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "admin/manager_user";
     }
