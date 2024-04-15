@@ -47,7 +47,6 @@ public class RealEstate {
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ReportPostRealEstate> receivedReportsPost;
-
     @OneToOne(mappedBy = "realEstate", cascade = CascadeType.ALL)
     @JsonIgnore
     private RealEstateRecommend recommend;

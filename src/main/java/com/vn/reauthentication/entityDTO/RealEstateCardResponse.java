@@ -27,6 +27,7 @@ public class RealEstateCardResponse {
     private String interior;
     private LocalDate dateStart;
     private LocalDate dateEnd;
+    private String statusRe;
     private String type;
 
 }

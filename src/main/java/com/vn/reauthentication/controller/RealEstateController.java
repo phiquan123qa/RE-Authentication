@@ -5,6 +5,7 @@ import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.*;
 import com.vn.reauthentication.repository.LikedRealEstateRepository;
+import com.vn.reauthentication.repository.RealEstateRecommedRepository;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import com.vn.reauthentication.utility.ImageUtil;
@@ -19,14 +20,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/re")
 public class RealEstateController {
-    private final IRealEstateService service;
+        private final IRealEstateService service;
     private final UserRepository userRepository;
     private final LikedRealEstateRepository likedRealEstateRepository;
+    private final RealEstateRecommedRepository recommedRepository;
 
     @GetMapping("/findall")
     public APIResponse<Page<RealEstate>> getAllRealEstates(
@@ -141,7 +144,13 @@ public class RealEstateController {
 
     @GetMapping("/admin/findallredata")
     public APIResponse<List<RealEstate>> getAllRealEstatesAdminData(){
-        List<RealEstate> realEstates = service.getAllRealEstates();
+        List<RealEstate> realEstates = service.getAllRealEstates().stream().filter(realEstate -> Objects.equals(realEstate.getStatusRe(), "ACTIVE")).toList();
+        return new APIResponse<>(realEstates.size(), realEstates);
+    }
+
+    @GetMapping("/admin/findrerecommenddata")
+    public APIResponse<List<RealEstate>> getAllRealEstatesAdminRecommendData(){
+        List<RealEstate> realEstates = recommedRepository.findAllRealEstate();
         return new APIResponse<>(realEstates.size(), realEstates);
     }
 

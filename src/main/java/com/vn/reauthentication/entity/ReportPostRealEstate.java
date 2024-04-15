@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -15,10 +18,21 @@ public class ReportPostRealEstate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author_id")
-    private User author;
+    private String type;
+    private String status;
+    private String emailAuthor;
+    private String phoneAuthor;
+    private LocalDate dateCreate = LocalDate.now();
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "re_id")
     private RealEstate realEstate;
+
+    public ReportPostRealEstate(String content, String type, String status, String emailAuthor, String phoneAuthor, RealEstate realEstate) {
+        this.content = content;
+        this.type = type;
+        this.status = status;
+        this.emailAuthor = emailAuthor;
+        this.phoneAuthor = phoneAuthor;
+        this.realEstate = realEstate;
+    }
 }

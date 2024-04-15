@@ -145,7 +145,7 @@ function updatePaginationText(currentPage, totalPages) {
 
 function showSkeletonLoader() {
     var loaderHTML = '';
-    for (var i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i++) {
         loaderHTML += `
             <tr>
               <td class="h5 card-title placeholder-glow">

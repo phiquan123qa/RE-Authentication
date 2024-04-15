@@ -103,6 +103,7 @@ public class RealEstateService implements IRealEstateService {
                                                                          Integer maxPrice) {
         Specification<RealEstate> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.equal(root.get("statusRe"), "ACTIVE"));
             if (title != null && !title.isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
             }
@@ -151,7 +152,6 @@ public class RealEstateService implements IRealEstateService {
         } else{
             pageable = PageRequest.of(pageNumber, pageSize);
         }
-
         return realEstateRepository.findAll(spec, pageable);
     }
     @Override
@@ -238,6 +238,7 @@ public class RealEstateService implements IRealEstateService {
         Specification<RealEstate> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(cb.equal(root.get("user"), user));
+            //predicates.add(cb.equal(root.get("statusRe"), "ACTIVE"));
             if (title != null && !title.isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
             }
@@ -288,6 +289,7 @@ public class RealEstateService implements IRealEstateService {
                 realEstate.getInterior(),
                 realEstate.getDateStart(),
                 realEstate.getDateEnd(),
+                realEstate.getStatusRe(),
                 realEstate.getType()
         ));
     }

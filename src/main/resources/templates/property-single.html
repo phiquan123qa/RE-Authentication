@@ -136,16 +136,26 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center ">
-                    <input type="checkbox" name="isFavorited" onchange="toggleFavorite()" id="isFavorited" hidden>
-                    <label class="text-black-50 fs-6 d-flex align-items-center p-2 border rounded-2"
-                           for="isFavorited"
-                            style="cursor: pointer">
-                        Like this property<span id="isFavoritedIcon" class="icon-heart-o ms-2"></span>
-                    </label>
-                    <p id="idReHolder" th:text="${realEstateId}" hidden></p>
-                    <p id="userNameHolder" th:text="${username}" hidden></p>
+                <div class="row">
+                    <div class="d-flex align-items-center col-md-6 col-sm-12 mb-3">
+                        <input type="checkbox" name="isFavorited" onchange="toggleFavorite()" id="isFavorited" hidden>
+                        <label class="text-black-50 fs-6 d-flex align-items-center p-2 border rounded-2"
+                               for="isFavorited"
+                               style="cursor: pointer">
+                            Like this property<span id="isFavoritedIcon" class="icon-heart-o ms-2"></span>
+                        </label>
+                        <p id="idReHolder" th:text="${realEstateId}" hidden></p>
+                        <p id="userNameHolder" th:text="${username}" hidden></p>
+                    </div>
+                    <div class="d-flex align-items-center col-md-6 col-sm-12 mb-3">
+                        <label class="text-black-50 fs-6 d-flex align-items-center p-2 border rounded-2"
+                               style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#reportReBackdrop" role="button">
+                            Report property<span id="reportReIcon" class="icon-warning ms-2"></span>
+                        </label>
+                    </div>
                 </div>
+
+
 
 
                 <div class="d-block agent-box p-5">
@@ -182,6 +192,7 @@
                                 <span class="fs-6" style="color: #005555;">
                                     <a class="link-underline-success" th:href="'mailto:'+${realEstate.user.email}"
                                        th:text="${realEstate.user.email}">Email</a>
+                                    <p id="userIdHolderToReport" th:text="${realEstate.user.id}" hidden></p>
                                 </span>
                             </div>
                         </div>
@@ -198,6 +209,9 @@
                             <li class="me-1">
                                 <a href="#"><span class="icon-linkedin"></span></a>
                             </li>
+                            <li class="me-1">
+                                <a><span class="icon-warning" data-bs-toggle="modal" data-bs-target="#reportUserBackdrop" role="button" style="color: red"></span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -205,7 +219,86 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="reportReBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportReLabel">Report Property</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportReForm">
+                    <div class="mb-3">
+                        <label for="emailReportRe" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailReportRe" name="emailReportRe" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneReportRe" class="form-label">Phone number</label>
+                        <input type="text" class="form-control" id="phoneReportRe" name="phoneReportRe" placeholder="+084 123 456 789">
+                    </div>
+                    <div class="mb-3">
+                        <label for="typeReportRe" class="form-label">Type Report</label>
+                        <select class="form-select" aria-label="Type report re" id="typeReportRe" name="typeReReport">
+                            <option selected>Select type</option>
+                            <option value="Wrong Location">Wrong Location</option>
+                            <option value="Duplicate With Other Properties">Duplicate With Other Properties</option>
+                            <option value="Can't Contact">Can't Contact</option>
+                            <option value="Properties Not Exist">Properties Not Exist</option>
+                            <option value="Properties Have Been Sold">Properties Have Been Sold</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descReTextarea" class="form-label">Description</label>
+                        <textarea class="form-control" id="descReTextarea" rows="5" name="contentReReport"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitReportRe">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="reportUserBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ReportUserLabel">Report User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportUserForm">
+                    <div class="mb-3">
+                        <label for="emailReportUser" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailReportUser" name="emailReportUser" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneReportUser" class="form-label">Phone number</label>
+                        <input type="text" class="form-control" id="phoneReportUser" name="phoneReportUser" placeholder="+084 123 456 789">
+                    </div>
+                    <div class="mb-3">
+                        <label for="typeReportUser" class="form-label">Type Report</label>
+                        <select class="form-select" aria-label="Type report re" id="typeReportUser" name="typeReportUser">
+                            <option selected>Select type</option>
+                            <option value="Wrong Location">Fake Account</option>
+                            <option value="Duplicate With Other Properties">User Not Respond</option>
+                            <option value="Can't Contact">Can't Contact</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descUserTextarea" class="form-label">Description</label>
+                        <textarea class="form-control" id="descUserTextarea" rows="5" name="contentUserReport"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitReportUser">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div th:replace="fragment/footer :: footer"></div>
 
 <!-- Preloader -->
@@ -226,8 +319,26 @@
 <script src="/static/js/addReToLikedList.js"></script>
 <script src="/static/js/replaceBreakLine.js"></script>
 <script src="/static/js/saber-toast.js"></script>
-<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+<script>(g => {
+    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document,
+        b = window;
+    b = b[c] || (b[c] = {});
+    var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams,
+        u = () => h || (h = new Promise(async (f, n) => {
+            await (a = m.createElement("script"));
+            e.set("libraries", [...r] + "");
+            for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+            e.set("callback", c + ".maps." + q);
+            a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+            d[q] = f;
+            a.onerror = () => h = n(Error(p + " could not load."));
+            a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+            m.head.append(a)
+        }));
+    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+})
 ({key: "AIzaSyAiRf7-LmWw4b2hCaxKHybqBNlZxvKAMIg", v: "weekly"});</script>
 <script src="/static/js/googlemapApiSinglePropety.js"></script>
+<script src="/static/js/addReport.js"></script>
 </body>
 </html>

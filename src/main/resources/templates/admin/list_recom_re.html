@@ -41,26 +41,26 @@
         </header>
         <!--  Header End -->
         <div class="container-fluid">
+            <div class="row mb-3 px-2">
+                <p class="h4 mb-3">List Recommend Real Estate For User</p>
+            </div>
             <!--  Row 1 -->
             <div class="row">
-                <div class="col-md-4">
-                        <ul id="columnRe" class=" border list-group" style="min-height: 100px">
-                        <li class="real-estate-item list-group-item" data-id="1">Real Estate 1</li>
-                        <li class="real-estate-item list-group-item" data-id="2">Real Estate 2</li>
-                        <li class="real-estate-item list-group-item" data-id="3">Real Estate 3</li>
-                    </ul>
+                <div class="col-md-6">
+                    <label class="form-label">All Real Estate</label>
+                    <ul id="columnRe" class=" border list-group scrollspy-example" style="height: 30rem; overflow-y: scroll;" data-bs-spy="scroll"
+                        data-bs-target="#list-example"
+                        data-bs-smooth-scroll="true"
+                        tabindex="0"></ul>
                 </div>
-                <div class="col-md-4">
-                    <ul id="columnReRecommend" class="border list-group" style="min-height: 100px"></ul>
-                    <button class="btn btn-primary" id="saveButton">Save</button>
+                <div class="col-md-6">
+                    <label class="form-label">Real Estate Show Recommend ( Max 9 Properties)</label>
+                    <ul id="columnReRecommend" class="border list-group" style="min-height: 30rem"></ul>
+                    <button class="btn btn-primary mt-3" id="saveButton">Save</button>
                 </div>
-
             </div>
-            <!-- Column 2: Show selected real estates -->
-
         </div>
     </div>
-</div>
 </div>
 <script src="/static/assetsAdmin/libs/jquery/dist/jquery.min.js"></script>
 <script src="/static/assetsAdmin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

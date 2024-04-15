@@ -62,6 +62,8 @@ public class AdminController {
     }
     @GetMapping("/report_re")
     public String report_re(Model model, HttpServletRequest request) {
+        model.addAttribute("status", request.getParameter("status"));
+        model.addAttribute("sort", request.getParameter("sort"));
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "admin/report_re";
@@ -69,6 +71,8 @@ public class AdminController {
     @GetMapping("/report_acc")
     public String report_acc(Model model, HttpServletRequest request) {
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("status", request.getParameter("status"));
+        model.addAttribute("sort", request.getParameter("sort"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "admin/report_user";
     }

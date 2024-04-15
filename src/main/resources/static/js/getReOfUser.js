@@ -131,6 +131,9 @@ function updatePage(data) {
     const content = $('#list-card-content');
     content.empty();
     data.content.forEach(function(item) {
+        let buttonText = item.statusRe === "DISABLED" ? "Disable" : "Modify";
+        let buttonDisabled = item.statusRe === "DISABLED" ? "disabled" : "";
+        let buttonClass = item.statusRe === "DISABLED" ? "btn-danger" : "btn-secondary";
         $('#list-card-content').append(
             `<div class="row px-4 py-4 mb-3" style="box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
                     <div class="card mb-3" aria-hidden="true">
@@ -168,8 +171,8 @@ function updatePage(data) {
                                         <div class="fw-bolder me-1">Interior: </div>${item.interior}
                                     </div>
                                     <div class="card-text col-12 d-flex flex-wrap mb-2">
-                                        <button class="btn btn-secondary update-re" value="${item.id}"
-                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">Modify</button>
+                                        <button class="btn ${buttonClass} update-re" value="${item.id}" ${buttonDisabled}
+                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">${buttonText}</button>
                                     </div>
                                 </div>
                             </div>

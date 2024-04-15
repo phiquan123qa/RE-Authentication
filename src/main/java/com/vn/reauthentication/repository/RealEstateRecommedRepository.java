@@ -22,6 +22,4 @@ public interface RealEstateRecommedRepository extends JpaRepository<RealEstateRe
     @Transactional
     @Query("delete from RealEstateRecommend r where r.realEstate = :realEstate")
     void deleteByRealEstate(@Param("realEstate")RealEstate realEstate);
-
-//    void deleteByRealEstate(RealEstate realEstate);
 }

@@ -50,7 +50,7 @@ public class SecurityConfig {
                         "/verify_email",
                         "/forgot_password",
                         "/reset_password",
-                        "/test")
+                        "/report/**")
                 .permitAll()
                 .requestMatchers("/admin/**")
                 .hasAuthority("ADMIN")
