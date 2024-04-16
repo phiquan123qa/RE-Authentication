@@ -133,5 +133,11 @@
 <script src="/static/js/counter.js"></script>
 <script src="/static/js/custom.js"></script>
 <script src="/static/jquery/jquery-3.7.1.js"></script>
+<script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=9779cb76b5fee3c64dc8c1"></script>
+<script>
+    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+        iframely.load( element, element.attributes.url.value );
+    } );
+</script>
 </body>
 </html>
