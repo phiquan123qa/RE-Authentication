@@ -32,4 +32,13 @@ public class Wiki {
     private List<String> attachment;
     private Boolean isPublished;
     private String tag;
+
+    public Wiki(String title, String content, User author, LocalDate date, Boolean isPublished, String tag) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.date = date;
+        this.isPublished = isPublished;
+        this.tag = tag;
+    }
 }

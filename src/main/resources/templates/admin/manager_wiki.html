@@ -13,6 +13,17 @@
 </head>
 
 <body>
+<style>
+    .ck-editor__editable[role="textbox"] {
+        /* Editing area */
+        min-height: 200px;
+    }
+    .ck-content .image {
+        /* Block images */
+        max-width: 80%;
+        margin: 20px auto;
+    }
+</style>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
      data-sidebar-position="fixed" data-header-position="fixed">
@@ -43,7 +54,123 @@
         <div class="container-fluid">
             <!--  Row 1 -->
             <div class="row">
+                <div class="col-12" id="content-container">
+                    <div class="mb-3" style="background-color: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">
+                        <form class="row px-4 py-4" method="get"
+                              data-aos="fade-up"
+                              data-aos-delay="200"
+                              id="searchForm">
+                            <div class="col-lg-9 col-md-8 col-sm-7 mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input class="form-control" id="title" name="title"
+                                        aria-label="Title of Wiki" th:value="${title}">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-3 me-lg-3 pe-md-0 pe-sm-0 d-flex align-items-center" style="margin-bottom: -0.75rem">
+                                <button class="btn btn-secondary" type="submit" style="padding: 10px 15px;">Submit</button>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                <label for="sort" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status"
+                                        aria-label="status of Wiki">
+                                    <option value="">Select Status</option>
+                                    <option th:selected="${status == 'Enable'}" value="Enable">Enable</option>
+                                    <option th:selected="${status == 'Disable'}" value="Disable">Disable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                <label for="sort" class="form-label">Sorting by</label>
+                                <select class="form-select" id="sort" name="sort"
+                                        aria-label="Sort of Wiki">
+                                    <option value="">Select Sorting</option>
+                                    <option th:selected="${sort == 'dateDesc'}" value="dateDesc">Date Down</option>
+                                    <option th:selected="${sort == 'dateAsc'}" value="dateAsc">Date Up</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mb-3 px-2 d-flex flex-wrap justify-content-between">
+                        <p class="h4 mb-3 mb-md-4"> - List Wiki Real Estate - </p>
+                        <button class="btn btn-success mb-2" id="btnAdd" type="button" data-bs-toggle="modal" data-bs-target="#addNewBackdrop">Add Wiki</button>
+                    </div>
+                </div>
+                <div class="row" id="content">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">IsPublished</th>
+                                <th scope="col">Tag</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="table-content">
 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination d-flex justify-content-center" id="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="modal fade" id="addNewBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNewBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Add New Wiki</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label for="sort" class="form-label">Title</label>
+                                        <input class="form-control" id="titleWiki" name="titleWiki"
+                                               aria-label="Title of Wiki">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="sort" class="form-label">Tag</label>
+                                        <select class="form-select" id="tagWiki" name="tagWiki"
+                                               aria-label="Title of Wiki">
+                                            <option value="">Select Tag</option>
+                                            <option value="Tips">Tips</option>
+                                            <option value="News">News</option>
+                                            <option value="Planning">Planning</option>
+                                        </select>
+                                    </div>
+                                    <p id="userNameHolder" th:text="${username}" hidden></p>
+                                    <div class="col-12 mb-3">
+                                        <div id="editor"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="submitAddNew">Create New</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -53,5 +180,72 @@
 <script src="/static/assetsAdmin/js/sidebarmenu.js"></script>
 <script src="/static/assetsAdmin/js/app.min.js"></script>
 <script src="/static/assetsAdmin/libs/simplebar/dist/simplebar.js"></script>
+<script src="/static/js/ckeditor.js"></script>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<script>
+    let editor;
+    ClassicEditor
+        .create( document.querySelector( '#editor' ),
+            {
+                toolbar: {
+                    items: [
+                        'selectAll', '|',
+                        'heading', '|',
+                        'bold', 'italic', 'link', '|',
+                        'bulletedList', 'numberedList', '|',
+                        'outdent', 'indent', '|',
+                        'undo', 'redo',
+                        'link', 'uploadImage', 'mediaEmbed', '|',
+                    ],
+                    shouldNotGroupWhenFull: false
+                },
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                        { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                        { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                    ]
+                },
+                placeholder: 'Write New Wiki In Here',
+                ckfinder: {
+                    uploadUrl: '/wiki/upload_image',
+                    withCredentials: false,
+                }
+            })
+        .then(newEditor => {
+            editor = newEditor;
+            console.log( 'Editor was initialized', editor );})
+        .catch( error => {
+            console.error( error );
+        });
+
+    $('#submitAddNew').click(function () {
+        const editorData = editor.getData();
+        console.log(editorData);
+        $.ajax({
+            type: "POST",
+            url: "/wiki/admin/upload",
+            data:JSON.stringify( {
+                title: $('#titleWiki').val(),
+                content: editorData,
+                authorName: $('#userNameHolder').text(),
+                isPublished: false,
+                tag: $('#tagWiki').val()
+            }),
+            contentType: 'application/json',
+            success: function (result) {
+                alert("Upload Successful");
+            },
+            error: function (result) {
+                alert("Upload Failed");
+            }
+        });
+    });
+</script>
+<script src="/static/assetsAdmin/js/getdatawiki4admin.js"></script>
 </body>
 </html>

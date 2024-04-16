@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " lang="en">
+<head th:replace="fragment/header_css_title :: header">
+    <title>Property Single</title>
+</head>
+<body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+<nav th:replace="fragment/navbar :: navbar"></nav>
+<div
+        class="hero page-inner overlay"
+        style="background-image: url('/static/images/hero_bg_3.jpg')">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up" th:text="${wiki.title}">
+                    Title
+                </h1>
+                <nav
+                        aria-label="breadcrumb"
+                        data-aos="fade-up"
+                        data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="/wiki">Wiki</a>
+                        </li>
+                        <li
+                                class="breadcrumb-item active text-white-50"
+                                aria-current="page" th:text="${wiki.title}">
+                            Title
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-7">
+                <h2 class="heading text-primary" th:text="${wiki.title}">Title</h2>
+                <p class="text-black-50 break-desc" th:text="${wiki.tag}">
+                    Tag
+                </p>
+                <div id="content" th:utext="${wiki.content}"></div>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-block agent-box p-5">
+                    <div class="d-flex align-items-center flex-wrap">
+                        <div class="img mb-4">
+                            <img src="/static/images/person_2-min.jpg"
+                                 th:src="${'../static/images/avatars/'+wiki.author.avatar}"
+                                 alt="Image"
+                                 class="img-fluid"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="mb-0" th:text="${wiki.author.name}">Owner</h3>
+                            <div class="meta mb-3">
+                                Owner
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <p th:text="${wiki.author.description}">
+                            User description
+                        </p>
+                        <div class="d-flex flex-wrap py-3 mb-3" style="border-top: 1px solid #F2F2F2">
+                            <div class="d-flex flex-wrap flex-row py-3 align-items-baseline w-100"
+                                 style="border-bottom: 1px solid #F2F2F2;">
+                                <span class="icon-phone2 fs-6 pe-2"> Phone: </span>
+                                <span class="fs-6" style="color: #005555;">
+                                    <a class="link-underline-success" th:href="'tel://'+${wiki.author.phoneNumber}"
+                                       th:text="${wiki.author.phoneNumber}">PhoneNumber</a>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-wrap flex-row py-3 align-items-baseline w-100"
+                                 style="border-bottom: 1px solid #F2F2F2;">
+                                <span class="icon-contact_mail fs-6 pe-2"> Email: </span>
+                                <span class="fs-6" style="color: #005555;">
+                                    <a class="link-underline-success" th:href="'mailto:'+${wiki.author.email}"
+                                       th:text="${wiki.author.email}">Email</a>
+                                    <p id="userIdHolderToReport" th:text="${wiki.author.id}" hidden></p>
+                                </span>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled social dark-hover d-flex">
+                            <li class="me-1">
+                                <a href="#"><span class="icon-instagram"></span></a>
+                            </li>
+                            <li class="me-1">
+                                <a href="#"><span class="icon-twitter"></span></a>
+                            </li>
+                            <li class="me-1">
+                                <a href="#"><span class="icon-facebook"></span></a>
+                            </li>
+                            <li class="me-1">
+                                <a href="#"><span class="icon-linkedin"></span></a>
+                            </li>
+                            <li class="me-1">
+                                <a><span class="icon-warning" data-bs-toggle="modal" data-bs-target="#reportUserBackdrop" role="button" style="color: red"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/tiny-slider.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/navbar.js"></script>
+<script src="/static/js/counter.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/jquery/jquery-3.7.1.js"></script>
+</body>
+</html>

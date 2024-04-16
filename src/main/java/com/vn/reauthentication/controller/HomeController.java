@@ -3,6 +3,8 @@ package com.vn.reauthentication.controller;
 import com.vn.reauthentication.entity.LikedRealEstate;
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.User;
+import com.vn.reauthentication.entity.Wiki;
+import com.vn.reauthentication.repository.WikiRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import com.vn.reauthentication.service.interfaces.IUserService;
 import com.vn.reauthentication.utility.SetAuthToHeader;
@@ -25,6 +27,7 @@ import java.util.List;
 public class HomeController {
     private final IRealEstateService realEstateService;
     private final IUserService userService;
+    private final WikiRepository wikiRepository;
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request){
         SetAuthToHeader.setUserDetailsToModel(model);
@@ -75,6 +78,17 @@ public class HomeController {
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
         return "wiki";
+    }
+    @GetMapping("/wiki/{id}")
+    public String wiki_detail(Model model,
+                                    HttpServletRequest request,
+                                    @PathVariable Long id) {
+        SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("requestURI", request.getRequestURI());
+        Wiki wiki = wikiRepository.findById(id).orElseThrow();
+        model.addAttribute("wikiId", id);
+        model.addAttribute("wiki", wiki);
+        return "wiki-detail";
     }
     @GetMapping("/about")
     public String about(Model model, HttpServletRequest request){

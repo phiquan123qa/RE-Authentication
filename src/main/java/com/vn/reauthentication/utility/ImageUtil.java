@@ -23,7 +23,7 @@ public class ImageUtil {
             return fileName;
         }catch (Exception e){
             e.printStackTrace();
-            return "";
+            return "Error";
         }
     }
 }
