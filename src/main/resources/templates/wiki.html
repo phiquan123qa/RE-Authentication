@@ -58,12 +58,13 @@
                             <button class="btn btn-secondary" type="submit" style="padding: 10px 15px;">Submit</button>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
-                            <label for="sort" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status"
+                            <label for="sort" class="form-label">Tag</label>
+                            <select class="form-select" id="tag" name="tag"
                                     aria-label="status of Wiki">
-                                <option value="">Select Status</option>
-                                <option th:selected="${status == 'Enable'}" value="Enable">Enable</option>
-                                <option th:selected="${status == 'Disable'}" value="Disable">Disable</option>
+                                <option value="">Select Tag</option>
+                                <option th:selected="${tag == 'Tips'}" value="Tips">Tips</option>
+                                <option th:selected="${tag == 'News'}" value="News">News</option>
+                                <option th:selected="${tag == 'Planning'}" value="Planning">Planning</option>
                             </select>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-3">

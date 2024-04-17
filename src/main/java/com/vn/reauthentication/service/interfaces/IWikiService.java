@@ -9,5 +9,6 @@ public interface IWikiService {
             Integer pageSize,
             String title,
             String tag,
-            String sort);
+            String sort,
+            Boolean isPublished);
 }

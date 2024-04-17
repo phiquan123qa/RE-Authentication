@@ -2,7 +2,7 @@ const currentUrl = window.location.href;
 const url = new URL(currentUrl);
 const searchParams = new URLSearchParams(url.search);
 const titleValue = searchParams.get('title');
-const statusValue = searchParams.get('status');
+const tagValue = searchParams.get('tag');
 const sortValue = searchParams.get('sort');
 
 function fetchPage(pageNumber) {
@@ -15,8 +15,9 @@ function fetchPage(pageNumber) {
             offset: pageNumber,
             pageSize: 6,
             title: titleValue,
-            status: statusValue,
-            sort: sortValue
+            tag: tagValue,
+            sort: sortValue,
+            isPublished: true
         },
         success: function (response) {
             if (response.response.totalElements === 0) {
@@ -45,12 +46,12 @@ function fetchPage(pageNumber) {
         data.response.content.forEach(function (item) {
             var typeBg = item.isPublished === 'True' ? 'bg-success' : 'bg-warning';
             $('#content').append(
-                `<div class="card mb-3" style=" border: 1px solid #ced4da">
+                `<div class="card mb-3 p-3" style=" border: 1px solid #ced4da">
                   <div class="card-body">
                     <h5 class="card-title">${item.title}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${item.tag}</h6>
-                    <p class="card-text">Author: ${item.author.email}</p>
-                    <a href="/wiki/${item.id}" class="card-link">Card link</a>
+                    <p class="card-text mb-4">Author: ${item.author.email}</p>
+                    <a href="/wiki/${item.id}" class="card-link border px-2 py-3">View Details</a>
                   </div>
                 </div>`
             );

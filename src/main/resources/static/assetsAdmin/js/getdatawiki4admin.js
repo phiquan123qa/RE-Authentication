@@ -2,8 +2,9 @@ const currentUrl = window.location.href;
 const url = new URL(currentUrl);
 const searchParams = new URLSearchParams(url.search);
 const titleValue = searchParams.get('title');
-const statusValue = searchParams.get('status');
+const tagValue = searchParams.get('tag');
 const sortValue = searchParams.get('sort');
+const isPublishedValue = searchParams.get('isPublished');
 
 function fetchPage(pageNumber) {
     scrollToElement('content');
@@ -15,8 +16,9 @@ function fetchPage(pageNumber) {
             offset: pageNumber,
             pageSize: 6,
             title: titleValue,
-            status: statusValue,
-            sort: sortValue
+            tag: tagValue,
+            sort: sortValue,
+            isPublished: isPublishedValue
         },
         success: function (response) {
             if (response.response.totalElements === 0) {
@@ -61,7 +63,10 @@ function fetchPage(pageNumber) {
               </td>
               <td>${item.date}</td>
               <td>${item.author.email}</td>
-              <td>
+              <td class="d-flex align-items-center align-content-center">
+                  <a href="/wiki/${item.id}" class="btn btn-secondary mt-3 me-2" target="_blank" >
+                      Preview
+                  </a>
                   <button class="btn btn-danger mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
                       Disable
                   </button>

@@ -21,7 +21,7 @@ import java.util.List;
 public class WikiService implements IWikiService {
     private final WikiRepository wikiRepository;
     @Override
-    public Page<Wiki> findWikisWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String tag, String sort) {
+    public Page<Wiki> findWikisWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String title, String tag, String sort, Boolean isPublished) {
         Specification<Wiki> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (title != null && !title.isEmpty()) {

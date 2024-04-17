@@ -33,16 +33,10 @@ public class UserManager {
         model.addAttribute("requestURI", request.getRequestURI());
         return "mgtre/list";
     }
-    @GetMapping("/his")
+    @GetMapping("/likelist")
     public String his(Model model, HttpServletRequest request){
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
-        return "mgtre/his";
-    }
-    @GetMapping("/cont")
-    public String cont(Model model, HttpServletRequest request){
-        SetAuthToHeader.setUserDetailsToModel(model);
-        model.addAttribute("requestURI", request.getRequestURI());
-        return "mgtre/cont";
+        return "mgtre/likelist";
     }
 }

@@ -76,6 +76,9 @@ public class HomeController {
     @GetMapping("/wiki")
     public String wiki(Model model, HttpServletRequest request){
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("title", request.getParameter("title"));
+        model.addAttribute("tag", request.getParameter("tag"));
+        model.addAttribute("sort", request.getParameter("sort"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "wiki";
     }

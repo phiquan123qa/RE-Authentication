@@ -79,6 +79,10 @@ public class AdminController {
     @GetMapping("/wiki")
     public String wiki(Model model, HttpServletRequest request) {
         SetAuthToHeader.setUserDetailsToModel(model);
+        model.addAttribute("title", request.getParameter("title"));
+        model.addAttribute("tag", request.getParameter("tag"));
+        model.addAttribute("sort", request.getParameter("sort"));
+        model.addAttribute("isPublished", request.getParameter("isPublished"));
         model.addAttribute("requestURI", request.getRequestURI());
         return "admin/manager_wiki";
     }

@@ -57,8 +57,9 @@ public class WikiController {
             @RequestParam(defaultValue = "6") int pageSize,
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "tag", required = false) String tag,
-            @RequestParam(name = "sort", required = false) String sort) {
-        Page<Wiki> wikis = wikiService.findWikisWithPaginationAndFilterAndSort(offset, pageSize, title, tag, sort);
+            @RequestParam(name = "sort", required = false) String sort,
+            @RequestParam(name = "isPublished", required = false) Boolean isPublished) {
+        Page<Wiki> wikis = wikiService.findWikisWithPaginationAndFilterAndSort(offset, pageSize, title, tag, sort, isPublished);
         return new APIResponse<>(wikis.getSize(), wikis);
     }
 }

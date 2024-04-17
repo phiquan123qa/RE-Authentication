@@ -16,7 +16,7 @@
 <style>
     .ck-editor__editable[role="textbox"] {
         /* Editing area */
-        min-height: 200px;
+        min-height: 400px;
     }
     .ck-content .image {
         /* Block images */
@@ -69,22 +69,32 @@
                             <div class="col-lg-2 col-md-2 col-sm-3 me-lg-3 pe-md-0 pe-sm-0 d-flex align-items-center" style="margin-bottom: -0.75rem">
                                 <button class="btn btn-secondary" type="submit" style="padding: 10px 15px;">Submit</button>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
-                                <label for="sort" class="form-label">Status</label>
-                                <select class="form-select" id="status" name="status"
-                                        aria-label="status of Wiki">
-                                    <option value="">Select Status</option>
-                                    <option th:selected="${status == 'Enable'}" value="Enable">Enable</option>
-                                    <option th:selected="${status == 'Disable'}" value="Disable">Disable</option>
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                                <label for="sort" class="form-label">Tag</label>
+                                <select class="form-select" id="tag" name="tag"
+                                        aria-label="Tag of Wiki">
+                                    <option value="">Select Tag</option>
+                                    <option th:selected="${tag == 'Tips'}" value="Tips">Tips</option>
+                                    <option th:selected="${tag == 'News'}" value="News">News</option>
+                                    <option th:selected="${tag == 'Planning'}" value="Planning">Planning</option>
                                 </select>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
                                 <label for="sort" class="form-label">Sorting by</label>
                                 <select class="form-select" id="sort" name="sort"
                                         aria-label="Sort of Wiki">
                                     <option value="">Select Sorting</option>
                                     <option th:selected="${sort == 'dateDesc'}" value="dateDesc">Date Down</option>
                                     <option th:selected="${sort == 'dateAsc'}" value="dateAsc">Date Up</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                                <label for="sort" class="form-label">isPublished</label>
+                                <select class="form-select" id="isPublished" name="isPublished"
+                                        aria-label="isPublished of Wiki">
+                                    <option value="">Select isPublished</option>
+                                    <option th:selected="${isPublished == 'true'}" value="true">Enable</option>
+                                    <option th:selected="${isPublished == 'false'}" value="false">Disable</option>
                                 </select>
                             </div>
                         </form>

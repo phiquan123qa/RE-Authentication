@@ -21,7 +21,6 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
                 <h1 class="heading" data-aos="fade-up">Manager Real Estate</h1>
-
                 <nav aria-label="breadcrumb"
                      data-aos="fade-up"
                      data-aos-delay="200">
@@ -54,11 +53,8 @@
                 <li th:classappend="${requestURI == '/mgtre/list' ? 'active' : ''}">
                     <a href="/mgtre/list"><span class="icon-list mr-3"></span> List Of Real Estate</a>
                 </li>
-                <li th:classappend="${requestURI == '/mgtre/his' ? 'active' : ''}">
-                    <a href="/mgtre/his"><span class="icon-history mr-3"></span> History Transactions</a>
-                </li>
-                <li th:classappend="${requestURI == '/mgtre/cont' ? 'active' : ''}">
-                    <a href="/mgtre/cont"><span class="icon-contacts mr-3"></span> Contacts</a>
+                <li th:classappend="${requestURI == '/mgtre/likelist' ? 'active' : ''}">
+                    <a href="/mgtre/likelist"><span class="icon-history mr-3"></span> Liked List Real Estate</a>
                 </li>
             </ul>
         </div>
