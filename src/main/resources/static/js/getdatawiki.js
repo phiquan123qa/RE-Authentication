@@ -46,7 +46,7 @@ function fetchPage(pageNumber) {
         data.response.content.forEach(function (item) {
             var typeBg = item.isPublished === 'True' ? 'bg-success' : 'bg-warning';
             $('#content').append(
-                `<div class="card mb-3 p-3" style=" border: 1px solid #ced4da">
+                `<div class="card mb-3 p-3" style=" border: 1px solid #ced4da; max-height: 15rem;">
                   <div class="card-body">
                     <h5 class="card-title">${item.title}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${item.tag}</h6>

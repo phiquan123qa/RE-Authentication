@@ -69,7 +69,12 @@ public class UserController {
 
     @PostMapping("/admin/disableuser")
     public ResponseEntity<?> disableUser(@RequestBody UserIsEnableRequest request) {
-        Boolean isEnableCheck = userService.disableUser(request.getId(), request.getIsEnable());
+        Boolean isDisableCheck = userService.disableEnableUser(request.getId(), request.getIsEnable());
+        return ResponseEntity.ok(isDisableCheck);
+    }
+    @PostMapping("/admin/enableuser")
+    public ResponseEntity<?> enableUser(@RequestBody UserIsEnableRequest request) {
+        Boolean isEnableCheck = userService.disableEnableUser(request.getId(), request.getIsEnable());
         return ResponseEntity.ok(isEnableCheck);
     }
 }

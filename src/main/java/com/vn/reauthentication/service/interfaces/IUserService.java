@@ -33,6 +33,6 @@ public interface IUserService{
                                                        String wardRe,
                                                        Boolean isEnable,
                                                        String sort);
-    Boolean disableUser(Long id, Boolean isEnable);
+    Boolean disableEnableUser(Long id, Boolean isEnable);
 
 }

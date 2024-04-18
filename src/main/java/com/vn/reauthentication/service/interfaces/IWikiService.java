@@ -11,4 +11,5 @@ public interface IWikiService {
             String tag,
             String sort,
             Boolean isPublished);
+    Boolean disableEnableWiki(Long id, Boolean isPublished);
 }

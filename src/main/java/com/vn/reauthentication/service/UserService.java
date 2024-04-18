@@ -127,7 +127,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Boolean disableUser(Long id, Boolean isEnable) {
+    public Boolean disableEnableUser(Long id, Boolean isEnable) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             user.setIsEnable(isEnable);

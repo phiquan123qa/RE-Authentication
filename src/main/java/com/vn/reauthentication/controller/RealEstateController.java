@@ -136,6 +136,14 @@ public class RealEstateController {
         boolean exists = likedRealEstateRepository.existsByUserAndRealEstate(user, realEstate);
         return ResponseEntity.ok(exists);
     }
+    @GetMapping("/favorite/list")
+    public APIResponse<List<RealEstate>> getListFavorite() {
+        String accName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(accName).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        List<RealEstate> likedRealEstates = likedRealEstateRepository.findAllByUser(user).stream().map(LikedRealEstate::getRealEstate).filter(realEstate -> realEstate.getStatusRe().equals("ACTIVE")).toList();
+        return new APIResponse<>(likedRealEstates.size(),likedRealEstates);
+    }
+
     @PostMapping("/admin/status")
     public ResponseEntity<?> changeRealEstateStatus(@RequestBody RealEstateStatusRequest request) {
         Boolean realEstateCheck = service.statusRealEstate(request.getId(), request.getStatus());

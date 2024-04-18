@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @EnableJpaRepositories
 public interface LikedRealEstateRepository extends JpaRepository<LikedRealEstate, Long> {
@@ -20,4 +22,6 @@ public interface LikedRealEstateRepository extends JpaRepository<LikedRealEstate
     void delete(@Param("user") User user, @Param("realEstate") RealEstate realEstate);
     @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM LikedRealEstate r WHERE r.user = :user AND r.realEstate = :realEstate")
     boolean existsByUserAndRealEstate(@Param("user") User user, @Param("realEstate") RealEstate realEstate);
+
+    List<LikedRealEstate> findAllByUser(User user);
 }

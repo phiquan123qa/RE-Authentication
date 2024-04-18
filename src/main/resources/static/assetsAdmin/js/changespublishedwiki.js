@@ -1,25 +1,25 @@
-function changedisableuser(id, isEnable) {
+function changespublishedwiki(id, isPublished) {
     $.ajax({
-        url: '/user/admin/disableuser',
+        url: '/wiki/admin/changepublished',
         data: JSON.stringify({
             id: id,
-            isEnable: isEnable
+            isPublished: isPublished
         }),
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            if(isEnable === true) {
+            if(isPublished === true) {
                 $('#closeEnableModal').click();
                 let itemRow = $(`#table-content tr:has(th:contains(${id}))`);
-                let statusSpan = itemRow.find('.badgeStatus');
-                statusSpan.text('Enabled');
-            }else if (isEnable === false) {
+                let statusSpan = itemRow.find('.badgeType');
+                statusSpan.text('Published');
+            }else if (isPublished === false) {
                 $('#closeDisableModal').click();
                 let itemRow = $(`#table-content tr:has(th:contains(${id}))`);
-                let statusSpan = itemRow.find('.badgeStatus');
-                statusSpan.text('Disabled');
+                let statusSpan = itemRow.find('.badgeType');
+                statusSpan.text('Unpublished');
             }
-            changeenabletext();
+            changestatustext();
             console.log(response);
         },
         error: function (error) {

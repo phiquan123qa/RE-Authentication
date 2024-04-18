@@ -78,7 +78,7 @@ function updatePage(data) {
               <td>${item.district}</td>
               <td>${item.ward}</td>
               <td>
-                  <button class="btn btn-danger mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
+                  <button class="btn mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
                       Disable
                   </button>
               </td>
@@ -183,16 +183,16 @@ function changeenabletext(){
     $('.badgeStatus').each(function () {
         var currentStatus = $(this).text();
         if(currentStatus === 'Enabled'){
-            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-success');
+            $(this).removeClass('bg-success bg-danger').addClass('bg-success');
         } else {
-            $(this).removeClass('bg-success bg-warning bg-danger').addClass('bg-danger');
+            $(this).removeClass('bg-success bg-danger').addClass('bg-danger');
         }
         var row = $(this).closest('tr');
-        var disableButton = row.find('.btn.btn-danger');
+        var disableButton = row.find('.btn');
         if (currentStatus === 'Disabled') {
-            disableButton.prop('disabled', true);
+            disableButton.removeClass('btn-danger btn-success').addClass('btn-success').text('Enabled').attr('data-bs-target', '#enableModal');
         } else {
-            disableButton.prop('disabled', false);
+            disableButton.removeClass('btn-danger btn-success').addClass('btn-danger').text('Disabled').attr('data-bs-target', '#disableModal');
         }
     });
 }
@@ -200,6 +200,15 @@ function changeenabletext(){
 $('#clear-button').on('click', function () {
     $('#titleInput').val('');
     $('#cityID, #districtID, #wardID, #isEnable, #sort').val('');
+});
+$(document).on('click', '.btn-success', function() {
+    var itemId = $(this).data('id');
+    $('#confirmEnableBtn').data('id', itemId);
+});
+$('#confirmEnableBtn').click(function() {
+    var itemId = $(this).data('id');
+    console.log('Confirm Disable for item ID: ' + itemId);
+    changedisableuser(itemId, true);
 });
 $(document).on('click', '.btn-danger', function() {
     var itemId = $(this).data('id');

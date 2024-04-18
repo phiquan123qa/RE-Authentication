@@ -4,6 +4,7 @@ import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entity.Wiki;
 import com.vn.reauthentication.entityDTO.APIResponse;
 import com.vn.reauthentication.entityDTO.WikiCreateRequest;
+import com.vn.reauthentication.entityDTO.WikiIsPublishedRequest;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.repository.WikiRepository;
 import com.vn.reauthentication.service.WikiService;
@@ -62,4 +63,11 @@ public class WikiController {
         Page<Wiki> wikis = wikiService.findWikisWithPaginationAndFilterAndSort(offset, pageSize, title, tag, sort, isPublished);
         return new APIResponse<>(wikis.getSize(), wikis);
     }
+
+    @PostMapping("/admin/changepublished")
+    public ResponseEntity<?> changePublished(@RequestBody WikiIsPublishedRequest request) {
+        Boolean isPublished = wikiService.disableEnableWiki(request.getId(), request.getIsPublished());
+        return ResponseEntity.ok(isPublished);
+    }
+
 }
