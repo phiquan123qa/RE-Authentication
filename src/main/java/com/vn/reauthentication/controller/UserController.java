@@ -57,13 +57,11 @@ public class UserController {
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "9") int pageSize,
             @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "city", required = false) String city,
-            @RequestParam(name = "district", required = false) String district,
-            @RequestParam(name = "ward", required = false) String ward,
+            @RequestParam(name = "role", required = false) String role,
             @RequestParam(name = "isEnable", required = false) Boolean isEnable,
             @RequestParam(name = "sort", required = false) String sort) {
         Page<User> users = userService.findUsersWithPaginationAndFilterAndSort(
-                offset, pageSize, email, city, district, ward, isEnable, sort);
+                offset, pageSize, email, role, isEnable, sort);
         return new APIResponse<>(users.getSize(), users);
     }
 

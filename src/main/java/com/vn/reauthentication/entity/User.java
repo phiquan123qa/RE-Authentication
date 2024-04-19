@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vn.reauthentication.entity.Role;
+import lombok.NonNull;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
@@ -26,9 +27,11 @@ public class User {
     private Long id;
     @Email
     @NaturalId(mutable = true)
+    @NonNull
     private String email;
     private String name;
     private String avatar;
+    @NonNull
     private String password;
     private LocalDate dob;
     @Size(min = 10, max = 13)
@@ -49,26 +52,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LikedRealEstate> likedRealEstates;
-
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private List<ReportUser> sentReports;
-
     @OneToMany(mappedBy = "reportedUser", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ReportUser> receivedReports;
-
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private List<ReportPostRealEstate> sentReportsPost;
     private String description;
     private Boolean isEnable = false;
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Wiki> wikis;
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<News> news;
 
     public User(String email, String name, String avatar, String password, LocalDate dob
             , String phoneNumber, String city, String district, String ward

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,23 +19,37 @@ public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String title;
     private Double price;
+    @NonNull
     private Double landArea;
     private String mainImage;
+    @NonNull
     private String cityRe;
+    @NonNull
     private String districtRe;
+    @NonNull
     private String wardRe;
+    @NonNull
     private String address;
+    @NonNull
     private Integer room;
+    @NonNull
     private Integer bedRoom;
+    @NonNull
     private Integer bathRoom;
+    @NonNull
     private String description;
     private LocalDate dateStart;
     private LocalDate dateEnd;
+    @NonNull
     private String type;
+    @NonNull
     private String legalDocument;
+    @NonNull
     private String interior;
+    @NonNull
     private String statusRe;
     @ManyToOne
     @JoinColumn(name = "user_id")

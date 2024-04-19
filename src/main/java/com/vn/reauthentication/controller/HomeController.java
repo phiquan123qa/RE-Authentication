@@ -60,6 +60,7 @@ public class HomeController {
         RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow();
         model.addAttribute("realEstateId", id);
         model.addAttribute("realEstate", realEstate);
+        model.addAttribute("realEstateName", realEstate.getTitle());
         return "property-single";
     }
     @GetMapping("/login")

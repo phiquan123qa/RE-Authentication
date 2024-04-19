@@ -2,15 +2,13 @@ const currentUrl = window.location.href;
 const url = new URL(currentUrl);
 const searchParams = new URLSearchParams(url.search);
 const emailValue = searchParams.get('email');
-const cityValue = searchParams.get('city');
-const districtValue = searchParams.get('district');
-const wardValue = searchParams.get('ward');
+const roleValue = searchParams.get('role');
 const isEnableValue = searchParams.get('isEnable');
 const sortValue = searchParams.get('sort');
 
 
 function allParamsAreEmpty() {
-    return !cityValue && !districtValue && !wardValue && !sortValue && !isEnableValue;
+    return !roleValue &&!sortValue && !isEnableValue;
 }
 
 function fetchPage(pageNumber) {
@@ -23,9 +21,7 @@ function fetchPage(pageNumber) {
             offset: pageNumber,
             pageSize: 6,
             email: emailValue,
-            city: cityValue,
-            district: districtValue,
-            ward: wardValue,
+            role: roleValue,
             isEnable: isEnableValue,
             sort: sortValue,
         },
@@ -70,6 +66,7 @@ function updatePage(data) {
                     <span class="badge rounded-3 fw-semibold text-capitalize badgeStatus">${item.isEnable === true ? 'Enabled' : 'Disabled'}</span>
                   </div>
               </td>
+              <td>${item.roles.map(role => role.role).join(', ')}</td>
               <td>
                   ${item.dob != null ? item.dob : 'N/A'}
               </td>

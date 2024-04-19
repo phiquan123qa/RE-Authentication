@@ -6,6 +6,7 @@ import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RegisterRequest;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.service.interfaces.IUserService;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -91,20 +92,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Page<User> findUsersWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String email, String city, String district, String ward, Boolean isEnable, String sort) {
+    public Page<User> findUsersWithPaginationAndFilterAndSort(Integer pageNumber, Integer pageSize, String email, String role, Boolean isEnable, String sort) {
         Specification<User> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (email != null && !email.isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + email.toLowerCase() + "%"));
             }
-            if (city != null && !city.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("city")), city.toLowerCase()));
-            }
-            if (district != null && !district.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("district")), district.toLowerCase()));
-            }
-            if (ward != null && !ward.isEmpty()) {
-                predicates.add(cb.equal(cb.lower(root.get("ward")), ward.toLowerCase()));
+            if (role != null && !role.isEmpty()) {
+                Join<User, Role> roleJoin = root.join("roles");
+                predicates.add(cb.equal(roleJoin.get("role"), role));
             }
             if (isEnable != null) {
                 predicates.add(cb.equal(root.get("isEnable"), isEnable));

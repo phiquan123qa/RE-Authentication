@@ -28,9 +28,7 @@ public interface IUserService{
     Page<User> findUsersWithPaginationAndFilterAndSort(Integer pageNumber,
                                                        Integer pageSize,
                                                        String email,
-                                                       String cityRe,
-                                                       String districtRe,
-                                                       String wardRe,
+                                                       String role,
                                                        Boolean isEnable,
                                                        String sort);
     Boolean disableEnableUser(Long id, Boolean isEnable);

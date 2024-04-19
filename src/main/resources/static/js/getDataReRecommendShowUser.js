@@ -54,39 +54,40 @@ function updatePage(data) {
     data.response.forEach(function(item) {
         $('#property-slider').append(
             `<div class="property-item">
-                <a href="/property/${item.id}" class="img">
-                    <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="min-height: 20rem"/>
-                </a>
-                <div class="property-content">
-                    <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
-                    <div>
-                        <span class="d-block mb-2 text-black-50">
-                            ${item.wardRe}, ${item.districtRe}, ${item.cityRe}
-                        </span>
-                        <span class="city d-block mb-3">
-                            ${item.title}
-                        </span>
-                        <div class="specs d-flex flex-wrap mb-4">
-                            <span class="d-block d-flex align-items-center me-3 mb-2">
-                              <span class="icon-bed me-2"></span>
-                              <span class="caption">${item.room != null ? item.room : 1} bed</span>
+                    <a href="/property/${item.id}" class="img">
+                        <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="min-height: 20rem"/>
+                    </a>
+                    <div class="property-content">
+                        <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
+                        <div>
+                            <span class="d-block mb-2 text-black-50">
+                                ${item.wardRe}, ${item.districtRe}, ${item.cityRe}
                             </span>
-                            <span class="d-block d-flex align-items-center me-3 mb-2">
-                              <span class="icon-bath me-2"></span>
-                              <span class="caption">${item.bedRoom != null ? item.bedRoom : 1} bath</span>
-                            </span>
-                            <span class="d-block d-flex align-items-center me-3 mb-2">
-                              <span class="icon-home me-2"></span>
-                              <span class="caption" >${item.landArea != null ? item.landArea : '?'} m&sup2</span>
-                            </span>
+                            <a href="/property/${item.id}" class="city d-block mb-3">
+                                ${item.title}
+                            </a>
+                            <div class="specs d-flex flex-wrap mb-4">
+                                <span class="d-block d-flex align-items-center me-3 mb-2">
+                                  <span class="icon-bed me-2"></span>
+                                  <span class="caption">${item.room != null ? item.room : 1} bed</span>
+                                </span>
+                                <span class="d-block d-flex align-items-center me-3 mb-2">
+                                  <span class="icon-bath me-2"></span>
+                                  <span class="caption">${item.bedRoom != null ? item.bedRoom : 1} bath</span>
+                                </span>
+                                <span class="d-block d-flex align-items-center me-3 mb-2">
+                                  <span class="icon-home me-2"></span>
+                                  <span class="caption" >${item.landArea != null ? item.landArea : '?'} m&sup2</span>
+                                </span>
+                            </div>
+                            <a href="/property/${item.id}"
+                               class="btn btn-primary py-2 px-3">
+                               See details
+                            </a>
                         </div>
-                        <a href="/property/${item.id}"
-                           class="btn btn-primary py-2 px-3">
-                           See details
-                        </a>
                     </div>
-                </div>
-            </div>`
+            </div>
+        `
         );
     });
     var tinySdlierr = function () {

@@ -52,6 +52,7 @@
 
     <title th:if="${requestURI != null and requestURI == ''}">QMHouse, The best real estate trading platform for richness</title>
     <title th:if="${requestURI != null and requestURI == '/properties'}">QMHouse Properties</title>
+    <title th:if="${requestURI != null and requestURI.startsWith('/property')}" th:text="${realEstateName}">Single Property</title>
     <title th:if="${requestURI != null and requestURI == '/services'}">QMHouse Services</title>
     <title th:if="${requestURI != null and requestURI == '/about'}">QMHouse About Us</title>
     <title th:if="${requestURI != null and requestURI == '/wiki'}">QMHouse Wiki</title>

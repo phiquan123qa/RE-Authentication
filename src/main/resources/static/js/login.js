@@ -61,8 +61,8 @@ $(function() {
 		// If all checks pass, submit the form
 		if (valid) {
 			saberToast.success({
-				title: "Login Success",
-				text: "You will be redirect to home page in 3 seconds",
+				title: "Login Checking...",
+				text: "We are checking your account...",
 				delay: 200,
 				duration: 2600,
 				rtl: true,

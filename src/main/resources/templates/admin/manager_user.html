@@ -69,43 +69,28 @@
                                 </p>
                             </div>
                             <div class="row mt-3" id="advanceSearch" style="display: none">
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                                    <label for="cityID" class="form-label">City</label>
-                                    <select class="form-select" id="cityID" name="city"
-                                            aria-label="Floating label select city">
-                                        <option value="">Select Your City</option>
+                                <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select class="form-select" id="role" name="role"
+                                            aria-label="Type of role">
+                                        <option value="">Select Role</option>
+                                        <option th:selected="${role == 'ADMIN'}" value="ADMIN">Admin</option>
+                                        <option th:selected="${role == 'USER'}" value="USER">User</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                                    <label for="districtID" class="form-label">District</label>
-                                    <select class="form-select" id="districtID" name="district"
-                                            aria-label="Floating label select example">
-                                        <option value="">Select Your District</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                                    <label for="wardID" class="form-label">Ward</label>
-                                    <select class="form-select" id="wardID" name="ward"
-                                            aria-label="Floating label select example">
-                                        <option value="">Select Your Ward</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                                     <label for="isEnable" class="form-label">Is Enable</label>
                                     <select class="form-select" id="isEnable" name="isEnable"
-                                            aria-label="Type of Real Estate">
+                                            aria-label="Type of Is Enable">
                                         <option value="">Select Enable Type</option>
                                         <option th:selected="${isEnable == 'true'}" value="true">Enable</option>
                                         <option th:selected="${isEnable == 'false'}" value="false">Disable</option>
                                     </select>
-                                    <p id="my_city" th:text="${city}" hidden></p>
-                                    <p id="my_district" th:text="${district}" hidden></p>
-                                    <p id="my_ward" th:text="${ward}" hidden></p>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                                     <label for="sort" class="form-label">Sorting by</label>
                                     <select class="form-select" id="sort" name="sort"
-                                            aria-label="Sort of Real Estate">
+                                            aria-label="Sort of Account">
                                         <option value="">Select Sorting</option>
                                         <option th:selected="${sort == 'nameDesc'}" value="nameDesc">Name Down</option>
                                         <option th:selected="${sort == 'nameAsc'}" value="nameAsc">Name Up</option>
@@ -138,6 +123,7 @@
                                 <th scope="col">Username</th>
                                 <th scope="col">Avatar</th>
                                 <th scope="col">Is Enable</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Dob</th>
                                 <th scope="col">Phone Number</th>
                                 <th scope="col">City</th>
@@ -207,8 +193,6 @@
 <script src="/static/assetsAdmin/js/app.min.js"></script>
 <script src="/static/assetsAdmin/libs/simplebar/dist/simplebar.js"></script>
 <script src="/static/js/advancedSearchBar.js"></script>
-<script src="/static/js/axios.min.js"></script>
-<script defer src="/static/js/location.js"></script>
 <script src="/static/assetsAdmin/js/getdatauser4admin.js"></script>
 <script src="/static/assetsAdmin/js/changedisableuser.js"></script>
 </body>
