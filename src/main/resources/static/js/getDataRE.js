@@ -72,8 +72,7 @@ function updatePage(data) {
                 <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
                 <div>
                   <span class="d-block mb-2 text-black-50">${item.wardRe}, ${item.districtRe}, ${item.cityRe}</span>
-                  <span class="city d-block mb-3">${item.title}</span>
-
+                  <a href="/property/${item.id}" class="city d-block mb-3">${item.title}</a>
                   <div class="specs d-flex flex-wrap mb-4">
                     <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-bed me-2"></span>
