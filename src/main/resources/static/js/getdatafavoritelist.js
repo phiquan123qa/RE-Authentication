@@ -5,7 +5,7 @@ function getdatafavoritelist() {
         type: "GET",
         success: function (response) {
             console.log(response);
-            if( response.totalElements === 0){
+            if( response.recordCount === 0){
                 nonDataFound();
             }else{
                 updatePage(response);
@@ -28,9 +28,6 @@ function nonDataFound(){
         '                </div>\n' +
         '                <div class="col-12 text-center">\n' +
         '                    <p>Post your first Real Estate here to sell or rent</p>\n' +
-        '                </div>\n' +
-        '                <div class="col-12 text-center mb-3">\n' +
-        '                    <a class="btn btn-secondary">Post New Real Estate</a>\n' +
         '                </div>\n' +
         '            </div>');
 }

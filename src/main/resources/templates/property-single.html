@@ -209,8 +209,8 @@
                             <li class="me-1">
                                 <a href="#"><span class="icon-linkedin"></span></a>
                             </li>
-                            <li class="me-1">
-                                <a><span class="icon-warning" data-bs-toggle="modal" data-bs-target="#reportUserBackdrop" role="button" style="color: red"></span></a>
+                            <li class="me-1" data-bs-toggle="modal" data-bs-target="#reportUserBackdrop">
+                                <a><span class="icon-warning" style="color: red"></span></a>
                             </li>
                         </ul>
                     </div>
@@ -239,7 +239,7 @@
                     <div class="mb-3">
                         <label for="typeReportRe" class="form-label">Type Report</label>
                         <select class="form-select" aria-label="Type report re" id="typeReportRe" name="typeReReport">
-                            <option selected>Select type</option>
+                            <option value="" selected>Select type</option>
                             <option value="Wrong Location">Wrong Location</option>
                             <option value="Duplicate With Other Properties">Duplicate With Other Properties</option>
                             <option value="Can't Contact">Can't Contact</option>
@@ -280,7 +280,7 @@
                     <div class="mb-3">
                         <label for="typeReportUser" class="form-label">Type Report</label>
                         <select class="form-select" aria-label="Type report re" id="typeReportUser" name="typeReportUser">
-                            <option selected>Select type</option>
+                            <option value="" selected>Select type</option>
                             <option value="Wrong Location">Fake Account</option>
                             <option value="Duplicate With Other Properties">User Not Respond</option>
                             <option value="Can't Contact">Can't Contact</option>
