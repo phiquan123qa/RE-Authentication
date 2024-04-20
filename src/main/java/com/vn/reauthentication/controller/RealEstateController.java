@@ -7,7 +7,9 @@ import com.vn.reauthentication.entityDTO.*;
 import com.vn.reauthentication.repository.LikedRealEstateRepository;
 import com.vn.reauthentication.repository.RealEstateRecommedRepository;
 import com.vn.reauthentication.repository.UserRepository;
+import com.vn.reauthentication.service.interfaces.ILikeRealEstateService;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
+import com.vn.reauthentication.service.interfaces.IUserService;
 import com.vn.reauthentication.utility.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,11 +28,9 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/re")
 public class RealEstateController {
-        private final IRealEstateService service;
-    private final UserRepository userRepository;
-    private final LikedRealEstateRepository likedRealEstateRepository;
-    private final RealEstateRecommedRepository recommedRepository;
-
+    private final IRealEstateService realEstateService;
+    private final IUserService userService;
+    private final ILikeRealEstateService likeRealEstateService;
     @GetMapping("/findall")
     public APIResponse<Page<RealEstate>> getAllRealEstates(
             @RequestParam(defaultValue = "0") int offset,
@@ -45,7 +45,7 @@ public class RealEstateController {
             @RequestParam(name = "maxArea", required = false) Integer maxArea,
             @RequestParam(name = "minPrice", required = false) Integer minPrice,
             @RequestParam(name = "maxPrice", required = false) Integer maxPrice) {
-        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSort(
+        Page<RealEstate> realEstates = realEstateService.findRealEstateWithPaginationAndFilterAndSort(
                 offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, minArea, maxArea, minPrice, maxPrice);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
@@ -64,7 +64,7 @@ public class RealEstateController {
             @RequestParam(name = "maxArea", required = false) Integer maxArea,
             @RequestParam(name = "minPrice", required = false) Integer minPrice,
             @RequestParam(name = "maxPrice", required = false) Integer maxPrice) {
-        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSortAdmin(
+        Page<RealEstate> realEstates = realEstateService.findRealEstateWithPaginationAndFilterAndSortAdmin(
                 offset, pageSize, title, type, cityRe, districtRe, wardRe, sort, status, minArea, maxArea, minPrice, maxPrice);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
@@ -72,7 +72,7 @@ public class RealEstateController {
     public APIResponse<Page<RealEstate>> getAllRealEstatesAdminAccept(
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "9") int pageSize){
-        Page<RealEstate> realEstates = service.findRealEstateWithPaginationAndFilterAndSortAdminAccept(
+        Page<RealEstate> realEstates = realEstateService.findRealEstateWithPaginationAndFilterAndSortAdminAccept(
                 offset, pageSize);
         return new APIResponse<>(realEstates.getSize(), realEstates);
     }
@@ -90,7 +90,7 @@ public class RealEstateController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createRealEstate(@RequestBody RealEstateRequest request) {
-        RealEstate realEstate = service.createRealEstate(request);
+        RealEstate realEstate = realEstateService.createRealEstate(request);
         return ResponseEntity.ok(realEstate);
     }
 
@@ -104,67 +104,68 @@ public class RealEstateController {
                                        @RequestParam(required = false, defaultValue = "") String ward,
                                        @RequestParam(required = false, defaultValue = "" ) String sort) {
         String accName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByEmail(accName).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        return ResponseEntity.ok(service.findRealEstateWithFiltersOfUser(offset, pageSize,title, type, city, district, ward, sort, user));
+        User user = userService.findUserByEmail(accName).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        return ResponseEntity.ok(realEstateService.findRealEstateWithFiltersOfUser(offset, pageSize,title, type, city, district, ward, sort, user));
     }
 
     @PostMapping("/update")
     public ResponseEntity<?> updateRealEstate(@RequestBody RealEstateUpdateRequest request) {
-        RealEstate realEstate = service.updateRealEstate(request);
+        RealEstate realEstate = realEstateService.updateRealEstate(request);
         return ResponseEntity.ok(realEstate);
     }
 
     @PostMapping("/favorite/add")
     public ResponseEntity<?> addRealEstateToFavorite(@RequestBody AddFavoriteRequest request) {
-        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        User user = userService.findUserByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = realEstateService.findRealEstateById(request.getRealEstateId()).orElseThrow();
         LikedRealEstate likedRealEstate = new LikedRealEstate(user, realEstate);
-        likedRealEstateRepository.save(likedRealEstate);
-        return ResponseEntity.ok().body( "Add success" );
+        return ResponseEntity.ok(likeRealEstateService.save(likedRealEstate));
     }
     @PostMapping("/favorite/delete")
     public ResponseEntity<?> deleteRealEstateFromFavorite(@RequestBody AddFavoriteRequest request) {
-        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
-        likedRealEstateRepository.delete(user, realEstate);
-        return ResponseEntity.ok().body( "Delete success" );
+        User user = userService.findUserByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = realEstateService.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        return ResponseEntity.ok(likeRealEstateService.delete(user, realEstate));
     }
     @PostMapping("/favorite/check")
     public ResponseEntity<?> checkRealEstateInFavorite(@RequestBody AddFavoriteRequest request) {
-        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        RealEstate realEstate = service.findRealEstateById(request.getRealEstateId()).orElseThrow();
-        boolean exists = likedRealEstateRepository.existsByUserAndRealEstate(user, realEstate);
-        return ResponseEntity.ok(exists);
+        User user = userService.findUserByEmail(request.getUserName()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        RealEstate realEstate = realEstateService.findRealEstateById(request.getRealEstateId()).orElseThrow();
+        return ResponseEntity.ok(likeRealEstateService.existsByUserAndRealEstate(user, realEstate));
     }
     @GetMapping("/favorite/list")
-    public APIResponse<List<RealEstate>> getListFavorite() {
+    public APIResponse<?> getListFavorite() {
         String accName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByEmail(accName).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        List<RealEstate> likedRealEstates = likedRealEstateRepository.findAllByUser(user).stream().map(LikedRealEstate::getRealEstate).filter(realEstate -> realEstate.getStatusRe().equals("ACTIVE")).toList();
+        User user = userService.findUserByEmail(accName).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        List<RealEstate> likedRealEstates = realEstateService.findAllByUser(user);
         return new APIResponse<>(likedRealEstates.size(),likedRealEstates);
     }
 
     @PostMapping("/admin/status")
     public ResponseEntity<?> changeRealEstateStatus(@RequestBody RealEstateStatusRequest request) {
-        Boolean realEstateCheck = service.statusRealEstate(request.getId(), request.getStatus());
-        return ResponseEntity.ok(realEstateCheck);
+        return ResponseEntity.ok(realEstateService.statusRealEstate(request.getId(), request.getStatus()));
     }
 
     @GetMapping("/admin/findallredata")
     public APIResponse<List<RealEstate>> getAllRealEstatesAdminData(){
-        List<RealEstate> realEstates = service.getAllRealEstates().stream().filter(realEstate -> Objects.equals(realEstate.getStatusRe(), "ACTIVE")).toList();
+        List<RealEstate> realEstates = realEstateService.getAllRealEstates().stream().filter(realEstate -> Objects.equals(realEstate.getStatusRe(), "ACTIVE")).toList();
         return new APIResponse<>(realEstates.size(), realEstates);
     }
 
     @GetMapping("/admin/findrerecommenddata")
     public APIResponse<List<RealEstate>> getAllRealEstatesAdminRecommendData(){
-        List<RealEstate> realEstates = recommedRepository.findAllRealEstate();
+        List<RealEstate> realEstates = realEstateService.findAllRealEstateActive();
+        return new APIResponse<>(realEstates.size(), realEstates);
+    }
+    @GetMapping("/findrerecommenddataforuser")
+    public APIResponse<List<RealEstate>> getAllRealEstatesRecommendDataForUser(){
+        List<RealEstate> realEstates = realEstateService.findAllRealEstateActive();
         return new APIResponse<>(realEstates.size(), realEstates);
     }
 
     @PostMapping("/admin/addrecomre")
     public ResponseEntity<?> addRecommendRealEstate(@RequestBody AddToRecommendReRequest request) {
-        service.processRealEstateChanges(request.getRealEstateIds());
+        realEstateService.processRealEstateChanges(request.getRealEstateIds());
         return ResponseEntity.ok("Changes saved successfully");
     }
 

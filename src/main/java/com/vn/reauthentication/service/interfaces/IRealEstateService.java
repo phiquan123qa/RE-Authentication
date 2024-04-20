@@ -62,4 +62,7 @@ public interface IRealEstateService {
                                     Integer pageSize);
     Boolean statusRealEstate(Long id, String status);
     void processRealEstateChanges(List<Long> realEstateIds);
+
+    List<RealEstate> findAllByUser(User user);
+    List<RealEstate> findAllRealEstateActive();
 }

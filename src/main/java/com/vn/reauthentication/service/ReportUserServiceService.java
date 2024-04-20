@@ -1,9 +1,8 @@
 package com.vn.reauthentication.service;
 
-import com.vn.reauthentication.entity.RealEstate;
-import com.vn.reauthentication.entity.ReportPostRealEstate;
-import com.vn.reauthentication.repository.ReportRealEstateRepository;
-import com.vn.reauthentication.service.interfaces.IReportRealEstate;
+import com.vn.reauthentication.entity.ReportUser;
+import com.vn.reauthentication.repository.ReportUserRepository;
+import com.vn.reauthentication.service.interfaces.IReportUserService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,21 +14,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ReportRealEstateService implements IReportRealEstate {
-    private final ReportRealEstateRepository reportRealEstateRepository;
-
+public class ReportUserServiceService implements IReportUserService {
+    private final ReportUserRepository reportUserRepository;
     @Override
-    public Page<ReportPostRealEstate>
-    findReportRealEstateWithPaginationPending(Integer pageNumber,
-                                              Integer pageSize,
-                                              String status,
-                                              String sort) {
-        Specification<ReportPostRealEstate> spec = (root, query, cb) -> {
+    public Page<ReportUser> findReportUserWithPaginationPending(Integer pageNumber, Integer pageSize, String status, String sort) {
+        Specification<ReportUser> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-
             if (status != null && !status.isEmpty()) {
                 predicates.add(cb.equal(cb.lower(root.get("status")), status.toLowerCase()));
             }
@@ -43,6 +37,16 @@ public class ReportRealEstateService implements IReportRealEstate {
         } else{
             pageable = PageRequest.of(pageNumber, pageSize);
         }
-        return reportRealEstateRepository.findAll(spec, pageable);
+        return reportUserRepository.findAll(spec, pageable);
+    }
+
+    @Override
+    public ReportUser save(ReportUser reportUser) {
+        return reportUserRepository.save(reportUser);
+    }
+
+    @Override
+    public Optional<ReportUser> findReportUserById(Long id) {
+        return Optional.ofNullable(reportUserRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Report user not found")));
     }
 }

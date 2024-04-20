@@ -1,11 +1,13 @@
 package com.vn.reauthentication.service;
 
+import com.vn.reauthentication.entity.LikedRealEstate;
 import com.vn.reauthentication.entity.RealEstate;
 import com.vn.reauthentication.entity.RealEstateRecommend;
 import com.vn.reauthentication.entity.User;
 import com.vn.reauthentication.entityDTO.RealEstateCardResponse;
 import com.vn.reauthentication.entityDTO.RealEstateRequest;
 import com.vn.reauthentication.entityDTO.RealEstateUpdateRequest;
+import com.vn.reauthentication.repository.LikedRealEstateRepository;
 import com.vn.reauthentication.repository.RealEstateRecommedRepository;
 import com.vn.reauthentication.repository.RealEstateRepository;
 import com.vn.reauthentication.repository.UserRepository;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,6 +34,8 @@ public class RealEstateService implements IRealEstateService {
     private final RealEstateRepository realEstateRepository;
     private final UserRepository userRepository;
     private final RealEstateRecommedRepository recommedRepository;
+    private final LikedRealEstateRepository likedRealEstateRepository;
+
 
     @Override
     public List<RealEstate> getAllRealEstates() {
@@ -328,5 +333,15 @@ public class RealEstateService implements IRealEstateService {
             }
         }
 
+    }
+
+    @Override
+    public List<RealEstate> findAllByUser(User user) {
+        return likedRealEstateRepository.findAllByUser(user).stream().map(LikedRealEstate::getRealEstate).filter(realEstate -> realEstate.getStatusRe().equals("ACTIVE")).toList();
+    }
+
+    @Override
+    public List<RealEstate> findAllRealEstateActive() {
+        return recommedRepository.findAllRealEstate().stream().filter(realEstate -> Objects.equals(realEstate.getStatusRe(), "ACTIVE")).toList();
     }
 }

@@ -12,13 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserService{
-    List<User> getAllUsers();
     User registerUser(RegisterRequest registerRequest);
     Optional<User> findUserByEmail(String email);
     Optional<User> findById(Long id);
-    void updateUser(String name, String email,
-                    String avatar, LocalDate dob, Long phoneNumber,
-                    String city, String district, String ward, Long id);
     User updateUserInfo(String avatar, String name,
                         String email, String phoneNumber,
                         LocalDate dob, String description,

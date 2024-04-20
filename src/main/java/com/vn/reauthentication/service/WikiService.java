@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,5 +56,15 @@ public class WikiService implements IWikiService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Wiki findWikiById(Long id) {
+        return wikiRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Wiki not found"));
+    }
+
+    @Override
+    public Wiki save(Wiki wiki) {
+        return wikiRepository.save(wiki);
     }
 }

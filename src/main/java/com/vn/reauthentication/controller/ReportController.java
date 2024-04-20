@@ -8,16 +8,12 @@ import com.vn.reauthentication.entityDTO.APIResponse;
 import com.vn.reauthentication.entityDTO.RealEstateStatusRequest;
 import com.vn.reauthentication.entityDTO.ReportRealEstateRequest;
 import com.vn.reauthentication.entityDTO.ReportUserRequest;
-import com.vn.reauthentication.repository.RealEstateRepository;
-import com.vn.reauthentication.repository.ReportRealEstateRepository;
-import com.vn.reauthentication.repository.ReportUserRepository;
-import com.vn.reauthentication.repository.UserRepository;
-import com.vn.reauthentication.service.ReportRealEstateService;
-import com.vn.reauthentication.service.ReportUserService;
+import com.vn.reauthentication.service.interfaces.IRealEstateService;
+import com.vn.reauthentication.service.interfaces.IReportRealEstateService;
+import com.vn.reauthentication.service.interfaces.IReportUserService;
+import com.vn.reauthentication.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,23 +21,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/report")
 public class ReportController {
-    private final RealEstateRepository realEstateRepository;
-    private final UserRepository userRepository;
-    private final ReportRealEstateRepository reportRealEstateRepository;
-    private final ReportUserRepository reportUserRepository;
-    private final ReportRealEstateService reportRealEstateService;
-    private final ReportUserService reportUserService;
+    private final IRealEstateService realEstateService;
+    private final IUserService userService;
+    private final IReportRealEstateService reportRealEstateService;
+    private final IReportUserService reportUserService;
     @PostMapping("/re")
     public ResponseEntity<?> createReportRe(@RequestBody ReportRealEstateRequest request) {
-        RealEstate realEstate = realEstateRepository.findById(request.getRealEstateId()).orElseThrow(() -> new RuntimeException("RealEstate not found"));
+        RealEstate realEstate = realEstateService.findRealEstateById(request.getRealEstateId()).orElseThrow(() -> new RuntimeException("Real estate not found"));
         ReportPostRealEstate report = new ReportPostRealEstate(request.getContent(), request.getType(), request.getStatus(), request.getEmailAuthor(), request.getPhoneAuthor(), realEstate);
-        return ResponseEntity.ok(reportRealEstateRepository.save(report));
+        return ResponseEntity.ok(reportRealEstateService.save(report));
     }
     @PostMapping("/user")
     public ResponseEntity<?> createReportUser(@RequestBody ReportUserRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userService.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         ReportUser report = new ReportUser(request.getContent(), request.getType(), request.getStatus(), request.getEmailAuthor(), request.getPhoneAuthor(), user);
-        return ResponseEntity.ok(reportUserRepository.save(report));
+        return ResponseEntity.ok(reportUserService.save(report));
     }
     @GetMapping("/admin/re")
     public APIResponse<Page<ReportPostRealEstate>> getAllReportRe(
@@ -66,14 +60,14 @@ public class ReportController {
     }
     @PostMapping("/admin/statusre")
     public ResponseEntity<?> changestatusre(@RequestBody RealEstateStatusRequest request) {
-        ReportPostRealEstate report = reportRealEstateRepository.findById(request.getId()).orElseThrow(() -> new RuntimeException("Report not found"));
+        ReportPostRealEstate report = reportRealEstateService.findReportRealEstateById(request.getId()).orElseThrow(() -> new RuntimeException("Report not found"));
         report.setStatus(request.getStatus());
-        return ResponseEntity.ok(reportRealEstateRepository.save(report));
+        return ResponseEntity.ok(reportRealEstateService.save(report));
     }
     @PostMapping("/admin/statususer")
     public ResponseEntity<?> changestatususer(@RequestBody RealEstateStatusRequest request) {
-        ReportUser report = reportUserRepository.findById(request.getId()).orElseThrow(() -> new RuntimeException("Report not found"));
+        ReportUser report = reportUserService.findReportUserById(request.getId()).orElseThrow(() -> new RuntimeException("Report not found"));
         report.setStatus(request.getStatus());
-        return ResponseEntity.ok(reportUserRepository.save(report));
+        return ResponseEntity.ok(reportUserService.save(report));
     }
 }

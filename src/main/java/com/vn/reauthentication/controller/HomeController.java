@@ -7,12 +7,14 @@ import com.vn.reauthentication.entity.Wiki;
 import com.vn.reauthentication.repository.WikiRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
 import com.vn.reauthentication.service.interfaces.IUserService;
+import com.vn.reauthentication.service.interfaces.IWikiService;
 import com.vn.reauthentication.utility.SetAuthToHeader;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ import java.util.List;
 public class HomeController {
     private final IRealEstateService realEstateService;
     private final IUserService userService;
-    private final WikiRepository wikiRepository;
+    private final IWikiService wikiService;
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request){
         SetAuthToHeader.setUserDetailsToModel(model);
@@ -57,7 +59,7 @@ public class HomeController {
                                     @PathVariable Long id) {
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
-        RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow();
+        RealEstate realEstate = realEstateService.findRealEstateById(id).orElseThrow(() -> new UsernameNotFoundException("RealEstate not found"));
         model.addAttribute("realEstateId", id);
         model.addAttribute("realEstate", realEstate);
         model.addAttribute("realEstateName", realEstate.getTitle());
@@ -89,7 +91,7 @@ public class HomeController {
                                     @PathVariable Long id) {
         SetAuthToHeader.setUserDetailsToModel(model);
         model.addAttribute("requestURI", request.getRequestURI());
-        Wiki wiki = wikiRepository.findById(id).orElseThrow();
+        Wiki wiki = wikiService.findWikiById(id);
         model.addAttribute("wikiId", id);
         model.addAttribute("wiki", wiki);
         return "wiki-detail";
@@ -114,19 +116,12 @@ public class HomeController {
         User user;
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String username = authentication.getName();
-            user = userService.findUserByEmail(username).orElseThrow();
+            user = userService.findUserByEmail(username).orElseThrow(()-> new UsernameNotFoundException("User not found"));
             model.addAttribute("user", user);
         }
         model.addAttribute("requestURI", request.getRequestURI());
         return "user_info";
     }
-
-//    @GetMapping("/mgtre")
-//    public String mgtre(Model model, HttpServletRequest request){
-//        SetAuthToHeader.setUserDetailsToModel(model);
-//        model.addAttribute("requestURI", request.getRequestURI());
-//        return "mgtre";
-//    }
 
     @GetMapping("/error")
     public String error(Model model, HttpServletRequest request){

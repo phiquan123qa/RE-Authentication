@@ -21,7 +21,7 @@ public interface LikedRealEstateRepository extends JpaRepository<LikedRealEstate
     @Query("DELETE FROM LikedRealEstate r WHERE r.user = :user AND r.realEstate = :realEstate")
     void delete(@Param("user") User user, @Param("realEstate") RealEstate realEstate);
     @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM LikedRealEstate r WHERE r.user = :user AND r.realEstate = :realEstate")
-    boolean existsByUserAndRealEstate(@Param("user") User user, @Param("realEstate") RealEstate realEstate);
+    Boolean existsByUserAndRealEstate(@Param("user") User user, @Param("realEstate") RealEstate realEstate);
 
     List<LikedRealEstate> findAllByUser(User user);
 }

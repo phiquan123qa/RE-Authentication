@@ -12,4 +12,6 @@ public interface IWikiService {
             String sort,
             Boolean isPublished);
     Boolean disableEnableWiki(Long id, Boolean isPublished);
+    Wiki findWikiById(Long id);
+    Wiki save(Wiki wiki);
 }

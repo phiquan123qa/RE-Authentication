@@ -29,11 +29,6 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
     public User registerUser(RegisterRequest registerRequest) {
         Optional<User> existingUser = userRepository.findByEmail(registerRequest.getEmail());
         if (existingUser.isPresent()) {
@@ -64,16 +59,6 @@ public class UserService implements IUserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
-
-    @Override
-    public void updateUser(String name, String email,
-                           String avatar, LocalDate dob, Long phoneNumber,
-                           String city, String district, String ward, Long id) {
-        userRepository.update(name, email,
-                 avatar, dob, phoneNumber,
-                 city, district, ward, id);
-    }
-
     @Override
     public User updateUserInfo(String avatar, String name, String email,
                                String phoneNumber, LocalDate dob, String description,

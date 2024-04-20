@@ -1,7 +1,7 @@
 function showRecommendRe() {
     showSkeleton();
     $.ajax({
-        url: '/re/admin/findrerecommenddata',
+        url: '/re/findrerecommenddataforuser',
         type: 'GET',
         success: function (response) {
             console.log(response);
