@@ -27,7 +27,7 @@ function toggleFavorite() {
                     console.log(response);
                     saberToast.success({
                         title: "Add to favorite success",
-                        text: "This property has been added to your favorite!",
+                        text: "This property has been added to your favorite",
                         delay: 200,
                         duration: 2600,
                         rtl: true,
@@ -40,7 +40,7 @@ function toggleFavorite() {
                     console.log(error);
                     saberToast.error({
                         title: "Add to favorite fail",
-                        text: "Add to favorite fail!",
+                        text: "Add to favorite fail",
                         delay: 200,
                         duration: 2600,
                         rtl: true,
@@ -61,7 +61,7 @@ function toggleFavorite() {
                     console.log(response);
                     saberToast.success({
                         title: "Remove to favorite success",
-                        text: "This property has been removed from your favorite!",
+                        text: "This property has been removed from your favorite",
                         delay: 200,
                         duration: 2600,
                         rtl: true,
@@ -74,7 +74,7 @@ function toggleFavorite() {
                     console.log(error);
                     saberToast.error({
                         title: "Add to favorite fail",
-                        text: "You need to login first!",
+                        text: "You need to login first",
                         delay: 200,
                         duration: 2600,
                         rtl: true,
