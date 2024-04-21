@@ -90,8 +90,8 @@ $(function () {
         // If all checks pass, submit the form
         if (valid) {
             saberToast.success({
-                title: "Register Success",
-                text: "Please check your email to verify your account",
+                title: "We are checking your email",
+                text: "Please wait for a while for verification",
                 delay: 200,
                 duration: 2600,
                 rtl: true,

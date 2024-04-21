@@ -39,6 +39,7 @@ public class PasswordResetTokenService implements IPasswordResetTokenService {
     @Override
     public void resetPassword(User theUser, String newPassword) {
         theUser.setPassword(passwordEncoder.encode(newPassword));
+        theUser.setIsEnable(true);
         userRepository.save(theUser);
     }
 

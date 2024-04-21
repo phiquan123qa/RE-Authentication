@@ -34,6 +34,10 @@
                                         <p class="alert alert-info alert-dismissible fade show" role="alert">Register
                                             Success, check your email.</p>
                                     </div>
+                                    <div th:if="${param.duplicate}" class="col-sm-12">
+                                        <p class="alert alert-danger alert-dismissible fade show" role="alert">Your email already used.
+                                            if you forget password click this <a class="alert-link" href="/forgot_password">link</a> to take your password reset</p>
+                                    </div>
                                 </div>
                             </div>
                             <form id="registerForm" th:action="@{/register}" method="post" th:object="${user}">

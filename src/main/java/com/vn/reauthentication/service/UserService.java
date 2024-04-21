@@ -33,7 +33,7 @@ public class UserService implements IUserService {
         Optional<User> existingUser = userRepository.findByEmail(registerRequest.getEmail());
         if (existingUser.isPresent()) {
             // User already exists, so you can resend the confirmation email
-            return existingUser.get();
+            throw new RuntimeException("User already exists in the system. Please try again");
         } else {
             var user = new User(registerRequest.getEmail(),
                     registerRequest.getName(),

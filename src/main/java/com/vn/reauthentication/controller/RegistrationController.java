@@ -42,8 +42,10 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") RegisterRequest registerRequest, HttpServletRequest request){
         User user;
-        try{
+        try {
             user = userService.registerUser(registerRequest);
+        }catch (RuntimeException e){
+            return "redirect:/register?duplicate";
         }catch (Exception e){
             return "redirect:/register?error";
         }

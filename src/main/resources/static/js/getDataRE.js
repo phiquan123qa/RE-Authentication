@@ -35,6 +35,7 @@ function fetchPage(pageNumber) {
             minPrice: minPriceValue,
             maxPrice: maxPriceValue,
         },
+        contentType: "application/json",
         success: function(response){
             if(response.response.totalElements === 0) {
                 pageNotFoundData();
@@ -75,12 +76,16 @@ function updatePage(data) {
                   <a href="/property/${item.id}" class="city d-block mb-3">${item.title}</a>
                   <div class="specs d-flex flex-wrap mb-4">
                     <span class="d-block d-flex align-items-center me-3 mb-2">
+                      <span class="icon-room me-2"></span>
+                      <span class="caption">${item.room != null ? item.room : 1} room</span>
+                    </span>
+                    <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-bed me-2"></span>
-                      <span class="caption">${item.room != null ? item.room : 1} bed</span>
+                      <span class="caption">${item.bedRoom != null ? item.bedRoom : 1} room</span>
                     </span>
                     <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-bath me-2"></span>
-                      <span class="caption">${item.bedRoom != null ? item.bedRoom : 1} bath</span>
+                      <span class="caption">${item.bathRoom != null ? item.bathRoom : 1} bath</span>
                     </span>
                     <span class="d-block d-flex align-items-center me-3 mb-2">
                       <span class="icon-home me-2"></span>

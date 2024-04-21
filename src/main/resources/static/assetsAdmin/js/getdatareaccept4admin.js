@@ -43,6 +43,9 @@ function updatePage(data) {
                   <button class="btn btn-success mt-3" onclick="changestatusdisablere(${item.id}, 'ACTIVE')">
                       Accept
                   </button>
+                  <button class="btn btn-danger mt-3" onclick="changestatusdisablere(${item.id}, 'DISABLED')">
+                      Deny
+                  </button>
               </td>
               <th scope="row">${item.id}</th>
               <td>
