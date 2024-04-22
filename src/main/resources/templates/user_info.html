@@ -86,7 +86,7 @@
                                      alt="Image preview" style="max-width: 100%; height: 5.4rem;"/>
                             </div>
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-12 mb-3">
                             <input type="text"
                                    class="form-control"
                                    placeholder="Your Name"
@@ -94,13 +94,13 @@
                                    th:value="${user.name}"
                                    disabled/>
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="">
                             <input type="email"
                                    class="form-control"
                                    placeholder="Your Email"
                                    name="email"
                                    th:value="${user.email}"
-                                   disabled/>
+                                   disabled hidden/>
                         </div>
                         <div class="col-6 mb-3">
                             <input type="tel"
@@ -186,6 +186,7 @@
 <script src="/static/jquery/jquery-3.7.1.js"></script>
 <script src="/static/js/upload_image.js"></script>
 <script src="/static/js/btnUpdateProfile.js"></script>
+<script src="/static/js/saber-toast.js"></script>
 <script src="/static/js/axios.min.js"></script>
 <script src="/static/js/location.js"></script>
 </body>

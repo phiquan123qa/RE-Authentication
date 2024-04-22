@@ -28,6 +28,7 @@ public class User {
     @Email
     @NaturalId(mutable = true)
     @NonNull
+    @Column(unique = true)
     private String email;
     private String name;
     private String avatar;

@@ -69,19 +69,42 @@ document.addEventListener('DOMContentLoaded', function() {
                         processData: false,
                         contentType: 'application/json',
                         success: function(updateResponse) {
-                            alert('User updated successfully');
+                            saberToast.success({
+                                title: "Update success",
+                                text: "You have successfully updated your profile information",
+                                delay: 200,
+                                duration: 2600,
+                                rtl: true,
+                                position: "top-right"
+                            });
                             formInputs.forEach(function(input) {
                                 input.disabled = true;
                             });
                             updateButton.disabled = true;
                         },
                         error: function (error) {
+                            saberToast.error({
+                                title: "Update fail",
+                                text: "You have failed to update your profile information",
+                                delay: 200,
+                                duration: 2600,
+                                rtl: true,
+                                position: "top-right"
+                            });
                             console.log('Error updating user data:', error);
                             console.log(userInfo)
                         }
                     })
                 },
                 error: function (error) {
+                    saberToast.error({
+                        title: "Update avatar fail",
+                        text: "Your avatar could not be updated, try again",
+                        delay: 200,
+                        duration: 2600,
+                        rtl: true,
+                        position: "top-right"
+                    });
                     console.log('Error fetching data: ', error);
                 }
             })

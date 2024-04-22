@@ -13,6 +13,9 @@ public class ImageUtil {
     public static String saveImage(MultipartFile file, String url) {
         try{
             String originName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            if(originName.isEmpty()){
+                return "";
+            }
             String fileName =  System.currentTimeMillis()+ originName;
             Path folderPath = Paths.get(url);
             if(!Files.exists(folderPath)){

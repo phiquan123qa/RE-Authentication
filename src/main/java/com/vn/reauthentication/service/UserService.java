@@ -65,7 +65,9 @@ public class UserService implements IUserService {
                                String city, String district, String ward) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        user.setAvatar(avatar);
+        if(avatar != null && !avatar.isEmpty()){
+            user.setAvatar(avatar);
+        }
         user.setName(name);
         user.setPhoneNumber(phoneNumber);
         user.setDob(dob);
