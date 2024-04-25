@@ -54,17 +54,19 @@ function updatePage(data) {
     data.response.forEach(function(item) {
         $('#property-slider').append(
             `<div class="property-item">
-                    <a href="/property/${item.id}" class="img">
-                        <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="min-height: 20rem"/>
+                    <a href="/property/${item.id}" class="img d-flex justify-content-center">
+                        <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="height: 23rem"/>
                     </a>
-                    <div class="property-content">
-                        <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
+                    <div class="property-content" style="border: 1px solid #8080803b">
+                        <div class="price mb-2">
+                            <span>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}</span>
+                        </div>
                         <div>
                             <span class="d-block mb-2 text-black-50">
                                 ${item.wardRe}, ${item.districtRe}, ${item.cityRe}
                             </span>
                             <a href="/property/${item.id}" class="city d-block mb-3">
-                                ${item.title}
+                                ${item.title.length > 28 ? item.title.substring(0,28) + '...' : item.title}
                             </a>
                             <div class="specs d-flex flex-wrap mb-4">
                                 <span class="d-block d-flex align-items-center me-3 mb-2">
@@ -118,5 +120,12 @@ function updatePage(data) {
     }
     tinySdlierr();
     $('#property-nav').show();
+}
+function formatPrice(price) {
+    if (price != null) {
+        return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        return 'Negotiated price';
+    }
 }
 showRecommendRe();

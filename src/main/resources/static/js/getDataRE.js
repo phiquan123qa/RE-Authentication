@@ -66,11 +66,11 @@ function updatePage(data) {
         $('#content').append(
             `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <div class="property-item mb-30">
-              <a href="/property/${item.id}" class="">
-                <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="min-height: 23rem"/>
+              <a href="/property/${item.id}" class="d-flex justify-content-center">
+                <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="height: 25rem"/>
               </a>
               <div class="property-content">
-                <div class="price mb-2"><span>${item.price != null ? `$${item.price}` : 'Negotiated price'}</span></div>
+                <div class="price mb-2"><span>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}</span></div>
                 <div>
                   <span class="d-block mb-2 text-black-50">${item.wardRe}, ${item.districtRe}, ${item.cityRe}</span>
                   <a href="/property/${item.id}" class="city d-block mb-3">${item.title}</a>
@@ -184,5 +184,12 @@ $('#clear-button').on('click', function() {
     priceSlider[0].noUiSlider.set([0, 1000000]);
     landAreaSlider[0].noUiSlider.set([0, 500]);
 });
+function formatPrice(price) {
+    if (price != null) {
+        return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        return 'Negotiated price';
+    }
+}
 
 fetchPage(0);
