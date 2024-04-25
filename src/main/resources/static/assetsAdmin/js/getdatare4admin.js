@@ -82,7 +82,7 @@ function updatePage(data) {
                     <span class="badge rounded-3 fw-semibold text-capitalize badgeStatus">${item.statusRe}</span>
                   </div>
               </td>
-              <td>${item.price != null ? `$${item.price}` : 'Negotiated price'}</td>
+              <td>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}</td>
               <td>${item.landArea} m<sup>2</sup></td>
               <td>${item.cityRe}</td>
               <td>${item.districtRe}</td>
@@ -231,5 +231,12 @@ $('#confirmDisableBtn').click(function() {
     console.log('Confirm Disable for item ID: ' + itemId);
     changestatusdisablere(itemId, 'DISABLED');
 });
+function formatPrice(price) {
+    if (price != null) {
+        return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        return 'Negotiated price';
+    }
+}
 
 fetchPage(0);

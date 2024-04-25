@@ -66,7 +66,7 @@ function updatePage(data) {
                                 ${item.wardRe}, ${item.districtRe}, ${item.cityRe}
                             </span>
                             <a href="/property/${item.id}" class="city d-block mb-3">
-                                ${item.title.length > 28 ? item.title.substring(0,28) + '...' : item.title}
+                                ${item.title.length > 32 ? item.title.substring(0,32) + '...' : item.title}
                             </a>
                             <div class="specs d-flex flex-wrap mb-4">
                                 <span class="d-block d-flex align-items-center me-3 mb-2">
