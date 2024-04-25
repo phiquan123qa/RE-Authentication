@@ -181,6 +181,7 @@ function showSkeletonLoader() {
               <td class="h5 card-title placeholder-glow">
                 <span class="placeholder col-12"></span>
               </td>
+              
             </tr>`;
     }
     $('#table-content').html(loaderHTML);

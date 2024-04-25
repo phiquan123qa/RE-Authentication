@@ -13,11 +13,27 @@ function changedisableuser(id, isEnable) {
                 let itemRow = $(`#table-content tr:has(th:contains(${id}))`);
                 let statusSpan = itemRow.find('.badgeStatus');
                 statusSpan.text('Enabled');
+                saberToast.success({
+                    title: "Success",
+                    text: "User has been enabled",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
             }else if (isEnable === false) {
                 $('#closeDisableModal').click();
                 let itemRow = $(`#table-content tr:has(th:contains(${id}))`);
                 let statusSpan = itemRow.find('.badgeStatus');
                 statusSpan.text('Disabled');
+                saberToast.success({
+                    title: "Success",
+                    text: "User has been disabled",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
             }
             changeenabletext();
             console.log(response);
