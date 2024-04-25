@@ -56,6 +56,8 @@
     <title th:if="${requestURI != null and requestURI == '/services'}">QMHouse Services</title>
     <title th:if="${requestURI != null and requestURI == '/about'}">QMHouse About Us</title>
     <title th:if="${requestURI != null and requestURI == '/wiki'}">QMHouse Wiki</title>
+    <title th:if="${requestURI != null and requestURI.startsWith('/wiki')}" th:text="${wikiName}">Wiki Detail</title>
+
     <title th:if="${requestURI != null and requestURI == '/login'}">QMHouse Login</title>
     <title th:if="${requestURI != null and requestURI == '/register'}">QMHouse Register</title>
     <title th:if="${requestURI != null and requestURI == '/forgot_password'}">QMHouse Forgot Password</title>

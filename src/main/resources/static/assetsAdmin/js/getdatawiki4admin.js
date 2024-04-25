@@ -5,6 +5,7 @@ const titleValue = searchParams.get('title');
 const tagValue = searchParams.get('tag');
 const sortValue = searchParams.get('sort');
 const isPublishedValue = searchParams.get('isPublished');
+let contentHolder;
 
 function fetchPage(pageNumber) {
     scrollToElement('content');
@@ -24,6 +25,8 @@ function fetchPage(pageNumber) {
             if (response.response.totalElements === 0) {
                 pageNotFoundData();
             } else {
+                contentHolder = response.response.content;
+                console.log(contentHolder);
                 updatePage(response);
             }
             updatePaginationText(pageNumber, response.response.totalPages);
@@ -66,10 +69,10 @@ function updatePage(data) {
               <td>${item.date}</td>
               <td>${item.author.email}</td>
               <td class="d-flex align-items-center align-content-center">
-                  <a href="/wiki/${item.id}" class="btn btn-secondary mt-3 me-2" target="_blank" >
-                      Preview
-                  </a>
-                  <button class="btn mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
+                  <button class="btn bg-primary mt-3 me-3 text-white update-wiki" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#updateBackdrop">
+                      Modify
+                  </button>
+                  <button class="btn btn-change mt-3" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#disableModal">
                       Disable
                   </button>
               </td>
@@ -179,7 +182,7 @@ function changestatustext() {
         } else {
             isPublishedTag.removeClass('bg-success bg-danger').addClass('bg-danger');
         }
-        var changStatusBtn = row.find('button.btn');
+        var changStatusBtn = row.find('button.btn-change');
         if (isPublishedTag.text() === 'Unpublished') {
             changStatusBtn.removeClass('btn-danger btn-success').addClass('btn-success').text('Enabled').attr('data-bs-target', '#enableModal');
         } else {
@@ -205,5 +208,97 @@ $('#confirmDisableBtn').click(function () {
     var itemId = $(this).data('id');
     console.log('Confirm Disable for item ID: ' + itemId);
     changespublishedwiki(itemId, false);
+});
+$('#table-content').on('click', '.update-wiki', function () {
+    const itemId = $(this).data('id');
+    $('.border-danger').removeClass('border-danger');
+    console.log('Update item ID: ' + itemId);
+    let selectedItem = contentHolder.find(item => item.id === parseInt(itemId));
+    console.log(selectedItem ?? "Not present");
+    $('[name="updateIdWiki"]').val(selectedItem.id);
+    $('[name="updateTitleWiki"]').val(selectedItem.title);
+    $('[name="updateTagWiki"]').val(selectedItem.tag);
+    editorUpdate.data.set(selectedItem.content);
+});
+$('#submitUpdate').click(function () {
+    let itemId = $('[name="updateIdWiki"]').val();
+    let title = $('[name="updateTitleWiki"]').val();
+    let tag = $('[name="updateTagWiki"]').val();
+    let content = editorUpdate.getData();
+    let valid = true;
+    $('.border-danger').removeClass('border-danger');
+    if(title.trim() === "" || !title) {
+        valid = false;
+        $('#updateTitleWiki').addClass('border-danger');
+        saberToast.warn({
+            title: "Title cannot be empty",
+            text: "Please enter a title",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if(tag.trim() === "" || !tag) {
+        valid = false;
+        $('#updateTagWiki').addClass('border-danger');
+        saberToast.warn({
+            title: "Tag cannot be empty",
+            text: "Please enter a tag",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if(content.trim() === "" || !content) {
+        valid = false;
+        saberToast.warn({
+            title: "Content cannot be empty",
+            text: "Please enter a content",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if(valid) {
+        $.ajax({
+            type: "POST",
+            url: "/wiki/admin/update",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: itemId,
+                title: title,
+                tag: tag,
+                content: content
+            }),
+            success: function (response) {
+                console.log(response);
+                saberToast.success({
+                    title: "Update successfully",
+                    text: "You have updated a new wiki",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
+            },
+            error: function (error) {
+                console.log('Error fetching data: ', error);
+                saberToast.error({
+                    title: "Update failed",
+                    text: "You have failed to update a new wiki",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
+            }
+        });
+        $('#closeUpdate').click();
+    }
+
+
 });
 fetchPage(0);

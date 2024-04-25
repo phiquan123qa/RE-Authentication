@@ -48,11 +48,14 @@
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-lg-7">
-                <h2 class="heading text-primary" th:text="${wiki.title}">Title</h2>
+                <h2 class="heading text-primary text-break" th:text="${wiki.title}">Title</h2>
+                <div class="d-flex align-items-center flex-wrap">
                 <p class="text-black-50 break-desc" th:text="${wiki.tag}">
                     Tag
                 </p>
-                <div id="content" th:utext="${wiki.content}"></div>
+                <p class="ms-3 text-black-50" th:text="${wiki.lastUpdate == null ? 'Published date: '+wiki.date : 'Last Updated: '+wiki.lastUpdate}"></p>
+                </div>
+                <div class="text-break" id="content" th:utext="${wiki.content}"></div>
             </div>
             <div class="col-lg-4">
                 <div class="d-block agent-box p-5">

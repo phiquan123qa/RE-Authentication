@@ -8,9 +8,11 @@ const districtValue = searchParams.get('district');
 const wardValue = searchParams.get('ward');
 const sortValue = searchParams.get('sort');
 let contentHolder;
+
 function allParamsAreEmpty() {
     return !titleValue && !typeValue && !cityValue && !districtValue && !wardValue && !sortValue;
 }
+
 function fetchReOfUser(pageNumber) {
     scrollToElement('content');
     showSkeletonLoader();
@@ -28,9 +30,9 @@ function fetchReOfUser(pageNumber) {
             sort: sortValue
         },
         success: function (response) {
-            if(allParamsAreEmpty() && response.totalElements === 0){
+            if (allParamsAreEmpty() && response.totalElements === 0) {
                 nonDataFound();
-            }else{
+            } else {
                 contentHolder = response.content;
                 console.log(contentHolder);
                 updatePage(response);
@@ -44,7 +46,8 @@ function fetchReOfUser(pageNumber) {
         }
     })
 }
-function nonDataFound(){
+
+function nonDataFound() {
     const content = $('#content-container');
     content.empty();
     content.append('<div class="row px-4 pt-4">\n' +
@@ -63,9 +66,9 @@ function nonDataFound(){
         '            </div>');
 }
 
-function showSkeletonLoader(){
+function showSkeletonLoader() {
     var loaderHTML = '';
-    for(let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
         loaderHTML += '<div class="row px-4 py-4" style="box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;">\n' +
             '                    <div class="card mb-3" aria-hidden="true">\n' +
             '                        <div class="row no-gutters">\n' +
@@ -130,7 +133,7 @@ function showSkeletonLoader(){
 function updatePage(data) {
     const content = $('#list-card-content');
     content.empty();
-    data.content.forEach(function(item) {
+    data.content.forEach(function (item) {
         let buttonText = item.statusRe === "DISABLED" ? "Disable" : "Modify";
         let buttonDisabled = item.statusRe === "DISABLED" ? "disabled" : "";
         let buttonClass = item.statusRe === "DISABLED" ? "btn-danger" : "btn-secondary";
@@ -194,6 +197,7 @@ function updatePage(data) {
         console.log(item.title);
     });
 }
+
 function createPagination(totalPages, currentPage) {
     const range = 2;
     $('#pagination').empty();
@@ -211,13 +215,16 @@ function createPagination(totalPages, currentPage) {
         $('#pagination').append(createPageItem(totalPages - 1, currentPage));
     }
 }
+
 function createPageItem(pageNumber, currentPage) {
     let activeClass = pageNumber === currentPage ? 'active' : '';
     return `<a class="page ${activeClass}" onclick="fetchReOfUser(${pageNumber})">${pageNumber + 1}</a>`;
 }
+
 function updatePaginationText(currentPage, totalPages) {
-    $('.pagination-text').text(`Pagination (${currentPage+1} of ${totalPages})`);
+    $('.pagination-text').text(`Pagination (${currentPage + 1} of ${totalPages})`);
 }
+
 function scrollToElement(id) {
     var element = $('#' + id);
     if (element.length) {
@@ -231,6 +238,7 @@ function scrollToElement(id) {
 
 $('#list-card-content').on('click', '.update-re', function () {
     const itemId = $(this).attr('value');
+    $('.border-danger').removeClass('border-danger');
     console.log(itemId);
     let selectedItem = contentHolder.find(item => item.id === parseInt(itemId));
     console.log(selectedItem ?? "Not present");
@@ -262,32 +270,92 @@ $('#btnUpdate').click(function () {
     let bathRoomUpdate = $('[name="bathRoomUpdate"]').val();
     let bedRoomUpdate = $('[name="bedRoomUpdate"]').val();
     let idUpdate = $('[name="idUpdate"]').val();
-    $.ajax({
-        type: 'POST',
-        url: '/re/update',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            id: idUpdate,
-            type: typeUpdate,
-            title: titleUpdate,
-            address: addressUpdate,
-            price: priceUpdate,
-            legalDocument: legalDocumentUpdate,
-            interior: interiorUpdate,
-            description: descriptionUpdate,
-            room: roomUpdate,
-            bathRoom: bathRoomUpdate,
-            bedRoom: bedRoomUpdate
-        }),
-        success: function (data) {
-            alert('Re updated successfully');
-            console.log(data);
-            $('#staticBackdrop').modal('hide');
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
+    let valid = true;
+    $('.border-danger').removeClass('border-danger');
+    if (titleUpdate.trim() === "" || !titleUpdate) {
+        valid = false;
+        $('[name="titleUpdate"]').addClass('border-danger');
+        saberToast.warn({
+            title: "Title is required",
+            text: "Please enter title of RE",
+            icon: "error",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if (addressUpdate.trim() === "" || !addressUpdate) {
+        valid = false;
+        $('[name="addressUpdate"]').addClass('border-danger');
+        saberToast.warn({
+            title: "Address is required",
+            text: "Please enter address of RE",
+            icon: "error",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if (descriptionUpdate.trim() === "" || !descriptionUpdate) {
+        valid = false;
+        $('[name="descriptionUpdate"]').addClass('border-danger');
+        saberToast.warn({
+            title: "Description is required",
+            text: "Please enter description of RE",
+            icon: "error",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
+    }
+    if (valid) {
+        $.ajax({
+            type: 'POST',
+            url: '/re/update',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: idUpdate,
+                type: typeUpdate,
+                title: titleUpdate,
+                address: addressUpdate,
+                price: priceUpdate,
+                legalDocument: legalDocumentUpdate,
+                interior: interiorUpdate,
+                description: descriptionUpdate,
+                room: roomUpdate,
+                bathRoom: bathRoomUpdate,
+                bedRoom: bedRoomUpdate
+            }),
+            success: function (data) {
+                saberToast.success({
+                    title: "Update successfully",
+                    text: "Update successfully",
+                    icon: "error",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
+                console.log(data);
+                $('#staticBackdrop').modal('hide');
+            },
+            error: function (error) {
+                console.log(error);
+                saberToast.error({
+                    title: "Update failed",
+                    text: "Update failed with error: " + error,
+                    icon: "error",
+                    delay: 200,
+                    duration: 2600,
+                    rtl: true,
+                    position: "top-right"
+                });
+            }
+        });
+    }
 });
 
 

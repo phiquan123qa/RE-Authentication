@@ -1,17 +1,3 @@
-// const typeValue = $('input[name="type"]:checked').val();
-// const titleValue = $('#titleID').val();
-// const cityValue = $('#cityID').find(":selected").val();
-// const districtValue = $('#districtID').find(":selected").val();
-// const wardValue = $('#wardID').find(":selected").val();
-// const addressValue = $('#addressID').val();
-// const landAreaValue = $('#landAreaID').val();
-// const priceValue = $('#priceID').val();
-// const legalDocumentValue = $('input[name="legalDocument"]:checked').val();
-// const interiorValue = $('input[name="interior"]:checked').val();
-// const descriptionValue = $('#descriptionID').val();
-// const roomValue = $('#room').val();
-// const bedValue = $('#bedRoom').val();
-// const bathValue = $('#bathRoom').val();
 function fetchCreate() {
     let typeValue = $('input[name="type"]:checked').val();
     let titleValue = $('#titleID').val();
@@ -66,7 +52,14 @@ function fetchCreate() {
                         description: descriptionValue
                     }),
                     success: function (response) {
-                        alert('Post Successfully !');
+                        saberToast.success({
+                            title: "Create RE Success",
+                            text: "Create Real Estate Successfully",
+                            delay: 200,
+                            duration: 2600,
+                            rtl: true,
+                            position: "top-right"
+                        });
                         $('#btnClear').click();
                         console.log(response);
                     },
@@ -98,38 +91,110 @@ function validateForm() {
 
     if(titleValue.trim() === ''){
         isFormValid = false;
+        saberToast.warn({
+            title: "Title cannot be empty",
+            text: "Please enter a title",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#titleID').addClass('border-danger');
     }
     if (cityValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "City cannot be empty",
+            text: "Please enter a city",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#cityID').addClass('border-danger');
     }
     if (districtValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "District cannot be empty",
+            text: "Please enter a district",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#districtID').addClass('border-danger');
     }
     if (wardValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "Ward cannot be empty",
+            text: "Please enter a ward",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#wardID').addClass('border-danger');
     }
     if (addressValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "Address cannot be empty",
+            text: "Please enter a address",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#addressID').addClass('border-danger');
     }
     if (landAreaValue.trim() === '' || isNaN(parseFloat(landAreaValue)) || parseFloat(landAreaValue) <= 0) {
         isFormValid = false;
+        saberToast.warn({
+            title: "Land area cannot be empty",
+            text: "Please enter a land area",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#landAreaID').addClass('border-danger');
     }
     if (typeof legalDocumentValue === 'undefined' ||legalDocumentValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "Legal document cannot be empty",
+            text: "Please enter a legal document",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#legalDocumentID').addClass('border-danger');
     }
     if (typeof interiorValue === 'undefined' ||interiorValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "Interior cannot be empty",
+            text: "Please enter a interior",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#interiorID').addClass('border-danger');
     }
     if (descriptionValue.trim() === '') {
         isFormValid = false;
+        saberToast.warn({
+            title: "Description cannot be empty",
+            text: "Please enter a description",
+            delay: 200,
+            duration: 2600,
+            rtl: true,
+            position: "top-right"
+        });
         $('#descriptionID').addClass('border-danger');
     }
     if (!isFormValid){

@@ -5,6 +5,7 @@ import com.vn.reauthentication.entity.Wiki;
 import com.vn.reauthentication.entityDTO.APIResponse;
 import com.vn.reauthentication.entityDTO.WikiCreateRequest;
 import com.vn.reauthentication.entityDTO.WikiIsPublishedRequest;
+import com.vn.reauthentication.entityDTO.WikiUpdateRequest;
 import com.vn.reauthentication.repository.UserRepository;
 import com.vn.reauthentication.repository.WikiRepository;
 import com.vn.reauthentication.service.interfaces.IRealEstateService;
@@ -66,6 +67,16 @@ public class WikiController {
     public ResponseEntity<?> changePublished(@RequestBody WikiIsPublishedRequest request) {
         Boolean isPublished = wikiService.disableEnableWiki(request.getId(), request.getIsPublished());
         return ResponseEntity.ok(isPublished);
+    }
+
+    @PostMapping("/admin/update")
+    public ResponseEntity<?> update(@RequestBody WikiUpdateRequest request) {
+        Wiki wiki = wikiService.findWikiById(request.getId());
+        wiki.setTitle(request.getTitle());
+        wiki.setContent(request.getContent());
+        wiki.setTag(request.getTag());
+        wiki.setLastUpdate(LocalDate.now());
+        return ResponseEntity.ok(wikiService.save(wiki));
     }
 
 }

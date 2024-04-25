@@ -94,6 +94,7 @@ public class HomeController {
         Wiki wiki = wikiService.findWikiById(id);
         model.addAttribute("wikiId", id);
         model.addAttribute("wiki", wiki);
+        model.addAttribute("wikiName", wiki.getTitle());
         return "wiki-detail";
     }
     @GetMapping("/about")

@@ -12,7 +12,14 @@ function getdatafavoritelist() {
             }
         },
         error: function () {
-            alert("error");
+            saberToast.error({
+                title: "Show favorite error",
+                text: "Show favorite error please try again",
+                delay: 200,
+                duration: 2600,
+                rtl: true,
+                position: "top-right"
+            });
         }
     });
 }
