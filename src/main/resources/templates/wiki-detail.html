@@ -50,9 +50,9 @@
             <div class="col-lg-7">
                 <h2 class="heading text-primary text-break" th:text="${wiki.title}">Title</h2>
                 <div class="d-flex align-items-center flex-wrap">
-                <p class="text-black-50 break-desc" th:text="${wiki.tag}">
+                <h5 class="break-desc mb-3 text-success" th:text="${wiki.tag}">
                     Tag
-                </p>
+                </h5>
                 <p class="ms-3 text-black-50" th:text="${wiki.lastUpdate == null ? 'Published date: '+wiki.date : 'Last Updated: '+wiki.lastUpdate}"></p>
                 </div>
                 <div class="text-break" id="content" th:utext="${wiki.content}"></div>

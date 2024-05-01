@@ -49,7 +49,7 @@ function fetchPage(pageNumber) {
                 `<div class="card mb-3 p-3" style=" border: 1px solid #ced4da; max-height: 15rem;">
                   <div class="card-body">
                     <h5 class="card-title">${item.title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${item.tag}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted ms-3">${item.tag}</h6>
                     <p class="card-text mb-4">Author: ${item.author.email}</p>
                     <a href="/wiki/${item.id}" class="card-link border px-2 py-3">View Details</a>
                   </div>
