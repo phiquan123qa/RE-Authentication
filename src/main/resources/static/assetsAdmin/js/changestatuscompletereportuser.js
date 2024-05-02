@@ -15,6 +15,14 @@ function changestatuscompletereportuser(id, status) {
                 itemRow.find('.btn.btn-danger').prop('disabled', true);
             }
             changeenabletext();
+            saberToast.success({
+                title: "Complete successfully",
+                text: "You have accepted",
+                delay: 200,
+                duration: 2600,
+                rtl: true,
+                position: "top-right"
+            });
             console.log(response);
         },
         error: function (error) {

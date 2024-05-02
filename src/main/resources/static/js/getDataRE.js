@@ -70,11 +70,11 @@ function updatePage(data) {
                 <img loading="lazy" src="/static/images/${'real_estate_images/' + item.mainImage || 'img_1.jpg'}" alt="Image" class="img-fluid" style="height: 25rem"/>
               </a>
               <div class="property-content">
-                <div class="price mb-2"><span>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}</span></div>
+                <div class="price mb-2"><span>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}${item.type === 'rent' ? '/month' : ''}</span></div>
                 <div>
                   <span class="d-block mb-2 text-black-50">${item.wardRe}, ${item.districtRe}, ${item.cityRe}</span>
                   <a href="/property/${item.id}" class="city d-block mb-3">
-                    ${item.title.length > 32 ? item.title.substring(0,32) + '...' : item.title}
+                    ${item.title.length > 30 ? item.title.substring(0,30) + '...' : item.title}
                   </a>
                   <div class="specs d-flex flex-wrap mb-4">
                     <span class="d-block d-flex align-items-center me-3 mb-2">

@@ -57,7 +57,7 @@ function updatePage(data) {
                     <span class="badge ${typeBg} rounded-3 fw-semibold text-capitalize badgeType">${item.type}</span>
                   </div>
               </td>
-              <td>${item.price != null ? `$${item.price}` : 'Negotiated price'}</td>
+              <td>${item.price != null ? formatPrice(item.price) : 'Negotiated price'}</td>
               <td>${item.landArea} m<sup>2</sup></td>
               <td>${item.cityRe}</td>
               <td>${item.districtRe}</td>
@@ -185,6 +185,13 @@ function scrollToElement(id) {
         }, 700);
     } else {
         console.error("Element with id '" + id + "' not found.");
+    }
+}
+function formatPrice(price) {
+    if (price != null) {
+        return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        return 'Negotiated price';
     }
 }
 fetchPage(0);

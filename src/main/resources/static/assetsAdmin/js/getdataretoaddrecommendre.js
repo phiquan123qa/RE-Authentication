@@ -121,9 +121,25 @@ $('#saveButton').click(function () {
         success: function (response) {
             console.log(response);
             replaceLoadingSuccess();
+            saberToast.success({
+                title: "Save successfully",
+                text: "You have saved new list",
+                delay: 200,
+                duration: 2600,
+                rtl: true,
+                position: "top-right"
+            });
         },
         error: function (error) {
             console.log('Error saving data: ', error);
+            saberToast.error({
+                title: "Save failed",
+                text: "Have some error, please try again",
+                delay: 200,
+                duration: 2600,
+                rtl: true,
+                position: "top-right"
+            });
         }
     });
 });
